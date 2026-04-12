@@ -134,13 +134,13 @@ namespace QobuzDownloaderX.Shared
                     if (Globals.TaggingOptions.WriteCopyrightTag) { tfile.Tag.Copyright = fileInfo.Copyright; }
 
                     // ISRC tag
-                    if (Globals.TaggingOptions.WriteIsrcTag) { tfile.Tag.ISRC = fileInfo.Isrc; }
+                    if (Globals.TaggingOptions.WriteISRCTag) { tfile.Tag.ISRC = fileInfo.Isrc; }
 
                     // Release Type tag
                     if (fileInfo.MediaType != null && Globals.TaggingOptions.WriteMediaTypeTag) { customId3v2.SetTextFrame("TMED", fileInfo.MediaType); }
 
                     // Album store URL tag
-                    if (fileInfo.Url != null && Globals.TaggingOptions.WriteUrlTag) { customId3v2.SetTextFrame("WCOM", fileInfo.Url); }
+                    if (fileInfo.Url != null && Globals.TaggingOptions.WriteURLTag) { customId3v2.SetTextFrame("WCOM", fileInfo.Url); }
 
                     // Save all selected tags to file
                     tfile.Save();
@@ -278,10 +278,10 @@ namespace QobuzDownloaderX.Shared
                     if (Globals.TaggingOptions.WriteCopyrightTag) { tfile.Tag.Copyright = fileInfo.Copyright; }
 
                     // UPC tag
-                    if (Globals.TaggingOptions.WriteUpcTag) { custom.SetField("UPC", fileInfo.Upc); }
+                    if (Globals.TaggingOptions.WriteUPCTag) { custom.SetField("UPC", fileInfo.Upc); }
 
                     // ISRC tag
-                    if (Globals.TaggingOptions.WriteIsrcTag) { tfile.Tag.ISRC = fileInfo.Isrc; }
+                    if (Globals.TaggingOptions.WriteISRCTag) { tfile.Tag.ISRC = fileInfo.Isrc; }
 
                     // Release Type tag
                     if (fileInfo.MediaType != null && Globals.TaggingOptions.WriteMediaTypeTag)
@@ -296,7 +296,7 @@ namespace QobuzDownloaderX.Shared
                     }
 
                     // Album store URL tag
-                    if (fileInfo.Url != null && Globals.TaggingOptions.WriteUrlTag) { custom.SetField("URL", fileInfo.Url); }
+                    if (fileInfo.Url != null && Globals.TaggingOptions.WriteURLTag) { custom.SetField("URL", fileInfo.Url); }
 
                     // Save all selected tags to file
                     tfile.Save();

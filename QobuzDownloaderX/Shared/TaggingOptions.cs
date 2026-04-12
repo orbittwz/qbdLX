@@ -16,9 +16,9 @@
         public bool WriteGenreTag { get; set; }
         public bool WriteComposerTag { get; set; }
         public bool WriteCopyrightTag { get; set; }
-        public bool WriteIsrcTag { get; set; }
+        public bool WriteISRCTag { get; set; }
         public bool WriteMediaTypeTag { get; set; }
-        public bool WriteUpcTag { get; set; }
+        public bool WriteUPCTag { get; set; }
         public bool WriteExplicitTag { get; set; }
         public bool WriteCommentTag { get; set; }
         public bool WriteCoverImageTag { get; set; }
@@ -26,7 +26,7 @@
         public bool WriteLabelTag { get; set; }
         public bool WriteInvolvedPeopleTag { get; set; }
         public bool MergePerformers { get; set; }
-        public bool WriteUrlTag { get; set; }
+        public bool WriteURLTag { get; set; }
         public string CommentTag { get; set; }
         public string ArtSize { get; set; }
         public string PrimaryListSeparator { get; set; }

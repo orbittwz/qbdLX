@@ -101,17 +101,17 @@ namespace QobuzDownloaderX
                 WriteDiskNumberTag = Settings.Default.discTag,
                 WriteDiskTotalTag = Settings.Default.totalDiscsTag,
                 WriteGenreTag = Settings.Default.genreTag,
-                WriteIsrcTag = Settings.Default.isrcTag,
+                WriteISRCTag = Settings.Default.isrcTag,
                 WriteMediaTypeTag = Settings.Default.typeTag,
                 WriteExplicitTag = Settings.Default.explicitTag,
                 WriteTrackTitleTag = Settings.Default.trackTitleTag,
                 WriteTrackNumberTag = Settings.Default.trackTag,
                 WriteTrackTotalTag = Settings.Default.totalTracksTag,
-                WriteUpcTag = Settings.Default.upcTag,
+                WriteUPCTag = Settings.Default.upcTag,
                 WriteReleaseYearTag = Settings.Default.yearTag,
                 WriteReleaseDateTag = Settings.Default.releaseDateTag,
                 WriteCoverImageTag = Settings.Default.imageTag,
-                WriteUrlTag = Settings.Default.urlTag,
+                WriteURLTag = Settings.Default.urlTag,
                 WriteQualityTag = Settings.Default.quality,
                 WriteGetGoodiesTag = Settings.Default.getGoodies
             };
@@ -455,7 +455,7 @@ namespace QobuzDownloaderX
         {
             Settings.Default.isrcTag = isrcCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteIsrcTag = isrcCheckbox.Checked;
+            Globals.TaggingOptions.WriteISRCTag = isrcCheckbox.Checked;
         }
 
         private void TypeCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -469,7 +469,7 @@ namespace QobuzDownloaderX
         {
             Settings.Default.upcTag = upcCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteUpcTag = upcCheckbox.Checked;
+            Globals.TaggingOptions.WriteUPCTag = upcCheckbox.Checked;
         }
 
         private void ExplicitCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -618,7 +618,7 @@ namespace QobuzDownloaderX
         {
             Settings.Default.urlTag = urlCheckBox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteUrlTag = urlCheckBox.Checked;
+            Globals.TaggingOptions.WriteURLTag = urlCheckBox.Checked;
         }
 
         private void customFormatIDTextbox_TextChanged(object sender, EventArgs e)
