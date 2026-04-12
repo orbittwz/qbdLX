@@ -36,6 +36,10 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>embedded</DebugType>
+    <AllowedReferenceRelatedFileExtensions>
+      <!-- Prevent default XML documentation files to be copied to output-->
+        .pdb
+    </AllowedReferenceRelatedFileExtensions>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -44,16 +48,22 @@
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <DocumentationFile>
     </DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
+    <AllowedReferenceRelatedFileExtensions>
+      <!-- Prevent default XML documentation files to be copied to output-->
+        .pdb
+    </AllowedReferenceRelatedFileExtensions>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DebugSymbols>true</DebugSymbols>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\qbdlx_icon.ico</ApplicationIcon>
@@ -102,6 +112,7 @@
     <Compile Include="Shared\Tools\PerformersParser.cs" />
     <Compile Include="Shared\Tools\StringTools.cs" />
     <Compile Include="Shared\Globals.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="View\FlexibleMessageBox.cs" />
     <Compile Include="View\HeadlessForm.cs">
       <SubType>Form</SubType>
@@ -187,26 +198,6 @@
   <ItemGroup>
     <None Include="Resources\Fonts\HankenGrotesk-Italic-VariableFont_wght.ttf" />
     <None Include="Resources\Fonts\HankenGrotesk-VariableFont_wght.ttf" />
-    <None Include="Resources\Fonts\HKGrotesk-Bold.ttf" />
-    <None Include="Resources\Fonts\HKGrotesk-BoldItalic.ttf" />
-    <None Include="Resources\Fonts\HKGrotesk-BoldLegacy.ttf" />
-    <None Include="Resources\Fonts\HKGrotesk-BoldLegacyItalic.ttf" />
-    <None Include="Resources\Fonts\HKGrotesk-Italic.ttf" />
-    <None Include="Resources\Fonts\HKGrotesk-LegacyItalic.ttf" />
-    <None Include="Resources\Fonts\HKGrotesk-Light.ttf" />
-    <None Include="Resources\Fonts\HKGrotesk-LightItalic.ttf" />
-    <None Include="Resources\Fonts\HKGrotesk-LightLegacy.ttf" />
-    <None Include="Resources\Fonts\HKGrotesk-LightLegacyItalic.ttf" />
-    <None Include="Resources\Fonts\HKGrotesk-Medium.ttf" />
-    <None Include="Resources\Fonts\HKGrotesk-MediumItalic.ttf" />
-    <None Include="Resources\Fonts\HKGrotesk-MediumLegacy.ttf" />
-    <None Include="Resources\Fonts\HKGrotesk-MediumLegacyItalic.ttf" />
-    <None Include="Resources\Fonts\HKGrotesk-Regular.ttf" />
-    <None Include="Resources\Fonts\HKGrotesk-RegularLegacy.ttf" />
-    <None Include="Resources\Fonts\HKGrotesk-SemiBold.ttf" />
-    <None Include="Resources\Fonts\HKGrotesk-SemiBoldItalic.ttf" />
-    <None Include="Resources\Fonts\HKGrotesk-SemiBoldLegacy.ttf" />
-    <None Include="Resources\Fonts\HKGrotesk-SemiBoldLegacyItalic.ttf" />
     <None Include="Resources\qbdlx.png" />
   </ItemGroup>
   <ItemGroup>
@@ -231,7 +222,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.3</Version>
+      <Version>13.0.4</Version>
     </PackageReference>
     <PackageReference Include="PlaylistsNET">
       <Version>1.4.1</Version>
@@ -254,12 +245,13 @@
     <None Include="..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\settings_icon.bmp" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Resources\settings_icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>del log.txt
+del *.pdb</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
 	   Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

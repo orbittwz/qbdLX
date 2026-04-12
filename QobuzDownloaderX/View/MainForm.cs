@@ -5,7 +5,6 @@ using QobuzDownloaderX.View;
 using System;
 using System.Diagnostics;
 using System.Drawing;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,25 +15,21 @@ namespace QobuzDownloaderX
     {
         private readonly DownloadLogger logger;
         private readonly DownloadManager downloadManager;
+        //public string DownloadLogPath { get; set; }
+        public int DevClickEggThingValue { get; set; }
+        public int DebugMode { get; set; }
 
         public QobuzDownloaderX()
         {
             InitializeComponent();
-
             logger = new DownloadLogger(output, UpdateControlsDownloadEnd);
             // Remove previous download error log
             logger.RemovePreviousErrorLog();
-
             downloadManager = new DownloadManager(logger, UpdateAlbumTagsUI, UpdateDownloadSpeedLabel)
             {
                 CheckIfStreamable = streamableCheckbox.Checked
             };
         }
-
-        public string DownloadLogPath { get; set; }
-
-        public int DevClickEggThingValue { get; set; }
-        public int DebugMode { get; set; }
 
         // Button color download inactive
         private readonly Color ReadyButtonBackColor = Color.FromArgb(0, 112, 239); // Windows Blue (Azure Blue)
@@ -45,13 +40,10 @@ namespace QobuzDownloaderX
         private void MainForm_Load(object sender, EventArgs e)
         {
             // Set main form size on launch and bring to center.
-            this.Height = 533;
             this.CenterToScreen();
-
             // Grab profile image
             string profilePic = Convert.ToString(Globals.Login.User.Avatar);
             profilePictureBox.ImageLocation = profilePic.Replace(@"\", null).Replace("s=50", "s=20");
-
             // Welcome the user after successful login.
             logger.ClearUiLogComponent();
             output.Invoke(new Action(() => output.AppendText("Welcome " + Globals.Login.User.DisplayName + " (" + Globals.Login.User.Email + ") !\r\n")));
@@ -60,7 +52,6 @@ namespace QobuzDownloaderX
             output.Invoke(new Action(() => output.AppendText("\r\n")));
             output.Invoke(new Action(() => output.AppendText("Qobuz Subscription Details\r\n")));
             output.Invoke(new Action(() => output.AppendText("==========================\r\n")));
-
             if (Globals.Login.User.Subscription != null)
             {
                 output.Invoke(new Action(() => output.AppendText("Offer Type - " + Globals.Login.User.Subscription.Offer + "\r\n")));
@@ -83,19 +74,14 @@ namespace QobuzDownloaderX
                 output.Invoke(new Action(() => output.AppendText("No active subscriptions, only sample downloads possible!\r\n")));
                 output.Invoke(new Action(() => output.AppendText("==========================\r\n\r\n")));
             }
-
             output.Invoke(new Action(() => output.AppendText("Your user_auth_token has been set for this session!")));
-
             // Get and display version number.
-            verNumLabel.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
+            verNumLabel.Text = Settings.Version;
             // Set a placeholder image for Cover Art box.
             albumArtPicBox.ImageLocation = Globals.DEFAULT_COVER_ART_URL;
-
             // Change account info for logout button
             string oldText = logoutLabel.Text;
             logoutLabel.Text = oldText.Replace("%name%", Globals.Login.User.DisplayName);
-
             // Initialize Global Tagging options. Selected ArtSize is automatically set in artSizeSelect change event listener.
             Globals.TaggingOptions = new TaggingOptions()
             {
@@ -125,9 +111,10 @@ namespace QobuzDownloaderX
                 WriteReleaseYearTag = Settings.Default.yearTag,
                 WriteReleaseDateTag = Settings.Default.releaseDateTag,
                 WriteCoverImageTag = Settings.Default.imageTag,
-                WriteUrlTag = Settings.Default.urlTag
+                WriteUrlTag = Settings.Default.urlTag,
+                WriteQualityTag = Settings.Default.quality,
+                WriteGetGoodiesTag = Settings.Default.getGoodies
             };
-
             // Set saved settings to correct places.
             folderBrowserDialog.SelectedPath = Settings.Default.savedFolder;
             albumCheckbox.Checked = Settings.Default.albumTag;
@@ -155,22 +142,20 @@ namespace QobuzDownloaderX
             releaseDateCheckbox.Checked = Settings.Default.releaseDateTag;
             imageCheckbox.Checked = Settings.Default.imageTag;
             urlCheckBox.Checked = Settings.Default.urlTag;
-            mp3Checkbox.Checked = Settings.Default.quality1;
-            flacLowCheckbox.Checked = Settings.Default.quality2;
-            flacMidCheckbox.Checked = Settings.Default.quality3;
-            flacHighCheckbox.Checked = Settings.Default.quality4;
             Globals.FormatIdString = Settings.Default.qualityFormat;
             Globals.AudioFileType = Settings.Default.audioType;
             artSizeSelect.SelectedIndex = Settings.Default.savedArtSize;
             filenameTempSelect.SelectedIndex = Settings.Default.savedFilenameTemplate;
             Globals.FileNameTemplateString = Settings.Default.savedFilenameTemplateString;
             Globals.MaxLength = Settings.Default.savedMaxLength;
-
             customFormatIDTextbox.Text = Globals.FormatIdString;
             maxLengthTextbox.Text = Globals.MaxLength.ToString();
             InitialListSeparatorTextbox.Text = Settings.Default.initialListSeparator;
             ListEndSeparatorTextbox.Text = Settings.Default.listEndSeparator;
-
+            mp3RadioBtn.Checked = Settings.Default.quality == "q1";
+            flacLowRadioBtn.Checked = Settings.Default.quality == "q2";
+            flacMidRadioBtn.Checked = Settings.Default.quality == "q3";
+            flacHighRadioBtn.Checked = Settings.Default.quality == "q4";
             // Check if there's no selected path saved.
             if (string.IsNullOrEmpty(folderBrowserDialog.SelectedPath))
             {
@@ -187,7 +172,6 @@ namespace QobuzDownloaderX
                 output.Invoke(new Action(() => output.AppendText("Default Folder:\r\n")));
                 output.Invoke(new Action(() => output.AppendText(folderBrowserDialog.SelectedPath + "\r\n")));
             }
-
             // Run anything put into the debug events (For Testing)
             debuggingEvents(sender, e);
         }
@@ -200,7 +184,6 @@ namespace QobuzDownloaderX
         private void debuggingEvents(object sender, EventArgs e)
         {
             DevClickEggThingValue = 0;
-
             // Debug mode for things that are only for testing, or shouldn't be on public releases. At the moment, does nothing.
             if (!Debugger.IsAttached)
             {
@@ -210,10 +193,8 @@ namespace QobuzDownloaderX
             {
                 DebugMode = 1;
             }
-
             // Show app_secret value.
             //output.Invoke(new Action(() => output.AppendText("\r\n\r\napp_secret = " + Globals.AppSecret)));
-
             // Show format_id value.
             //output.Invoke(new Action(() => output.AppendText("\r\n\r\nformat_id = " + Globals.FormatIdString)));
         }
@@ -279,10 +260,6 @@ namespace QobuzDownloaderX
 
         public void UpdateControlsDownloadStart()
         {
-            mp3Checkbox.Invoke(new Action(() => mp3Checkbox.AutoCheck = false));
-            flacLowCheckbox.Invoke(new Action(() => flacLowCheckbox.AutoCheck = false));
-            flacMidCheckbox.Invoke(new Action(() => flacMidCheckbox.AutoCheck = false));
-            flacHighCheckbox.Invoke(new Action(() => flacHighCheckbox.AutoCheck = false));
 
             downloadUrl.Invoke(new Action(() => downloadUrl.Enabled = false));
 
@@ -297,10 +274,6 @@ namespace QobuzDownloaderX
 
         public void UpdateControlsDownloadEnd()
         {
-            mp3Checkbox.Invoke(new Action(() => mp3Checkbox.AutoCheck = true));
-            flacLowCheckbox.Invoke(new Action(() => flacLowCheckbox.AutoCheck = true));
-            flacMidCheckbox.Invoke(new Action(() => flacMidCheckbox.AutoCheck = true));
-            flacHighCheckbox.Invoke(new Action(() => flacHighCheckbox.AutoCheck = true));
 
             downloadUrl.Invoke(new Action(() => downloadUrl.Enabled = true));
 
@@ -371,21 +344,21 @@ namespace QobuzDownloaderX
             totalTracksTextbox.Invoke(new Action(() => totalTracksTextbox.Text = downloadInfo.TrackTotal.ToString()));
         }
 
-        private void tagsLabel_Click(object sender, EventArgs e)
-        {
-            if (this.Height == 533)
-            {
-                //New Height
-                this.Height = 660;
-                tagsLabel.Text = "🠉 Choose which tags to save (click me) 🠉";
-            }
-            else if (this.Height == 660)
-            {
-                //New Height
-                this.Height = 533;
-                tagsLabel.Text = "🠋 Choose which tags to save (click me) 🠋";
-            }
-        }
+        //private void tagsLabel_Click(object sender, EventArgs e)
+        //{
+        //    if (this.Height == 533)
+        //    {
+        //        //New Height
+        //        this.Height = 660;
+        //        tagsLabel.Text = "🠉 Choose which tags to save (click me) 🠉";
+        //    }
+        //    else if (this.Height == 660)
+        //    {
+        //        //New Height
+        //        this.Height = 533;
+        //        tagsLabel.Text = "🠋 Choose which tags to save (click me) 🠋";
+        //    }
+        //}
 
         private void AlbumCheckbox_CheckedChanged(object sender, EventArgs e)
         {
@@ -568,17 +541,16 @@ namespace QobuzDownloaderX
                     }
                     Settings.Default.savedMaxLength = Convert.ToInt32(maxLengthTextbox.Text);
                     Settings.Default.Save();
-
                     Globals.MaxLength = Convert.ToInt32(maxLengthTextbox.Text);
                 }
                 catch (Exception)
                 {
-                    Globals.MaxLength = 100;
+                    Globals.MaxLength = 150;
                 }
             }
             else
             {
-                Globals.MaxLength = 100;
+                Globals.MaxLength = 150;
             }
         }
 
@@ -647,110 +619,6 @@ namespace QobuzDownloaderX
             Settings.Default.urlTag = urlCheckBox.Checked;
             Settings.Default.Save();
             Globals.TaggingOptions.WriteUrlTag = urlCheckBox.Checked;
-        }
-
-        private void flacHighCheckbox_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.Default.quality4 = flacHighCheckbox.Checked;
-            Settings.Default.Save();
-
-            if (flacHighCheckbox.Checked)
-            {
-                Globals.FormatIdString = "27";
-                customFormatIDTextbox.Text = "27";
-                Globals.AudioFileType = ".flac";
-                Settings.Default.qualityFormat = Globals.FormatIdString;
-                Settings.Default.audioType = Globals.AudioFileType;
-                downloadButton.Enabled = true;
-                flacMidCheckbox.Checked = false;
-                flacLowCheckbox.Checked = false;
-                mp3Checkbox.Checked = false;
-            }
-            else
-            {
-                if (!flacMidCheckbox.Checked && !flacLowCheckbox.Checked && !mp3Checkbox.Checked)
-                {
-                    downloadButton.Enabled = false;
-                }
-            }
-        }
-
-        private void flacMidCheckbox_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.Default.quality3 = flacMidCheckbox.Checked;
-            Settings.Default.Save();
-
-            if (flacMidCheckbox.Checked)
-            {
-                Globals.FormatIdString = "7";
-                customFormatIDTextbox.Text = "7";
-                Globals.AudioFileType = ".flac";
-                Settings.Default.qualityFormat = Globals.FormatIdString;
-                Settings.Default.audioType = Globals.AudioFileType;
-                downloadButton.Enabled = true;
-                flacHighCheckbox.Checked = false;
-                flacLowCheckbox.Checked = false;
-                mp3Checkbox.Checked = false;
-            }
-            else
-            {
-                if (!flacHighCheckbox.Checked && !flacLowCheckbox.Checked && !mp3Checkbox.Checked)
-                {
-                    downloadButton.Enabled = false;
-                }
-            }
-        }
-
-        private void flacLowCheckbox_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.Default.quality2 = flacLowCheckbox.Checked;
-            Settings.Default.Save();
-
-            if (flacLowCheckbox.Checked)
-            {
-                Globals.FormatIdString = "6";
-                customFormatIDTextbox.Text = "6";
-                Globals.AudioFileType = ".flac";
-                Settings.Default.qualityFormat = Globals.FormatIdString;
-                Settings.Default.audioType = Globals.AudioFileType;
-                downloadButton.Enabled = true;
-                flacHighCheckbox.Checked = false;
-                flacMidCheckbox.Checked = false;
-                mp3Checkbox.Checked = false;
-            }
-            else
-            {
-                if (!flacHighCheckbox.Checked && !flacMidCheckbox.Checked && !mp3Checkbox.Checked)
-                {
-                    downloadButton.Enabled = false;
-                }
-            }
-        }
-
-        private void mp3Checkbox_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.Default.quality1 = mp3Checkbox.Checked;
-            Settings.Default.Save();
-
-            if (mp3Checkbox.Checked)
-            {
-                Globals.FormatIdString = "5";
-                customFormatIDTextbox.Text = "5";
-                Globals.AudioFileType = ".mp3";
-                Settings.Default.qualityFormat = Globals.FormatIdString;
-                Settings.Default.audioType = Globals.AudioFileType;
-                downloadButton.Enabled = true;
-                flacHighCheckbox.Checked = false;
-                flacMidCheckbox.Checked = false;
-                flacLowCheckbox.Checked = false;
-            }
-            else
-            {
-                if (!flacHighCheckbox.Checked && !flacMidCheckbox.Checked && !flacLowCheckbox.Checked)
-                {
-                    downloadButton.Enabled = false;
-                }
-            }
         }
 
         private void customFormatIDTextbox_TextChanged(object sender, EventArgs e)
@@ -870,7 +738,6 @@ namespace QobuzDownloaderX
             customFormatIDTextbox.Visible = false;
             customFormatPanel.Visible = false;
             formatIDLabel.Visible = false;
-
             DevClickEggThingValue = 0;
         }
 
@@ -904,6 +771,48 @@ namespace QobuzDownloaderX
         private void StreamableCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             downloadManager.CheckIfStreamable = streamableCheckbox.Checked;
+        }
+
+        private void qualityRadioBtn_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+            if (rb == null)
+            {
+                MessageBox.Show("Sender is not a RadioButton");
+                return;
+            }
+            if (rb.Checked)
+            {
+                if ((string)rb.Tag == "q4")
+                {
+                    Globals.FormatIdString = "27";
+                    customFormatIDTextbox.Text = "27";
+                    Globals.AudioFileType = ".flac";
+                }
+                if ((string)rb.Tag == "q3")
+                {
+                    Globals.FormatIdString = "7";
+                    customFormatIDTextbox.Text = "7";
+                    Globals.AudioFileType = ".flac";
+                }
+                if ((string)rb.Tag == "q2")
+                {
+                    Globals.FormatIdString = "6";
+                    customFormatIDTextbox.Text = "6";
+                    Globals.AudioFileType = ".flac";
+                }
+                if ((string)rb.Tag == "q1")
+                {
+                    Globals.FormatIdString = "5";
+                    customFormatIDTextbox.Text = "5";
+                    Globals.AudioFileType = ".mp3";
+                }
+                Settings.Default.qualityFormat = Globals.FormatIdString;
+                Settings.Default.audioType = Globals.AudioFileType;
+                downloadButton.Enabled = true;
+            }
+            Settings.Default.quality = (string)rb.Tag;
+            Settings.Default.Save();
         }
     }
 }

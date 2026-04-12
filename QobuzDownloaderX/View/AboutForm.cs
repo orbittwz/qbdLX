@@ -2,8 +2,8 @@
 using QobuzDownloaderX.View;
 using System;
 using System.Diagnostics;
-using System.Reflection;
 using System.Windows.Forms;
+using QobuzDownloaderX.Properties;
 
 namespace QobuzDownloaderX
 {
@@ -17,7 +17,7 @@ namespace QobuzDownloaderX
         private void AboutForm_Load(object sender, EventArgs e)
         {
             // Get and display version number.
-            verNumLabel2.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            verNumLabel2.Text = Settings.Version;
         }
 
         private void exitLabel_Click(object sender, EventArgs e)
@@ -68,7 +68,7 @@ namespace QobuzDownloaderX
 
         private void OrigDevLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(Globals.GITHUB_ImAiiR_REPO_URL);
+            Process.Start(Globals.GITHUB_DJD_REPO_URL);
         }
     }
 }

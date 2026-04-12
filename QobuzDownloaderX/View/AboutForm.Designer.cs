@@ -52,7 +52,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(365, 95);
-            this.panel1.TabIndex = 1;
+            this.panel1.TabIndex = 6;
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
             // 
             // exitLabel
@@ -64,33 +64,39 @@
             this.exitLabel.Location = new System.Drawing.Point(345, 0);
             this.exitLabel.Name = "exitLabel";
             this.exitLabel.Size = new System.Drawing.Size(20, 23);
-            this.exitLabel.TabIndex = 9;
+            this.exitLabel.TabIndex = 0;
             this.exitLabel.Text = "X";
             this.exitLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.exitLabel.Click += new System.EventHandler(this.exitLabel_Click);
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = global::QobuzDownloaderX.Properties.Resources.qbdlx_white;
-            this.pictureBox1.Location = new System.Drawing.Point(53, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(50, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(258, 64);
+            this.pictureBox1.Size = new System.Drawing.Size(223, 64);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 29;
+            this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
             // verNumLabel2
             // 
+            this.verNumLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.verNumLabel2.BackColor = System.Drawing.Color.Transparent;
             this.verNumLabel2.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.verNumLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.verNumLabel2.Location = new System.Drawing.Point(12, 98);
+            this.verNumLabel2.Location = new System.Drawing.Point(149, 98);
             this.verNumLabel2.Name = "verNumLabel2";
-            this.verNumLabel2.Size = new System.Drawing.Size(341, 18);
-            this.verNumLabel2.TabIndex = 0;
-            this.verNumLabel2.Text = "#.#.#.#";
+            this.verNumLabel2.Size = new System.Drawing.Size(64, 18);
+            this.verNumLabel2.TabIndex = 5;
+            this.verNumLabel2.Text = "#.#.#";
             this.verNumLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.verNumLabel2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.verNumLabel2_MouseMove);
             // 
@@ -98,10 +104,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.label1.Location = new System.Drawing.Point(79, 178);
+            this.label1.Location = new System.Drawing.Point(80, 178);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(207, 13);
-            this.label1.TabIndex = 35;
+            this.label1.TabIndex = 4;
             this.label1.Text = "Inspired By - Qo-DL by Sorrow and DashLt";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -109,10 +115,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.label2.Location = new System.Drawing.Point(47, 201);
+            this.label2.Location = new System.Drawing.Point(47, 200);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(271, 26);
-            this.label2.TabIndex = 36;
+            this.label2.TabIndex = 3;
             this.label2.Text = "Thanks to the users on Github and Telegram for offering\r\nbug reports and ideas!";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -123,7 +129,7 @@
             this.label3.Location = new System.Drawing.Point(15, 237);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(334, 26);
-            this.label3.TabIndex = 37;
+            this.label3.TabIndex = 2;
             this.label3.Text = "IF YOU PAID FOR THIS PROGRAM, YOU HAVE BEEN SCAMMED!\r\nTHIS SOFTWARE IS COMPLETELY" +
     " FREE AND OPEN-SOURCE.";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -135,12 +141,13 @@
             this.ModDevLinkLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
             this.ModDevLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.ModDevLinkLabel.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.ModDevLinkLabel.Location = new System.Drawing.Point(110, 132);
+            this.ModDevLinkLabel.Location = new System.Drawing.Point(118, 125);
             this.ModDevLinkLabel.Name = "ModDevLinkLabel";
-            this.ModDevLinkLabel.Size = new System.Drawing.Size(144, 13);
+            this.ModDevLinkLabel.Size = new System.Drawing.Size(125, 13);
             this.ModDevLinkLabel.TabIndex = 1;
             this.ModDevLinkLabel.TabStop = true;
-            this.ModDevLinkLabel.Text = "Mod Developer - DJDoubleD";
+            this.ModDevLinkLabel.Text = "Mod Developer - orbittwz";
+            this.ModDevLinkLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.ModDevLinkLabel.VisitedLinkColor = System.Drawing.Color.Gray;
             this.ModDevLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ModDevLinkLabel_LinkClicked);
             // 
@@ -151,12 +158,13 @@
             this.OrigDevLinkLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
             this.OrigDevLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.OrigDevLinkLabel.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.OrigDevLinkLabel.Location = new System.Drawing.Point(121, 155);
+            this.OrigDevLinkLabel.Location = new System.Drawing.Point(80, 151);
             this.OrigDevLinkLabel.Name = "OrigDevLinkLabel";
-            this.OrigDevLinkLabel.Size = new System.Drawing.Size(122, 13);
-            this.OrigDevLinkLabel.TabIndex = 38;
+            this.OrigDevLinkLabel.Size = new System.Drawing.Size(206, 13);
+            this.OrigDevLinkLabel.TabIndex = 0;
             this.OrigDevLinkLabel.TabStop = true;
-            this.OrigDevLinkLabel.Text = "Original Developer - AiiR";
+            this.OrigDevLinkLabel.Text = "Original Developers - AiiR and DJDoubleD";
+            this.OrigDevLinkLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.OrigDevLinkLabel.VisitedLinkColor = System.Drawing.Color.Gray;
             this.OrigDevLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OrigDevLinkLabel_LinkClicked);
             // 

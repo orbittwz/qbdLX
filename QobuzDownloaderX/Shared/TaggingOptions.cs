@@ -12,6 +12,7 @@
         public bool WriteDiskTotalTag { get; set; }
         public bool WriteReleaseYearTag { get; set; }
         public bool WriteReleaseDateTag { get; set; }
+        public string WriteQualityTag { get; set; }
         public bool WriteGenreTag { get; set; }
         public bool WriteComposerTag { get; set; }
         public bool WriteCopyrightTag { get; set; }
@@ -30,5 +31,6 @@
         public string ArtSize { get; set; }
         public string PrimaryListSeparator { get; set; }
         public string ListEndSeparator { get; set; }
+        public bool WriteGetGoodiesTag { get; set; }
     }
 }

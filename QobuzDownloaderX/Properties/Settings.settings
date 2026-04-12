@@ -17,9 +17,6 @@
     <Setting Name="savedFormatID" Roaming="true" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="UpgradeRequired" Roaming="true" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="albumTag" Roaming="true" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
@@ -74,17 +71,8 @@
     <Setting Name="commentText" Roaming="true" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="quality1" Roaming="true" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="quality2" Roaming="true" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="quality3" Roaming="true" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="quality4" Roaming="true" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+    <Setting Name="quality" Roaming="true" Type="System.String" Scope="User">
+      <Value Profile="(Default)">q4</Value>
     </Setting>
     <Setting Name="qualityFormat" Roaming="true" Type="System.String" Scope="User">
       <Value Profile="(Default)">27</Value>
@@ -102,13 +90,13 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="savedArtSize" Roaming="true" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">2</Value>
+      <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="typeTag" Roaming="true" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="savedMaxLength" Roaming="true" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">100</Value>
+      <Value Profile="(Default)">150</Value>
     </Setting>
     <Setting Name="savedFilenameTemplate" Roaming="true" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
@@ -145,6 +133,9 @@
     </Setting>
     <Setting Name="appSecret" Roaming="true" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="getGoodies" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

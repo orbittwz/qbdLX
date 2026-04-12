@@ -81,10 +81,11 @@ namespace QobuzDownloaderX
 
             FlexibleMessageBox.Show(
                 "Settings saved!",
-                "Settings Saved",
+                "Notice",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
+            this.Close();
         }
     }
 }

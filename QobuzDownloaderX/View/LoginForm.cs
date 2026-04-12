@@ -1,17 +1,12 @@
-﻿using Newtonsoft.Json.Linq;
-using QobuzApiSharp.Exceptions;
+﻿using QobuzApiSharp.Exceptions;
 using QobuzDownloaderX.Properties;
 using QobuzDownloaderX.Shared;
 using QobuzDownloaderX.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Net.Http;
-using System.Reflection;
-using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -42,10 +37,10 @@ namespace QobuzDownloaderX
         {
             Application.Exit();
         }
-        private async void LoginFrm_Load(object sender, EventArgs e)
+        private void LoginFrm_Load(object sender, EventArgs e)
         {
             // Get and display version number.
-            verNumLabel2.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            verNumLabel2.Text = Settings.Version;
 
             if (!System.IO.File.Exists(dllCheck))
             {
@@ -57,7 +52,7 @@ namespace QobuzDownloaderX
             // Bring to center of screen.
             CenterToScreen();
 
-            /* 
+            /*
              * Only needed when using the default .NET SettingsProvider, not applicable when using PortableJsonSettingsProvider
             // Initialise new settings with values from previous version when assembly version changes.
             if (Properties.Settings.Default.UpgradeRequired)
@@ -82,7 +77,7 @@ namespace QobuzDownloaderX
                 altLoginLabel.Text = "Can't login? Click here";
 
                 // Hide alt login methods
-                altLoginTutLabel.Visible = false;
+                //altLoginTutLabel.Visible = false;
                 userIdTextbox.Visible = false;
                 userAuthTokenTextbox.Visible = false;
 
@@ -100,7 +95,7 @@ namespace QobuzDownloaderX
                 passwordTextbox.Visible = false;
 
                 // Unhide alt login methods
-                altLoginTutLabel.Visible = true;
+                //altLoginTutLabel.Visible = true;
                 userIdTextbox.Visible = true;
                 userAuthTokenTextbox.Visible = true;
             }
@@ -155,76 +150,76 @@ namespace QobuzDownloaderX
                 userAuthTokenTextbox.Text = "user_auth_token";
             }
 
-            try
-            {
-                // Create HttpClient to grab version number from Github
-                // Force minimum TLS 1.2 as Github does not support TLS 1.1 and lower
-                var versionURLClient = new HttpClient(new HttpClientHandler { SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13});
-                // Set user-agent to Firefox.
-                versionURLClient.DefaultRequestHeaders.Add("User-Agent", Globals.USER_AGENT);
+            //try
+            //{
+            //    // Create HttpClient to grab version number from Github
+            //    // Force minimum TLS 1.2 as Github does not support TLS 1.1 and lower
+            //    var versionURLClient = new HttpClient(new HttpClientHandler { SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13});
+            //    // Set user-agent to Firefox.
+            //    versionURLClient.DefaultRequestHeaders.Add("User-Agent", Globals.USER_AGENT);
 
-                // Grab response from Github to get latest application version.
-                string versionURL = Globals.GITHUB_LATEST_VERSION_URL;
-                var versionURLResponse = await versionURLClient.GetAsync(versionURL);
-                string versionURLResponseString = await versionURLResponse.Content.ReadAsStringAsync();
+            //    // Grab response from Github to get latest application version.
+            //    string versionURL = Globals.GITHUB_LATEST_VERSION_URL;
+            //    var versionURLResponse = await versionURLClient.GetAsync(versionURL);
+            //    string versionURLResponseString = await versionURLResponse.Content.ReadAsStringAsync();
 
-                // Grab metadata from API JSON response
-                JObject joVersionResponse = JObject.Parse(versionURLResponseString);
+            //    // Grab metadata from API JSON response
+            //    JObject joVersionResponse = JObject.Parse(versionURLResponseString);
 
-                // Grab latest version number
-                string remoteVersionString = (string)joVersionResponse["tag_name"];
-                // Grab changelog
-                string changes = (string)joVersionResponse["body"];
-                string currentVersionString = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            //    // Grab latest version number
+            //    string remoteVersionString = (string)joVersionResponse["tag_name"];
+            //    // Grab changelog
+            //    string changes = (string)joVersionResponse["body"];
+            //    string currentVersionString = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-                Version remoteVersion = Version.Parse(remoteVersionString);
-                Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+            //    Version remoteVersion = Version.Parse(remoteVersionString);
+            //    Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
-                if (currentVersion.CompareTo(remoteVersion) < 0)
-                {
-                    // Remote version is newer, propose update.
-                    string updateDialogContents = "New version of QBDLX-MOD is available!\r\n\r\nInstalled Version - "
-                        + currentVersionString
-                        + "\r\nLatest version - "
-                        + remoteVersionString
-                        + "\r\n\r\nChangelog Below\r\n==============\r\n"
-                        + changes.Replace("\\r\\n", "\r\n")
-                        + "\r\n==============\r\n\r\nWould you like to update?";
+            //    if (currentVersion.CompareTo(remoteVersion) < 0)
+            //    {
+            //        // Remote version is newer, propose update.
+            //        string updateDialogContents = "New version of QBDLX-MOD is available!\r\n\r\nInstalled Version - "
+            //            + currentVersionString
+            //            + "\r\nLatest version - "
+            //            + remoteVersionString
+            //            + "\r\n\r\nChangelog Below\r\n==============\r\n"
+            //            + changes.Replace("\\r\\n", "\r\n")
+            //            + "\r\n==============\r\n\r\nWould you like to update?";
 
-                    DialogResult dialogResult = FlexibleMessageBox.Show(updateDialogContents, "QBDLX-MOD | Update Available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                    if (dialogResult == DialogResult.Yes)
-                    {
-                        // If "Yes" is clicked, open GitHub page and close QBDLX-MOD.
-                        Process.Start(Globals.GITHUB_LATEST_URL);
-                        Application.Exit();
-                    }
-                    else if (dialogResult == DialogResult.No)
-                    {
-                        // Ignore the update until next open.
-                    }
-                }
-                else
-                {
-                    // Do nothing. All is good.
-                }
-            }
-            catch (Exception ex)
-            {
-                // log the exeption details for info
-                System.IO.File.WriteAllText(versionCheckErrorLog, $"Failed to compare GitHub version, exception details below:\r\n{ex}");
+            //        DialogResult dialogResult = FlexibleMessageBox.Show(updateDialogContents, "QBDLX-MOD | Update Available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            //        if (dialogResult == DialogResult.Yes)
+            //        {
+            //            // If "Yes" is clicked, open GitHub page and close QBDLX-MOD.
+            //            Process.Start(Globals.GITHUB_LATEST_URL);
+            //            Application.Exit();
+            //        }
+            //        else if (dialogResult == DialogResult.No)
+            //        {
+            //            // Ignore the update until next open.
+            //        }
+            //    }
+            //    else
+            //    {
+            //        // Do nothing. All is good.
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    // log the exeption details for info
+            //    System.IO.File.WriteAllText(versionCheckErrorLog, $"Failed to compare GitHub version, exception details below:\r\n{ex}");
 
-                DialogResult dialogResult = MessageBox.Show("Connection to GitHub to check for an update has failed.\r\nWould you like to check for an update manually?\r\n\r\nYour current version is " + Assembly.GetExecutingAssembly().GetName().Version.ToString(), "QBDLX | GitHub Connection Failed", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    // If "Yes" is clicked, open GitHub page and close QBDLX.
-                    Process.Start(Globals.GITHUB_LATEST_URL);
-                    Application.Exit();
-                }
-                else if (dialogResult == DialogResult.No)
-                {
-                    // Ignore the update until next open.
-                }
-            }
+            //    DialogResult dialogResult = MessageBox.Show("Connection to GitHub to check for an update has failed.\r\nWould you like to check for an update manually?\r\n\r\nYour current version is " + Assembly.GetExecutingAssembly().GetName().Version.ToString(), "QBDLX | GitHub Connection Failed", MessageBoxButtons.YesNo);
+            //    if (dialogResult == DialogResult.Yes)
+            //    {
+            //        // If "Yes" is clicked, open GitHub page and close QBDLX.
+            //        Process.Start(Globals.GITHUB_LATEST_URL);
+            //        Application.Exit();
+            //    }
+            //    else if (dialogResult == DialogResult.No)
+            //    {
+            //        // Ignore the update until next open.
+            //    }
+            //}
         }
 
         private void OpenSettings_Click(object sender, EventArgs e)
@@ -252,7 +247,7 @@ namespace QobuzDownloaderX
                 passwordTextbox.Visible = false;
 
                 // Unhide alt login methods
-                altLoginTutLabel.Visible = true;
+                //altLoginTutLabel.Visible = true;
                 userIdTextbox.Visible = true;
                 userAuthTokenTextbox.Visible = true;
             }
@@ -265,7 +260,7 @@ namespace QobuzDownloaderX
                 altLoginLabel.Text = "Can't login? Click here";
 
                 // Hide alt login methods
-                altLoginTutLabel.Visible = false;
+                //altLoginTutLabel.Visible = false;
                 userIdTextbox.Visible = false;
                 userAuthTokenTextbox.Visible = false;
 
@@ -275,10 +270,10 @@ namespace QobuzDownloaderX
             }
         }
 
-        private void AltLoginTutLabel_Click(object sender, EventArgs e)
-        {
-            Process.Start(Globals.GITHUB_ALT_LOGIN_TUTORIAL_URL);
-        }
+        //private void AltLoginTutLabel_Click(object sender, EventArgs e)
+        //{
+        //    Process.Start(Globals.GITHUB_ALT_LOGIN_TUTORIAL_URL);
+        //}
 
         private void ExitLabel_Click(object sender, EventArgs e)
         {

@@ -55,7 +55,6 @@
             this.qualityTextbox = new System.Windows.Forms.TextBox();
             this.qualityLabel = new System.Windows.Forms.Label();
             this.openSearchButton = new System.Windows.Forms.Button();
-            this.tagsLabel = new System.Windows.Forms.Label();
             this.albumArtistCheckbox = new System.Windows.Forms.CheckBox();
             this.artistCheckbox = new System.Windows.Forms.CheckBox();
             this.trackTitleCheckbox = new System.Windows.Forms.CheckBox();
@@ -74,10 +73,6 @@
             this.commentCheckbox = new System.Windows.Forms.CheckBox();
             this.commentTextbox = new System.Windows.Forms.TextBox();
             this.imageCheckbox = new System.Windows.Forms.CheckBox();
-            this.mp3Checkbox = new System.Windows.Forms.CheckBox();
-            this.flacLowCheckbox = new System.Windows.Forms.CheckBox();
-            this.flacMidCheckbox = new System.Windows.Forms.CheckBox();
-            this.flacHighCheckbox = new System.Windows.Forms.CheckBox();
             this.mp3WarnLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.exitLabel = new System.Windows.Forms.Label();
@@ -126,9 +121,15 @@
             this.mergeListsToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.releaseDateCheckbox = new System.Windows.Forms.CheckBox();
             this.urlCheckBox = new System.Windows.Forms.CheckBox();
+            this.flacHighRadioBtn = new System.Windows.Forms.RadioButton();
+            this.flacMidRadioBtn = new System.Windows.Forms.RadioButton();
+            this.flacLowRadioBtn = new System.Windows.Forms.RadioButton();
+            this.mp3RadioBtn = new System.Windows.Forms.RadioButton();
+            this.panel12 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.albumArtPicBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.logoBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).BeginInit();
+            this.panel12.SuspendLayout();
             this.SuspendLayout();
             // 
             // selectFolderButton
@@ -220,7 +221,7 @@
             this.verNumLabel.Name = "verNumLabel";
             this.verNumLabel.Size = new System.Drawing.Size(63, 13);
             this.verNumLabel.TabIndex = 38;
-            this.verNumLabel.Text = "#.#.#.#";
+            this.verNumLabel.Text = "#.#.#";
             this.verNumLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label1
@@ -422,17 +423,6 @@
             this.openSearchButton.Text = "Open Search";
             this.openSearchButton.UseVisualStyleBackColor = false;
             this.openSearchButton.Click += new System.EventHandler(this.OpenSearch_Click);
-            // 
-            // tagsLabel
-            // 
-            this.tagsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.tagsLabel.Location = new System.Drawing.Point(12, 501);
-            this.tagsLabel.Name = "tagsLabel";
-            this.tagsLabel.Size = new System.Drawing.Size(914, 23);
-            this.tagsLabel.TabIndex = 12;
-            this.tagsLabel.Text = "🠋 Choose which tags to save (click me) 🠋";
-            this.tagsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.tagsLabel.Click += new System.EventHandler(this.tagsLabel_Click);
             // 
             // albumArtistCheckbox
             // 
@@ -698,56 +688,6 @@
             this.imageCheckbox.Text = "Cover Art";
             this.imageCheckbox.UseVisualStyleBackColor = true;
             this.imageCheckbox.CheckedChanged += new System.EventHandler(this.ImageCheckbox_CheckedChanged);
-            // 
-            // mp3Checkbox
-            // 
-            this.mp3Checkbox.AutoSize = true;
-            this.mp3Checkbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.mp3Checkbox.Location = new System.Drawing.Point(243, 61);
-            this.mp3Checkbox.Name = "mp3Checkbox";
-            this.mp3Checkbox.Size = new System.Drawing.Size(69, 17);
-            this.mp3Checkbox.TabIndex = 7;
-            this.mp3Checkbox.Text = "MP3 320";
-            this.mp3Checkbox.UseVisualStyleBackColor = true;
-            this.mp3Checkbox.CheckedChanged += new System.EventHandler(this.mp3Checkbox_CheckedChanged);
-            // 
-            // flacLowCheckbox
-            // 
-            this.flacLowCheckbox.AutoSize = true;
-            this.flacLowCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.flacLowCheckbox.Location = new System.Drawing.Point(318, 61);
-            this.flacLowCheckbox.Name = "flacLowCheckbox";
-            this.flacLowCheckbox.Size = new System.Drawing.Size(93, 17);
-            this.flacLowCheckbox.TabIndex = 8;
-            this.flacLowCheckbox.Text = "FLAC 16/44.1";
-            this.flacLowCheckbox.UseVisualStyleBackColor = true;
-            this.flacLowCheckbox.CheckedChanged += new System.EventHandler(this.flacLowCheckbox_CheckedChanged);
-            // 
-            // flacMidCheckbox
-            // 
-            this.flacMidCheckbox.AutoSize = true;
-            this.flacMidCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.flacMidCheckbox.Location = new System.Drawing.Point(417, 61);
-            this.flacMidCheckbox.Name = "flacMidCheckbox";
-            this.flacMidCheckbox.Size = new System.Drawing.Size(84, 17);
-            this.flacMidCheckbox.TabIndex = 9;
-            this.flacMidCheckbox.Text = "FLAC 24/96";
-            this.flacMidCheckbox.UseVisualStyleBackColor = true;
-            this.flacMidCheckbox.CheckedChanged += new System.EventHandler(this.flacMidCheckbox_CheckedChanged);
-            // 
-            // flacHighCheckbox
-            // 
-            this.flacHighCheckbox.AutoSize = true;
-            this.flacHighCheckbox.Checked = true;
-            this.flacHighCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.flacHighCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.flacHighCheckbox.Location = new System.Drawing.Point(507, 61);
-            this.flacHighCheckbox.Name = "flacHighCheckbox";
-            this.flacHighCheckbox.Size = new System.Drawing.Size(90, 17);
-            this.flacHighCheckbox.TabIndex = 10;
-            this.flacHighCheckbox.Text = "FLAC 24/192";
-            this.flacHighCheckbox.UseVisualStyleBackColor = true;
-            this.flacHighCheckbox.CheckedChanged += new System.EventHandler(this.flacHighCheckbox_CheckedChanged);
             // 
             // mp3WarnLabel
             // 
@@ -1310,12 +1250,80 @@
             this.urlCheckBox.UseVisualStyleBackColor = true;
             this.urlCheckBox.CheckedChanged += new System.EventHandler(this.UrlCheckbox_CheckedChanged);
             // 
+            // flacHighRadioBtn
+            // 
+            this.flacHighRadioBtn.AutoSize = true;
+            this.flacHighRadioBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
+            this.flacHighRadioBtn.Location = new System.Drawing.Point(266, 7);
+            this.flacHighRadioBtn.Name = "flacHighRadioBtn";
+            this.flacHighRadioBtn.Size = new System.Drawing.Size(89, 17);
+            this.flacHighRadioBtn.TabIndex = 121;
+            this.flacHighRadioBtn.TabStop = true;
+            this.flacHighRadioBtn.Tag = "q4";
+            this.flacHighRadioBtn.Text = "FLAC 24/192";
+            this.flacHighRadioBtn.UseVisualStyleBackColor = true;
+            this.flacHighRadioBtn.CheckedChanged += new System.EventHandler(this.qualityRadioBtn_CheckedChanged);
+            // 
+            // flacMidRadioBtn
+            // 
+            this.flacMidRadioBtn.AutoSize = true;
+            this.flacMidRadioBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
+            this.flacMidRadioBtn.Location = new System.Drawing.Point(179, 7);
+            this.flacMidRadioBtn.Name = "flacMidRadioBtn";
+            this.flacMidRadioBtn.Size = new System.Drawing.Size(83, 17);
+            this.flacMidRadioBtn.TabIndex = 122;
+            this.flacMidRadioBtn.TabStop = true;
+            this.flacMidRadioBtn.Tag = "q3";
+            this.flacMidRadioBtn.Text = "FLAC 24/96";
+            this.flacMidRadioBtn.UseVisualStyleBackColor = true;
+            this.flacMidRadioBtn.CheckedChanged += new System.EventHandler(this.qualityRadioBtn_CheckedChanged);
+            // 
+            // flacLowRadioBtn
+            // 
+            this.flacLowRadioBtn.AutoSize = true;
+            this.flacLowRadioBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
+            this.flacLowRadioBtn.Location = new System.Drawing.Point(81, 7);
+            this.flacLowRadioBtn.Name = "flacLowRadioBtn";
+            this.flacLowRadioBtn.Size = new System.Drawing.Size(92, 17);
+            this.flacLowRadioBtn.TabIndex = 123;
+            this.flacLowRadioBtn.TabStop = true;
+            this.flacLowRadioBtn.Tag = "q2";
+            this.flacLowRadioBtn.Text = "FLAC 16/44.1";
+            this.flacLowRadioBtn.UseVisualStyleBackColor = true;
+            this.flacLowRadioBtn.CheckedChanged += new System.EventHandler(this.qualityRadioBtn_CheckedChanged);
+            // 
+            // mp3RadioBtn
+            // 
+            this.mp3RadioBtn.AutoSize = true;
+            this.mp3RadioBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
+            this.mp3RadioBtn.Location = new System.Drawing.Point(6, 7);
+            this.mp3RadioBtn.Name = "mp3RadioBtn";
+            this.mp3RadioBtn.Size = new System.Drawing.Size(68, 17);
+            this.mp3RadioBtn.TabIndex = 124;
+            this.mp3RadioBtn.TabStop = true;
+            this.mp3RadioBtn.Tag = "q1";
+            this.mp3RadioBtn.Text = "MP3 320";
+            this.mp3RadioBtn.UseVisualStyleBackColor = true;
+            this.mp3RadioBtn.CheckedChanged += new System.EventHandler(this.qualityRadioBtn_CheckedChanged);
+            // 
+            // panel12
+            // 
+            this.panel12.Controls.Add(this.mp3RadioBtn);
+            this.panel12.Controls.Add(this.flacHighRadioBtn);
+            this.panel12.Controls.Add(this.flacMidRadioBtn);
+            this.panel12.Controls.Add(this.flacLowRadioBtn);
+            this.panel12.Location = new System.Drawing.Point(232, 64);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(361, 40);
+            this.panel12.TabIndex = 125;
+            // 
             // QobuzDownloaderX
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.ClientSize = new System.Drawing.Size(938, 660);
+            this.Controls.Add(this.panel12);
             this.Controls.Add(this.urlCheckBox);
             this.Controls.Add(this.mergePerformersCheckBox);
             this.Controls.Add(this.ListEndSeparatorLabel);
@@ -1361,10 +1369,6 @@
             this.Controls.Add(this.exitLabel);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.mp3WarnLabel);
-            this.Controls.Add(this.flacHighCheckbox);
-            this.Controls.Add(this.flacMidCheckbox);
-            this.Controls.Add(this.flacLowCheckbox);
-            this.Controls.Add(this.mp3Checkbox);
             this.Controls.Add(this.imageCheckbox);
             this.Controls.Add(this.commentTextbox);
             this.Controls.Add(this.commentCheckbox);
@@ -1384,7 +1388,6 @@
             this.Controls.Add(this.trackTitleCheckbox);
             this.Controls.Add(this.artistCheckbox);
             this.Controls.Add(this.albumArtistCheckbox);
-            this.Controls.Add(this.tagsLabel);
             this.Controls.Add(this.openSearchButton);
             this.Controls.Add(this.qualityTextbox);
             this.Controls.Add(this.qualityLabel);
@@ -1423,6 +1426,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.albumArtPicBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.logoBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).EndInit();
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1453,7 +1458,6 @@
         private System.Windows.Forms.TextBox qualityTextbox;
         private System.Windows.Forms.Label qualityLabel;
         private System.Windows.Forms.Button openSearchButton;
-        private System.Windows.Forms.Label tagsLabel;
         private System.Windows.Forms.CheckBox albumArtistCheckbox;
         private System.Windows.Forms.CheckBox artistCheckbox;
         private System.Windows.Forms.CheckBox trackTitleCheckbox;
@@ -1472,10 +1476,6 @@
         private System.Windows.Forms.CheckBox commentCheckbox;
         private System.Windows.Forms.TextBox commentTextbox;
         private System.Windows.Forms.CheckBox imageCheckbox;
-        private System.Windows.Forms.CheckBox mp3Checkbox;
-        private System.Windows.Forms.CheckBox flacLowCheckbox;
-        private System.Windows.Forms.CheckBox flacMidCheckbox;
-        private System.Windows.Forms.CheckBox flacHighCheckbox;
         private System.Windows.Forms.Label mp3WarnLabel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label exitLabel;
@@ -1525,6 +1525,11 @@
         private System.Windows.Forms.ToolTip mergeListsToolTip;
         private System.Windows.Forms.CheckBox releaseDateCheckbox;
         private System.Windows.Forms.CheckBox urlCheckBox;
+        private System.Windows.Forms.RadioButton flacHighRadioBtn;
+        private System.Windows.Forms.RadioButton flacMidRadioBtn;
+        private System.Windows.Forms.RadioButton flacLowRadioBtn;
+        private System.Windows.Forms.RadioButton mp3RadioBtn;
+        private System.Windows.Forms.Panel panel12;
     }
 }
 

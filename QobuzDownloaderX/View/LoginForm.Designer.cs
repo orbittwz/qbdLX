@@ -45,7 +45,6 @@
             this.loginBG = new System.ComponentModel.BackgroundWorker();
             this.visableCheckbox = new System.Windows.Forms.CheckBox();
             this.altLoginLabel = new System.Windows.Forms.Label();
-            this.altLoginTutLabel = new System.Windows.Forms.Label();
             this.userIdTextbox = new System.Windows.Forms.TextBox();
             this.topPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.settingsPictureBox)).BeginInit();
@@ -248,18 +247,6 @@
             this.altLoginLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.altLoginLabel.Click += new System.EventHandler(this.AltLoginLabel_Click);
             // 
-            // altLoginTutLabel
-            // 
-            this.altLoginTutLabel.AutoSize = true;
-            this.altLoginTutLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.altLoginTutLabel.Location = new System.Drawing.Point(77, 180);
-            this.altLoginTutLabel.Name = "altLoginTutLabel";
-            this.altLoginTutLabel.Size = new System.Drawing.Size(128, 13);
-            this.altLoginTutLabel.TabIndex = 33;
-            this.altLoginTutLabel.Text = "Click Here for Instructions";
-            this.altLoginTutLabel.Visible = false;
-            this.altLoginTutLabel.Click += new System.EventHandler(this.AltLoginTutLabel_Click);
-            // 
             // userIdTextbox
             // 
             this.userIdTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
@@ -282,7 +269,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.ClientSize = new System.Drawing.Size(282, 392);
-            this.Controls.Add(this.altLoginTutLabel);
             this.Controls.Add(this.altLoginLabel);
             this.Controls.Add(this.visableCheckbox);
             this.Controls.Add(this.loginText);
@@ -324,7 +310,6 @@
         private System.Windows.Forms.CheckBox visableCheckbox;
         private System.Windows.Forms.TextBox userAuthTokenTextbox;
         private System.Windows.Forms.Label altLoginLabel;
-        private System.Windows.Forms.Label altLoginTutLabel;
         private System.Windows.Forms.TextBox userIdTextbox;
         private System.Windows.Forms.Label aboutLabel;
         private System.Windows.Forms.PictureBox settingsPictureBox;
