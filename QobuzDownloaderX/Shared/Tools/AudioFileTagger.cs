@@ -109,10 +109,10 @@ namespace QobuzDownloaderX.Shared
                     if (Globals.TaggingOptions.WriteGenreTag) { tfile.Tag.Genres = new string[] { fileInfo.Genre }; }
 
                     // Disc Number tag
-                    if (Globals.TaggingOptions.WriteDiskNumberTag) { tfile.Tag.Disc = Convert.ToUInt32(fileInfo.DiscNumber); }
+                    if (Globals.TaggingOptions.WriteDiscNumberTag) { tfile.Tag.Disc = Convert.ToUInt32(fileInfo.DiscNumber); }
 
                     // Total Discs tag
-                    if (Globals.TaggingOptions.WriteDiskTotalTag) { tfile.Tag.DiscCount = Convert.ToUInt32(fileInfo.DiscTotal); }
+                    if (Globals.TaggingOptions.WriteDiscTotalTag) { tfile.Tag.DiscCount = Convert.ToUInt32(fileInfo.DiscTotal); }
 
                     // Total Tracks tag
                     if (Globals.TaggingOptions.WriteTrackTotalTag) { tfile.Tag.TrackCount = Convert.ToUInt32(fileInfo.TrackTotal); }
@@ -263,10 +263,10 @@ namespace QobuzDownloaderX.Shared
                     }
 
                     // Disc Number tag
-                    if (Globals.TaggingOptions.WriteDiskNumberTag) { tfile.Tag.Disc = Convert.ToUInt32(fileInfo.DiscNumber); }
+                    if (Globals.TaggingOptions.WriteDiscNumberTag) { tfile.Tag.Disc = Convert.ToUInt32(fileInfo.DiscNumber); }
 
                     // Total Discs tag
-                    if (Globals.TaggingOptions.WriteDiskTotalTag) { tfile.Tag.DiscCount = Convert.ToUInt32(fileInfo.DiscTotal); }
+                    if (Globals.TaggingOptions.WriteDiscTotalTag) { tfile.Tag.DiscCount = Convert.ToUInt32(fileInfo.DiscTotal); }
 
                     // Total Tracks tag
                     if (Globals.TaggingOptions.WriteTrackTotalTag) { tfile.Tag.TrackCount = Convert.ToUInt32(fileInfo.TrackTotal); }

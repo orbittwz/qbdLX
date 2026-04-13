@@ -17,7 +17,7 @@ namespace QobuzDownloaderX
         private void AboutForm_Load(object sender, EventArgs e)
         {
             // Get and display version number.
-            verNumLabel2.Text = Settings.Version;
+            verNumlbl2.Text = Settings.Version;
         }
 
         private void exitLabel_Click(object sender, EventArgs e)

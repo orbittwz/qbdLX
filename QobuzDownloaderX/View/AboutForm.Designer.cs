@@ -30,14 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.exitLabel = new System.Windows.Forms.Label();
+            this.exitlbl = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.verNumLabel2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.ModDevLinkLabel = new System.Windows.Forms.LinkLabel();
-            this.OrigDevLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.verNumlbl2 = new System.Windows.Forms.Label();
+            this.inspiredBylbl = new System.Windows.Forms.Label();
+            this.thankslbl = new System.Windows.Forms.Label();
+            this.noticelbl = new System.Windows.Forms.Label();
+            this.modDevLinklbl = new System.Windows.Forms.LinkLabel();
+            this.origDevLinklbl = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -46,28 +46,30 @@
             // 
             this.panel1.BackgroundImage = global::QobuzDownloaderX.Properties.Resources.login_frame;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel1.Controls.Add(this.exitLabel);
+            this.panel1.Controls.Add(this.exitlbl);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(365, 95);
+            this.panel1.Size = new System.Drawing.Size(548, 146);
             this.panel1.TabIndex = 6;
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
             // 
-            // exitLabel
+            // exitlbl
             // 
-            this.exitLabel.AutoSize = true;
-            this.exitLabel.BackColor = System.Drawing.Color.Transparent;
-            this.exitLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitLabel.ForeColor = System.Drawing.Color.Black;
-            this.exitLabel.Location = new System.Drawing.Point(345, 0);
-            this.exitLabel.Name = "exitLabel";
-            this.exitLabel.Size = new System.Drawing.Size(20, 23);
-            this.exitLabel.TabIndex = 0;
-            this.exitLabel.Text = "X";
-            this.exitLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.exitLabel.Click += new System.EventHandler(this.exitLabel_Click);
+            this.exitlbl.AutoSize = true;
+            this.exitlbl.BackColor = System.Drawing.Color.Transparent;
+            this.exitlbl.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitlbl.ForeColor = System.Drawing.Color.Black;
+            this.exitlbl.Location = new System.Drawing.Point(519, 2);
+            this.exitlbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.exitlbl.Name = "exitlbl";
+            this.exitlbl.Size = new System.Drawing.Size(20, 23);
+            this.exitlbl.TabIndex = 0;
+            this.exitlbl.Text = "X";
+            this.exitlbl.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.exitlbl.Click += new System.EventHandler(this.exitLabel_Click);
             // 
             // pictureBox1
             // 
@@ -76,113 +78,121 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = global::QobuzDownloaderX.Properties.Resources.qbdlx_white;
-            this.pictureBox1.Location = new System.Drawing.Point(50, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(75, 18);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(223, 64);
+            this.pictureBox1.Size = new System.Drawing.Size(334, 98);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
-            // verNumLabel2
+            // verNumlbl2
             // 
-            this.verNumLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.verNumlbl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.verNumLabel2.BackColor = System.Drawing.Color.Transparent;
-            this.verNumLabel2.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.verNumLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.verNumLabel2.Location = new System.Drawing.Point(149, 98);
-            this.verNumLabel2.Name = "verNumLabel2";
-            this.verNumLabel2.Size = new System.Drawing.Size(64, 18);
-            this.verNumLabel2.TabIndex = 5;
-            this.verNumLabel2.Text = "#.#.#";
-            this.verNumLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.verNumLabel2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.verNumLabel2_MouseMove);
+            this.verNumlbl2.BackColor = System.Drawing.Color.Transparent;
+            this.verNumlbl2.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.verNumlbl2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
+            this.verNumlbl2.Location = new System.Drawing.Point(224, 151);
+            this.verNumlbl2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.verNumlbl2.Name = "verNumlbl2";
+            this.verNumlbl2.Size = new System.Drawing.Size(96, 28);
+            this.verNumlbl2.TabIndex = 5;
+            this.verNumlbl2.Text = "#.#.#";
+            this.verNumlbl2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.verNumlbl2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.verNumLabel2_MouseMove);
             // 
-            // label1
+            // inspiredBylbl
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.label1.Location = new System.Drawing.Point(80, 178);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(207, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Inspired By - Qo-DL by Sorrow and DashLt";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.inspiredBylbl.AutoSize = true;
+            this.inspiredBylbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
+            this.inspiredBylbl.Location = new System.Drawing.Point(120, 274);
+            this.inspiredBylbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.inspiredBylbl.Name = "inspiredBylbl";
+            this.inspiredBylbl.Size = new System.Drawing.Size(309, 20);
+            this.inspiredBylbl.TabIndex = 4;
+            this.inspiredBylbl.Text = "Inspired By - Qo-DL by Sorrow and DashLt";
+            this.inspiredBylbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label2
+            // thankslbl
             // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.label2.Location = new System.Drawing.Point(47, 200);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(271, 26);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Thanks to the users on Github and Telegram for offering\r\nbug reports and ideas!";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.thankslbl.AutoSize = true;
+            this.thankslbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
+            this.thankslbl.Location = new System.Drawing.Point(70, 308);
+            this.thankslbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.thankslbl.Name = "thankslbl";
+            this.thankslbl.Size = new System.Drawing.Size(405, 40);
+            this.thankslbl.TabIndex = 3;
+            this.thankslbl.Text = "Thanks to the users on Github and Telegram for offering\r\nbug reports and ideas!";
+            this.thankslbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label3
+            // noticelbl
             // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.label3.Location = new System.Drawing.Point(15, 237);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(334, 26);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "IF YOU PAID FOR THIS PROGRAM, YOU HAVE BEEN SCAMMED!\r\nTHIS SOFTWARE IS COMPLETELY" +
+            this.noticelbl.AutoSize = true;
+            this.noticelbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
+            this.noticelbl.Location = new System.Drawing.Point(22, 365);
+            this.noticelbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.noticelbl.Name = "noticelbl";
+            this.noticelbl.Size = new System.Drawing.Size(501, 40);
+            this.noticelbl.TabIndex = 2;
+            this.noticelbl.Text = "IF YOU PAID FOR THIS PROGRAM, YOU HAVE BEEN SCAMMED!\r\nTHIS SOFTWARE IS COMPLETELY" +
     " FREE AND OPEN-SOURCE.";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.noticelbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // ModDevLinkLabel
+            // modDevLinklbl
             // 
-            this.ModDevLinkLabel.ActiveLinkColor = System.Drawing.Color.DarkGray;
-            this.ModDevLinkLabel.AutoSize = true;
-            this.ModDevLinkLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.ModDevLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.ModDevLinkLabel.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.ModDevLinkLabel.Location = new System.Drawing.Point(118, 125);
-            this.ModDevLinkLabel.Name = "ModDevLinkLabel";
-            this.ModDevLinkLabel.Size = new System.Drawing.Size(125, 13);
-            this.ModDevLinkLabel.TabIndex = 1;
-            this.ModDevLinkLabel.TabStop = true;
-            this.ModDevLinkLabel.Text = "Mod Developer - orbittwz";
-            this.ModDevLinkLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.ModDevLinkLabel.VisitedLinkColor = System.Drawing.Color.Gray;
-            this.ModDevLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ModDevLinkLabel_LinkClicked);
+            this.modDevLinklbl.ActiveLinkColor = System.Drawing.Color.DarkGray;
+            this.modDevLinklbl.AutoSize = true;
+            this.modDevLinklbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
+            this.modDevLinklbl.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.modDevLinklbl.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
+            this.modDevLinklbl.Location = new System.Drawing.Point(177, 192);
+            this.modDevLinklbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.modDevLinklbl.Name = "modDevLinklbl";
+            this.modDevLinklbl.Size = new System.Drawing.Size(184, 20);
+            this.modDevLinklbl.TabIndex = 1;
+            this.modDevLinklbl.TabStop = true;
+            this.modDevLinklbl.Text = "Mod Developer - orbittwz";
+            this.modDevLinklbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.modDevLinklbl.VisitedLinkColor = System.Drawing.Color.Gray;
+            this.modDevLinklbl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ModDevLinkLabel_LinkClicked);
             // 
-            // OrigDevLinkLabel
+            // origDevLinklbl
             // 
-            this.OrigDevLinkLabel.ActiveLinkColor = System.Drawing.Color.DarkGray;
-            this.OrigDevLinkLabel.AutoSize = true;
-            this.OrigDevLinkLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.OrigDevLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.OrigDevLinkLabel.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.OrigDevLinkLabel.Location = new System.Drawing.Point(80, 151);
-            this.OrigDevLinkLabel.Name = "OrigDevLinkLabel";
-            this.OrigDevLinkLabel.Size = new System.Drawing.Size(206, 13);
-            this.OrigDevLinkLabel.TabIndex = 0;
-            this.OrigDevLinkLabel.TabStop = true;
-            this.OrigDevLinkLabel.Text = "Original Developers - AiiR and DJDoubleD";
-            this.OrigDevLinkLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.OrigDevLinkLabel.VisitedLinkColor = System.Drawing.Color.Gray;
-            this.OrigDevLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OrigDevLinkLabel_LinkClicked);
+            this.origDevLinklbl.ActiveLinkColor = System.Drawing.Color.DarkGray;
+            this.origDevLinklbl.AutoSize = true;
+            this.origDevLinklbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
+            this.origDevLinklbl.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.origDevLinklbl.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
+            this.origDevLinklbl.Location = new System.Drawing.Point(120, 232);
+            this.origDevLinklbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.origDevLinklbl.Name = "origDevLinklbl";
+            this.origDevLinklbl.Size = new System.Drawing.Size(306, 20);
+            this.origDevLinklbl.TabIndex = 0;
+            this.origDevLinklbl.TabStop = true;
+            this.origDevLinklbl.Text = "Original Developers - AiiR and DJDoubleD";
+            this.origDevLinklbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.origDevLinklbl.VisitedLinkColor = System.Drawing.Color.Gray;
+            this.origDevLinklbl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OrigDevLinkLabel_LinkClicked);
             // 
             // AboutForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ClientSize = new System.Drawing.Size(365, 289);
-            this.Controls.Add(this.OrigDevLinkLabel);
-            this.Controls.Add(this.ModDevLinkLabel);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.verNumLabel2);
+            this.ClientSize = new System.Drawing.Size(548, 445);
+            this.Controls.Add(this.origDevLinklbl);
+            this.Controls.Add(this.modDevLinklbl);
+            this.Controls.Add(this.noticelbl);
+            this.Controls.Add(this.thankslbl);
+            this.Controls.Add(this.inspiredBylbl);
+            this.Controls.Add(this.verNumlbl2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "AboutForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "QobuzDLX | About";
@@ -199,13 +209,13 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label verNumLabel2;
-        private System.Windows.Forms.Label exitLabel;
+        private System.Windows.Forms.Label verNumlbl2;
+        private System.Windows.Forms.Label exitlbl;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.LinkLabel ModDevLinkLabel;
-        private System.Windows.Forms.LinkLabel OrigDevLinkLabel;
+        private System.Windows.Forms.Label inspiredBylbl;
+        private System.Windows.Forms.Label thankslbl;
+        private System.Windows.Forms.Label noticelbl;
+        private System.Windows.Forms.LinkLabel modDevLinklbl;
+        private System.Windows.Forms.LinkLabel origDevLinklbl;
     }
 }

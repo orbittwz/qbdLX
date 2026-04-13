@@ -18,6 +18,10 @@ namespace QobuzDownloaderX
         //public string DownloadLogPath { get; set; }
         public int DevClickEggThingValue { get; set; }
         public int DebugMode { get; set; }
+        // Button color download inactive
+        private readonly Color ReadyButtonBackColor = Color.FromArgb(0, 112, 239); // Windows Blue (Azure Blue)
+        // Button color download active
+        private readonly Color BuzyButtonBackColor = Color.FromArgb(200, 30, 0); // Red
 
         public QobuzDownloaderX()
         {
@@ -30,12 +34,6 @@ namespace QobuzDownloaderX
                 CheckIfStreamable = streamableCheckbox.Checked
             };
         }
-
-        // Button color download inactive
-        private readonly Color ReadyButtonBackColor = Color.FromArgb(0, 112, 239); // Windows Blue (Azure Blue)
-
-        // Button color download active
-        private readonly Color BuzyButtonBackColor = Color.FromArgb(200, 30, 0); // Red
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -69,19 +67,20 @@ namespace QobuzDownloaderX
                 output.Invoke(new Action(() => output.AppendText("Active Family sub-account, unknown End Date \r\n")));
                 output.Invoke(new Action(() => output.AppendText("Credential Label - " + Globals.Login.User.Credential.Label + "\r\n")));
                 output.Invoke(new Action(() => output.AppendText("==========================\r\n\r\n")));
-            } else
+            }
+            else
             {
                 output.Invoke(new Action(() => output.AppendText("No active subscriptions, only sample downloads possible!\r\n")));
                 output.Invoke(new Action(() => output.AppendText("==========================\r\n\r\n")));
             }
             output.Invoke(new Action(() => output.AppendText("Your user_auth_token has been set for this session!")));
             // Get and display version number.
-            verNumLabel.Text = Settings.Version;
+            verNumlbl.Text = Settings.Version;
             // Set a placeholder image for Cover Art box.
             albumArtPicBox.ImageLocation = Globals.DEFAULT_COVER_ART_URL;
             // Change account info for logout button
-            string oldText = logoutLabel.Text;
-            logoutLabel.Text = oldText.Replace("%name%", Globals.Login.User.DisplayName);
+            string oldText = logoutlbl.Text;
+            logoutlbl.Text = oldText.Replace("%name%", Globals.Login.User.DisplayName);
             // Initialize Global Tagging options. Selected ArtSize is automatically set in artSizeSelect change event listener.
             Globals.TaggingOptions = new TaggingOptions()
             {
@@ -98,8 +97,8 @@ namespace QobuzDownloaderX
                 PrimaryListSeparator = Settings.Default.initialListSeparator,
                 ListEndSeparator = Settings.Default.listEndSeparator,
                 WriteCopyrightTag = Settings.Default.copyrightTag,
-                WriteDiskNumberTag = Settings.Default.discTag,
-                WriteDiskTotalTag = Settings.Default.totalDiscsTag,
+                WriteDiscNumberTag = Settings.Default.discTag,
+                WriteDiscTotalTag = Settings.Default.totalDiscsTag,
                 WriteGenreTag = Settings.Default.genreTag,
                 WriteISRCTag = Settings.Default.isrcTag,
                 WriteMediaTypeTag = Settings.Default.typeTag,
@@ -156,6 +155,7 @@ namespace QobuzDownloaderX
             flacLowRadioBtn.Checked = Settings.Default.quality == "q2";
             flacMidRadioBtn.Checked = Settings.Default.quality == "q3";
             flacHighRadioBtn.Checked = Settings.Default.quality == "q4";
+            goodiesCheckBox.Checked = Settings.Default.getGoodies;
             // Check if there's no selected path saved.
             if (string.IsNullOrEmpty(folderBrowserDialog.SelectedPath))
             {
@@ -178,7 +178,7 @@ namespace QobuzDownloaderX
 
         public void UpdateDownloadSpeedLabel(string speed)
         {
-            downloadSpeedLabel.Invoke(new Action(() => downloadSpeedLabel.Text = speed));
+            downloadSpeedlbl.Invoke(new Action(() => downloadSpeedlbl.Text = speed));
         }
 
         private void debuggingEvents(object sender, EventArgs e)
@@ -344,22 +344,6 @@ namespace QobuzDownloaderX
             totalTracksTextbox.Invoke(new Action(() => totalTracksTextbox.Text = downloadInfo.TrackTotal.ToString()));
         }
 
-        //private void tagsLabel_Click(object sender, EventArgs e)
-        //{
-        //    if (this.Height == 533)
-        //    {
-        //        //New Height
-        //        this.Height = 660;
-        //        tagsLabel.Text = "🠉 Choose which tags to save (click me) 🠉";
-        //    }
-        //    else if (this.Height == 660)
-        //    {
-        //        //New Height
-        //        this.Height = 533;
-        //        tagsLabel.Text = "🠋 Choose which tags to save (click me) 🠋";
-        //    }
-        //}
-
         private void AlbumCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.albumTag = albumCheckbox.Checked;
@@ -406,14 +390,14 @@ namespace QobuzDownloaderX
         {
             Settings.Default.discTag = discNumberCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteDiskNumberTag = discNumberCheckbox.Checked;
+            Globals.TaggingOptions.WriteDiscNumberTag = discNumberCheckbox.Checked;
         }
 
         private void DiscTotalCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.totalDiscsTag = discTotalCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteDiskTotalTag = discTotalCheckbox.Checked;
+            Globals.TaggingOptions.WriteDiscTotalTag = discTotalCheckbox.Checked;
         }
 
         private void ReleaseYearCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -641,12 +625,12 @@ namespace QobuzDownloaderX
 
         private void minimizeLabel_MouseHover(object sender, EventArgs e)
         {
-            minimizeLabel.ForeColor = Color.FromArgb(0, 112, 239);
+            minimizelbl.ForeColor = Color.FromArgb(0, 112, 239);
         }
 
         private void minimizeLabel_MouseLeave(object sender, EventArgs e)
         {
-            minimizeLabel.ForeColor = Color.White;
+            minimizelbl.ForeColor = Color.White;
         }
 
         private void aboutLabel_Click(object sender, EventArgs e)
@@ -656,22 +640,22 @@ namespace QobuzDownloaderX
 
         private void aboutLabel_MouseHover(object sender, EventArgs e)
         {
-            aboutLabel.ForeColor = Color.FromArgb(0, 112, 239);
+            aboutlbl.ForeColor = Color.FromArgb(0, 112, 239);
         }
 
         private void aboutLabel_MouseLeave(object sender, EventArgs e)
         {
-            aboutLabel.ForeColor = Color.White;
+            aboutlbl.ForeColor = Color.White;
         }
 
         private void exitLabel_MouseHover(object sender, EventArgs e)
         {
-            exitLabel.ForeColor = Color.FromArgb(0, 112, 239);
+            exitlbl.ForeColor = Color.FromArgb(0, 112, 239);
         }
 
         private void exitLabel_MouseLeave(object sender, EventArgs e)
         {
-            exitLabel.ForeColor = Color.White;
+            exitlbl.ForeColor = Color.White;
         }
 
         private void QobuzDownloaderX_MouseMove(object sender, MouseEventArgs e)
@@ -699,9 +683,8 @@ namespace QobuzDownloaderX
 
         private void logoBox_Click(object sender, EventArgs e)
         {
-            DevClickEggThingValue = DevClickEggThingValue + 1;
-
-            if (DevClickEggThingValue >= 3)
+            DevClickEggThingValue += 1;
+            if (DevClickEggThingValue > 3)
             {
                 streamableCheckbox.Visible = true;
                 enableBtnsButton.Visible = true;
@@ -711,7 +694,7 @@ namespace QobuzDownloaderX
                 hiddenTextPanel.Visible = true;
                 customFormatIDTextbox.Visible = true;
                 customFormatPanel.Visible = true;
-                formatIDLabel.Visible = true;
+                formatIDlbl.Visible = true;
             }
             else
             {
@@ -723,7 +706,7 @@ namespace QobuzDownloaderX
                 hideDebugButton.Visible = false;
                 customFormatIDTextbox.Visible = false;
                 customFormatPanel.Visible = false;
-                formatIDLabel.Visible = false;
+                formatIDlbl.Visible = false;
             }
         }
 
@@ -737,7 +720,7 @@ namespace QobuzDownloaderX
             hideDebugButton.Visible = false;
             customFormatIDTextbox.Visible = false;
             customFormatPanel.Visible = false;
-            formatIDLabel.Visible = false;
+            formatIDlbl.Visible = false;
             DevClickEggThingValue = 0;
         }
 
@@ -748,12 +731,12 @@ namespace QobuzDownloaderX
 
         private void logoutLabel_MouseHover(object sender, EventArgs e)
         {
-            logoutLabel.ForeColor = Color.FromArgb(0, 112, 239);
+            logoutlbl.ForeColor = Color.FromArgb(0, 112, 239);
         }
 
         private void logoutLabel_MouseLeave(object sender, EventArgs e)
         {
-            logoutLabel.ForeColor = Color.FromArgb(88, 92, 102);
+            logoutlbl.ForeColor = Color.FromArgb(88, 92, 102);
         }
 
         private void logoutLabel_Click(object sender, EventArgs e)
@@ -813,6 +796,13 @@ namespace QobuzDownloaderX
             }
             Settings.Default.quality = (string)rb.Tag;
             Settings.Default.Save();
+        }
+
+        private void GoodiesCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.getGoodies = goodiesCheckBox.Checked;
+            Settings.Default.Save();
+            Globals.TaggingOptions.WriteGetGoodiesTag = goodiesCheckBox.Checked;
         }
     }
 }

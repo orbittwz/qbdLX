@@ -40,7 +40,7 @@ namespace QobuzDownloaderX
         private void LoginFrm_Load(object sender, EventArgs e)
         {
             // Get and display version number.
-            verNumLabel2.Text = Settings.Version;
+            verNumlbl3.Text = Settings.Version;
 
             if (!System.IO.File.Exists(dllCheck))
             {
@@ -74,7 +74,7 @@ namespace QobuzDownloaderX
             if (AltLoginValue == "0")
             {
                 // Change alt login label text
-                altLoginLabel.Text = "Can't login? Click here";
+                altLoginlbl.Text = "Can't login? Click here";
 
                 // Hide alt login methods
                 //altLoginTutLabel.Visible = false;
@@ -88,7 +88,7 @@ namespace QobuzDownloaderX
             else if (AltLoginValue == "1")
             {
                 // Change alt login label text
-                altLoginLabel.Text = "Login normally? Click here";
+                altLoginlbl.Text = "Login normally? Click here";
 
                 // Hide standard login methods
                 emailTextbox.Visible = false;
@@ -234,13 +234,13 @@ namespace QobuzDownloaderX
 
         private void AltLoginLabel_Click(object sender, EventArgs e)
         {
-            if (altLoginLabel.Text == "Can't login? Click here")
+            if (altLoginlbl.Text == "Can't login? Click here")
             {
                 // Set value if alt login is needed.
                 AltLoginValue = "1";
 
                 // Change alt login label text
-                altLoginLabel.Text = "Login normally? Click here";
+                altLoginlbl.Text = "Login normally? Click here";
 
                 // Hide standard login methods
                 emailTextbox.Visible = false;
@@ -257,7 +257,7 @@ namespace QobuzDownloaderX
                 AltLoginValue = "0";
 
                 // Change alt login label text
-                altLoginLabel.Text = "Can't login? Click here";
+                altLoginlbl.Text = "Can't login? Click here";
 
                 // Hide alt login methods
                 //altLoginTutLabel.Visible = false;
@@ -283,7 +283,7 @@ namespace QobuzDownloaderX
         private void FinishLogin(object sender, EventArgs e)
         {
             loginButton.Invoke(new Action(() => loginButton.Enabled = true));
-            altLoginLabel.Invoke(new Action(() => altLoginLabel.Visible = true));
+            altLoginlbl.Invoke(new Action(() => altLoginlbl.Visible = true));
 
             // Login successful, create main forms
             Globals.QbdlxForm = new QobuzDownloaderX();
@@ -332,20 +332,20 @@ namespace QobuzDownloaderX
                         break;
                 }
 
-                loginText.Invoke(new Action(() => loginText.Text = errorMessage));
+                loginTextlbl.Invoke(new Action(() => loginTextlbl.Text = errorMessage));
                 System.IO.File.AppendAllText(loginErrorLog, ex.ToString());
 
                 loginButton.Invoke(new Action(() => loginButton.Enabled = true));
-                altLoginLabel.Invoke(new Action(() => altLoginLabel.Visible = true));
+                altLoginlbl.Invoke(new Action(() => altLoginlbl.Visible = true));
                 return;
             }
 
             if (useCustomAppIdAndSecret)
             {
-                loginText.Invoke(new Action(() => loginText.Text = "Using custom App ID and Secret! Logging in..."));
+                loginTextlbl.Invoke(new Action(() => loginTextlbl.Text = "Using custom App ID and Secret! Logging in..."));
             } else
             {
-                loginText.Invoke(new Action(() => loginText.Text = "ID and Secret Obtained! Logging in..."));
+                loginTextlbl.Invoke(new Action(() => loginTextlbl.Text = "ID and Secret Obtained! Logging in..."));
             }
 
             try
@@ -364,7 +364,7 @@ namespace QobuzDownloaderX
                 // If connection to API fails, or something is incorrect, show error info + log details.
                 List<string> errorLines = new List<string>();
 
-                loginText.Invoke(new Action(() => loginText.Text = "Login Failed. Error Log saved"));
+                loginTextlbl.Invoke(new Action(() => loginTextlbl.Text = "Login Failed. Error Log saved"));
 
                 switch (ex)
                 {
@@ -386,22 +386,22 @@ namespace QobuzDownloaderX
                 // Write detailed info to log
                 System.IO.File.AppendAllLines(loginErrorLog, errorLines);
                 loginButton.Invoke(new Action(() => loginButton.Enabled = true));
-                altLoginLabel.Invoke(new Action(() => altLoginLabel.Visible = true));
+                altLoginlbl.Invoke(new Action(() => altLoginlbl.Visible = true));
                 return;
             }
 
             if (!QobuzApiServiceManager.GetApiService().IsAppSecretValid())
             {
-                loginText.Invoke(new Action(() => loginText.Text = "Invalid App Credentials Obtained, Results logged."));
+                loginTextlbl.Invoke(new Action(() => loginTextlbl.Text = "Invalid App Credentials Obtained, Results logged."));
                 System.IO.File.AppendAllText(loginErrorLog, "Test stream failed with obtained App data.\r\n");
                 System.IO.File.AppendAllText(loginErrorLog, $"Retrieved app_id: {QobuzApiServiceManager.GetApiService().AppId}\r\n");
                 System.IO.File.AppendAllText(loginErrorLog, $"Retrieved app_secret: {QobuzApiServiceManager.GetApiService().AppSecret}\r\n");
                 loginButton.Invoke(new Action(() => loginButton.Enabled = true));
-                altLoginLabel.Invoke(new Action(() => altLoginLabel.Visible = true));
+                altLoginlbl.Invoke(new Action(() => altLoginlbl.Visible = true));
                 return;
             }
 
-            loginText.Invoke(new Action(() => loginText.Text = "Login Successful! Launching QBDLX..."));
+            loginTextlbl.Invoke(new Action(() => loginTextlbl.Text = "Login Successful! Launching QBDLX..."));
             FinishLogin(sender, e);
 
             loginBG.CancelAsync();
@@ -410,7 +410,7 @@ namespace QobuzDownloaderX
         private void LoginButton_Click(object sender, EventArgs e)
         {
             // Hide alt login label until job is finished or failed
-            altLoginLabel.Visible = false;
+            altLoginlbl.Visible = false;
 
             switch (AltLoginValue)
             {
@@ -424,14 +424,14 @@ namespace QobuzDownloaderX
                     if (emailTextbox.Text == "Email" || string.IsNullOrEmpty(emailTextbox.Text?.Trim()))
                     {
                         // If there's no email typed in.
-                        loginText.Invoke(new Action(() => loginText.Text = "No email, please input email first."));
+                        loginTextlbl.Invoke(new Action(() => loginTextlbl.Text = "No email, please input email first."));
                         return;
                     }
 
                     if (passwordTextbox.Text == "Password" || string.IsNullOrEmpty(passwordTextbox.Text?.Trim()))
                     {
                         // If there's no password typed in.
-                        loginText.Invoke(new Action(() => loginText.Text = "No password typed, please input password first."));
+                        loginTextlbl.Invoke(new Action(() => loginTextlbl.Text = "No password typed, please input password first."));
                         return;
                     }
 
@@ -461,7 +461,7 @@ namespace QobuzDownloaderX
                             else
                             {
                                 // If the hash can't be verified.
-                                loginText.Invoke(new Action(() => loginText.Text = "Hashing failed. Please retry."));
+                                loginTextlbl.Invoke(new Action(() => loginTextlbl.Text = "Hashing failed. Please retry."));
                                 return;
                             }
                         }
@@ -486,14 +486,14 @@ namespace QobuzDownloaderX
                     if (userIdTextbox.Text == "user_id" || string.IsNullOrEmpty(userIdTextbox.Text?.Trim()))
                     {
                         // If there's no user_id  typed in.
-                        loginText.Invoke(new Action(() => loginText.Text = "No user_id, please input user_id first."));
+                        loginTextlbl.Invoke(new Action(() => loginTextlbl.Text = "No user_id, please input user_id first."));
                         return;
                     }
 
                     if (userAuthTokenTextbox.Text == "user_auth_token" || string.IsNullOrEmpty(userAuthTokenTextbox.Text?.Trim()))
                     {
                         // If there's no password typed in.
-                        loginText.Invoke(new Action(() => loginText.Text = "No user_auth_token typed, please input user_auth_token first."));
+                        loginTextlbl.Invoke(new Action(() => loginTextlbl.Text = "No user_auth_token typed, please input user_auth_token first."));
                         return;
                     }
 
@@ -515,7 +515,7 @@ namespace QobuzDownloaderX
             }
 
             loginButton.Enabled = false;
-            loginText.Text = "Getting App ID and Secret...";
+            loginTextlbl.Text = "Getting App ID and Secret...";
             loginBG.RunWorkerAsync();
         }
 

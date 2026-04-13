@@ -109,12 +109,12 @@ namespace QobuzDownloaderX
 
         private void ExitLabel_MouseHover(object sender, EventArgs e)
         {
-            exitLabel.ForeColor = Color.FromArgb(0, 112, 239);
+            exitlbl.ForeColor = Color.FromArgb(0, 112, 239);
         }
 
         private void ExitLabel_MouseLeave(object sender, EventArgs e)
         {
-            exitLabel.ForeColor = Color.White;
+            exitlbl.ForeColor = Color.White;
         }
 
         private void Fill_AlbumResultsTablePanel(SearchResult searchResult)

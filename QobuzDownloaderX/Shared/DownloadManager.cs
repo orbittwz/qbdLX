@@ -225,7 +225,7 @@ namespace QobuzDownloaderX.Shared
 
             if (string.IsNullOrEmpty(streamUrl))
             {
-                // Can happen with free accounts trying to download non-previewable tracks (or if API call failed). 
+                // Can happen with free accounts trying to download non-previewable tracks (or if API call failed).
                 logger.AddDownloadLogLine($"Couldn't get streaming URL for Track \"{DownloadPaths.FinalTrackNamePath}\". Skipping.\r\n", true, true);
                 return false;
             }
@@ -311,87 +311,71 @@ namespace QobuzDownloaderX.Shared
         private async Task<bool> DownloadAlbumAsync(CancellationToken cancellationToken, Album qobuzAlbum, string basePath, string albumPathSuffix = "")
         {
             bool noErrorsOccured = true;
-
             // Get Album model object with first batch of tracks
-            const int tracksLimit = 50;
+            const int tracksLimit = 100;
             qobuzAlbum = ExecuteApiCall(apiService => apiService.GetAlbum(qobuzAlbum.Id, true, null, tracksLimit, 0));
-
             // If API call failed, abort Album Download
             if (string.IsNullOrEmpty(qobuzAlbum.Id)) { return false; }
-
             // Get all album information and update UI fields via callback
             DownloadInfo.SetAlbumDownloadInfo(qobuzAlbum);
             UpdateAlbumUiTags.Invoke(DownloadInfo);
-
             // Download all tracks of the Album in batches of {tracksLimit}, clean albumArt tag file after last track
             int tracksTotal = qobuzAlbum.Tracks.Total ?? 0;
             int tracksPageOffset = qobuzAlbum.Tracks.Offset ?? 0;
             int tracksLoaded = qobuzAlbum.Tracks.Items?.Count ?? 0;
-
             int i = 0;
             while (i < tracksLoaded)
             {
                 // User requested task cancellation!
                 cancellationToken.ThrowIfCancellationRequested();
-
                 bool isLastTrackOfAlbum = (i + tracksPageOffset) == (tracksTotal - 1);
                 Track qobuzTrack = qobuzAlbum.Tracks.Items[i];
-
                 // Nested Album objects in Tracks are not always fully populated, inject current qobuzAlbum in Track to be downloaded
                 qobuzTrack.Album = qobuzAlbum;
-
-                if (!await DownloadTrackAsync(cancellationToken, qobuzTrack, basePath, false, true, isLastTrackOfAlbum, albumPathSuffix)) noErrorsOccured = false;
-
+                if (!await DownloadTrackAsync(cancellationToken, qobuzTrack, basePath,
+                        false, true, isLastTrackOfAlbum, albumPathSuffix)) noErrorsOccured = false;
                 i++;
-
                 if (i == tracksLoaded && tracksTotal > (i + tracksPageOffset))
                 {
                     // load next page of tracks
                     tracksPageOffset += tracksLimit;
                     qobuzAlbum = ExecuteApiCall(apiService => apiService.GetAlbum(qobuzAlbum.Id, true, null, tracksLimit, tracksPageOffset));
-
                     // If API call failed, abort Album Download
                     if (string.IsNullOrEmpty(qobuzAlbum.Id)) { return false; }
-
                     // If Album Track Items is empty, Qobuz max API offset might be reached
                     if (qobuzAlbum.Tracks?.Items?.Any() != true) break;
-
                     // Reset counter for looping next batch of tracks
                     i = 0;
                     tracksLoaded = qobuzAlbum.Tracks.Items?.Count ?? 0;
                 }
             }
-
             // Look for digital booklet(s) in "Goodies"
             // Don't fail on failed "Goodies" downloads, just log...
-            if (!await DownloadBookletsAsync(qobuzAlbum, DownloadPaths.Path3Full)) noErrorsOccured = false;
-
+            if (Globals.TaggingOptions.WriteGetGoodiesTag == true)
+            {
+                if (!await DownloadBookletsAsync(qobuzAlbum, DownloadPaths.Path3Full))
+                    noErrorsOccured = false;
+            }
             return noErrorsOccured;
         }
 
         private async Task<bool> DownloadBookletsAsync(Album qobuzAlbum, string basePath)
         {
             bool noErrorsOccured = true;
-
             List<Goody> booklets = qobuzAlbum.Goodies?.Where(g => g.FileFormatId == (int)GoodiesFileType.BOOKLET).ToList();
-
             if (booklets == null || !booklets.Any())
             {
                 // No booklets found, just return
                 return noErrorsOccured;
             }
-
             logger.AddDownloadLogLine($"Goodies found, downloading...{Environment.NewLine}", true, true);
-
             using (HttpClient httpClient = new HttpClient())
             {
                 int counter = 1;
-
                 foreach (Goody booklet in booklets)
                 {
                     string bookletFileName = counter == 1 ? "Digital Booklet.pdf" : $"Digital Booklet {counter}.pdf";
                     string bookletFilePath = Path.Combine(basePath, bookletFileName);
-
                     // Download booklet if file doesn't exist yet
                     if (System.IO.File.Exists(bookletFilePath))
                     {
@@ -399,33 +383,28 @@ namespace QobuzDownloaderX.Shared
                     }
                     else
                     {
-                        // When a booklet download fails, mark error occured but continue downloading others if they exist 
+                        // When a booklet download fails, mark error occured but continue downloading others if they exist
                         if (!await DownloadBookletAsync(booklet, httpClient, bookletFileName, bookletFilePath)) noErrorsOccured = false;
                     }
-
                     counter++;
                 }
             }
-
             return noErrorsOccured;
         }
 
         private async Task<bool> DownloadBookletAsync(Goody booklet, HttpClient httpClient, string fileName, string filePath)
         {
             bool noErrorsOccured = true;
-
             try
             {
                 // Download booklet
                 await DownloadFileAsync(httpClient, booklet.Url, filePath);
-
                 logger.AddDownloadLogLine($"Booklet \"{fileName}\" download complete!{Environment.NewLine}", true, true);
             }
             catch (AggregateException ae)
             {
                 // When a Task fails, an AggregateException is thrown. Could be a HttpClient timeout or network error.
                 logger.AddDownloadLogErrorLine($"Goodies Download canceled, probably due to network error or request timeout. Details saved to error log.{Environment.NewLine}", true, true);
-
                 logger.AddDownloadErrorLogLine("Goodies Download canceled, probably due to network error or request timeout.");
                 logger.AddDownloadErrorLogLine(ae.ToString());
                 logger.AddDownloadErrorLogLine(Environment.NewLine);
@@ -435,13 +414,11 @@ namespace QobuzDownloaderX.Shared
             {
                 // If there is an unknown issue trying to, or during the download, show and log error info.
                 logger.AddDownloadLogErrorLine($"Unknown error during Goodies Download. Details saved to error log.{Environment.NewLine}", true, true);
-
                 logger.AddDownloadErrorLogLine("Unknown error during Goodies Download.");
                 logger.AddDownloadErrorLogLine(downloadEx.ToString());
                 logger.AddDownloadErrorLogLine(Environment.NewLine);
                 noErrorsOccured = false;
             }
-
             return noErrorsOccured;
         }
 
@@ -1046,8 +1023,10 @@ namespace QobuzDownloaderX.Shared
                 bool noTrackErrorsOccured = true;
 
                 // Start new m3u Playlist file.
-                M3uPlaylist m3uPlaylist = new M3uPlaylist();
-                m3uPlaylist.IsExtended = true;
+                M3uPlaylist m3uPlaylist = new M3uPlaylist
+                {
+                    IsExtended = true
+                };
 
                 // Download Playlist tracks
                 foreach (long trackId in qobuzPlaylist.TrackIds)

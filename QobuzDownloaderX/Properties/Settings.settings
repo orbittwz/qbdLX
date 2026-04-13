@@ -42,28 +42,28 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="isrcTag" Roaming="true" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="upcTag" Roaming="true" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="copyrightTag" Roaming="true" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="yearTag" Roaming="true" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="explicitTag" Roaming="true" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="imageTag" Roaming="true" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="commentTag" Roaming="true" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="composerTag" Roaming="true" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="trackTitleTag" Roaming="true" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -93,7 +93,7 @@
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="typeTag" Roaming="true" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="savedMaxLength" Roaming="true" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">150</Value>
@@ -105,16 +105,16 @@
       <Value Profile="(Default)"> - </Value>
     </Setting>
     <Setting Name="producerTag" Roaming="true" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="labelTag" Roaming="true" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="involvedPeopleTag" Roaming="true" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="initialListSeparator" Roaming="true" Type="System.String" Scope="User">
-      <Value Profile="(Default)">, </Value>
+      <Value Profile="(Default)">;</Value>
     </Setting>
     <Setting Name="listEndSeparator" Roaming="true" Type="System.String" Scope="User">
       <Value Profile="(Default)"> &amp; </Value>
@@ -126,7 +126,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="urlTag" Roaming="true" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="appId" Roaming="true" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
