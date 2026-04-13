@@ -1,4 +1,0 @@
-﻿[*.cs]
-
-# CD1607: The file needs documentation headers.
-dotnet_diagnostic.CD1607.severity = none
