@@ -221,9 +221,6 @@
     <None Include="Resources\qbdlx-white.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.4</Version>
-    </PackageReference>
     <PackageReference Include="PlaylistsNET">
       <Version>1.4.1</Version>
     </PackageReference>

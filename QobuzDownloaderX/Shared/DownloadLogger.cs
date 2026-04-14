@@ -109,7 +109,6 @@ namespace QobuzDownloaderX.Shared
             // If there is an issue trying to, or during the download, show error info.
             ClearUiLogComponent();
             AddDownloadLogErrorLine($"{downloadTaskType} Download Task ERROR. Details saved to error log.{Environment.NewLine}", true, true);
-
             AddDownloadErrorLogLine($"{downloadTaskType} Download Task ERROR.");
             AddDownloadErrorLogLine(downloadEx.ToString());
             AddDownloadErrorLogLine(Environment.NewLine);

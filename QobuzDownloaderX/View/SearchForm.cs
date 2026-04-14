@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -71,11 +73,13 @@ namespace QobuzDownloaderX
             resultsTableLayoutPanel.ColumnStyles.Clear();
             resultsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 914F));
             resultsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TextBox ErrorMesage = CreateTextBox($"{ex.Message}", true, GetResultRowColor(0), Color.OrangeRed, FontManager.CreateFont("Hanken Grotesk Medium", 10, FontStyle.Bold | FontStyle.Italic), BorderStyle.None);
+            TextBox ErrorMesage = CreateTextBox($"{ex.Message}", true, GetResultRowColor(0), Color.OrangeRed,
+                FontManager.CreateFont("Hanken Grotesk Medium", 10, FontStyle.Bold | FontStyle.Italic), BorderStyle.None);
             ResizeControlForText(ErrorMesage, 5);
             resultsTableLayoutPanel.Controls.Add(ErrorMesage, 0, 0);
 
-            TextBox ErrorSavedMesage = CreateTextBox($"Error log saved to {errorLog}.", true, GetResultRowColor(0), Color.OrangeRed, FontManager.CreateFont("Hanken Grotesk Medium", 10, FontStyle.Bold | FontStyle.Italic), BorderStyle.None);
+            TextBox ErrorSavedMesage = CreateTextBox($"Error log saved to {errorLog}.", true, GetResultRowColor(0),
+                Color.OrangeRed, FontManager.CreateFont("Hanken Grotesk Medium", 10, FontStyle.Bold | FontStyle.Italic), BorderStyle.None);
             ResizeControlForText(ErrorSavedMesage, 5);
             resultsTableLayoutPanel.Controls.Add(ErrorSavedMesage, 0, 1);
 
@@ -119,6 +123,16 @@ namespace QobuzDownloaderX
 
         private void Fill_AlbumResultsTablePanel(SearchResult searchResult)
         {
+            foreach (Album album in searchResult?.Albums?.Items.ToList())
+            {
+                if (album == null)
+                    continue;
+                if (Regex.IsMatch(searchInput.Text, album.Artist.Name, RegexOptions.IgnoreCase) == false)
+                    searchResult.Albums?.Items.Remove(album);
+                //todo if I will decide to implement #13 (non-explicit results filtering), this is the place...
+                //todo to iterate and compare if item album name and artist name is the same, along with Duration +- 10 seconds, then remove the non-explicit result.
+                //todo same with tracks.
+            }
             FillResultsTablePanel(searchResult?.Albums?.Items, album => new SearchResultRow
             {
                 ThumbnailUrl = album.Image.Thumbnail,
@@ -128,7 +142,7 @@ namespace QobuzDownloaderX
                 FormattedDuration = StringTools.FormatDurationInSeconds(album.Duration.GetValueOrDefault()),
                 FormattedQuality = $"{album.MaximumBitDepth}-Bit / {album.MaximumSamplingRate} kHz",
                 WebPlayerUrl = $"{Globals.WEBPLAYER_BASE_URL}/album/{album.Id}",
-                StoreUrl = album.Url,
+                StoreUrl = Globals.Login.User.Store == "fr-fr" ? album.Url : ("https://www.qobuz.com/" + Globals.Login.User.Store + album.Url.Substring(album.Url.IndexOf("/album"))).ToLower(),
                 ReleaseDate = album.ReleaseDateOriginal.GetValueOrDefault().ToString("yyyy-MM-dd"),
                 HiRes = album.Hires.GetValueOrDefault(),
                 TrackCount = album.TracksCount.GetValueOrDefault()
@@ -137,6 +151,13 @@ namespace QobuzDownloaderX
 
         private void Fill_TrackResultsTablePanel(SearchResult searchResult)
         {
+            foreach (Track track in searchResult?.Tracks?.Items.ToList())
+            {
+                if (track == null)
+                    continue;
+                if (Regex.IsMatch(searchInput.Text, track.Performer.Name, RegexOptions.IgnoreCase) == false)
+                    searchResult.Tracks?.Items.Remove(track);
+            }
             FillResultsTablePanel(searchResult?.Tracks?.Items, track => new SearchResultRow
             {
                 ThumbnailUrl = track.Album.Image.Thumbnail,
@@ -146,7 +167,8 @@ namespace QobuzDownloaderX
                 FormattedDuration = StringTools.FormatDurationInSeconds(track.Duration.GetValueOrDefault()),
                 FormattedQuality = $"{track.MaximumBitDepth}-Bit / {track.MaximumSamplingRate} kHz",
                 WebPlayerUrl = $"{Globals.WEBPLAYER_BASE_URL}/track/{track.Id}",
-                StoreUrl = track.Album.Url,
+                StoreUrl = Globals.Login.User.Store == "fr-fr" ? track.Album.Url : ("https://www.qobuz.com/" + Globals.Login.User.Store +
+                    track.Album.Url.Substring(track.Album.Url.IndexOf("/album"))).ToLower(),
                 ReleaseDate = track.Album.ReleaseDateOriginal.GetValueOrDefault().ToString("yyyy-MM-dd"),
                 HiRes = track.Hires.GetValueOrDefault()
             });
@@ -258,8 +280,9 @@ namespace QobuzDownloaderX
 
             if (isExplicit)
             {
-                System.Windows.Forms.Label explicitLabel = CreateLabel("E", Color.FromArgb(75, 75, 75), Color.OrangeRed, FontManager.CreateFont("Hanken Grotesk ExtraBold", 8, FontStyle.Bold), BorderStyle.None, new Padding(5, 0, 0, 0), AnchorStyles.None);
-                
+                System.Windows.Forms.Label explicitLabel = CreateLabel("E", Color.FromArgb(75, 75, 75), Color.OrangeRed,
+                    FontManager.CreateFont("Hanken Grotesk ExtraBold", 8, FontStyle.Bold),
+                    BorderStyle.None, new Padding(5, 0, 0, 0), AnchorStyles.None);
                 // Add tooltip for "Explicit"
                 ToolTip toolTip = new ToolTip();
                 toolTip.SetToolTip(explicitLabel, "Explicit");
@@ -289,7 +312,8 @@ namespace QobuzDownloaderX
             return linksPanel;
         }
 
-        private TableLayoutPanel CreateReleaseInfoPanel(Color rowColor, FlowLayoutPanel titlePanel, TextBox durationTextBox, TextBox artistTextBox, TextBox releaseDateTextBox, TextBox tracks, LinkLabel webLink, LinkLabel storeLink)
+        private TableLayoutPanel CreateReleaseInfoPanel(Color rowColor, FlowLayoutPanel titlePanel, TextBox durationTextBox,
+            TextBox artistTextBox, TextBox releaseDateTextBox, TextBox tracks, LinkLabel webLink, LinkLabel storeLink)
         {
             TableLayoutPanel releaseInfoColumnPanel = new TableLayoutPanel
             {
@@ -421,7 +445,8 @@ namespace QobuzDownloaderX
             };
         }
 
-        private System.Windows.Forms.Label CreateLabel(string text, Color backColor, Color foreColor, Font font, BorderStyle borderStyle, Padding margin = default, AnchorStyles anchor = AnchorStyles.None, ContentAlignment textAlign = ContentAlignment.TopLeft)
+        private System.Windows.Forms.Label CreateLabel(string text, Color backColor, Color foreColor, Font font,
+            BorderStyle borderStyle, Padding margin = default, AnchorStyles anchor = AnchorStyles.None, ContentAlignment textAlign = ContentAlignment.TopLeft)
         {
             return new System.Windows.Forms.Label
             {
@@ -487,39 +512,48 @@ namespace QobuzDownloaderX
         {
             searchButton.Enabled = false;
             containerScrollPanel.Hide();
-
             // In case of an exception, a newline is added to the searchQuery string for some reason.
             // So we clone the object to prevent newline in TextBox on error
             string searchQuery = searchInput.Text.Clone().ToString();
-
             // Clear previous results before fetching new results
             ResetResultsTableLayoutPanel();
-
             if (string.IsNullOrEmpty(searchQuery))
             {
                 containerScrollPanel.Show();
                 searchButton.Enabled = true;
                 return;
             }
-
             try
             {
+                SearchResult albumsResult = new SearchResult();
+                SearchResult tracksResult = new SearchResult();
                 if (searchTypeSelect.Text == "Album")
                 {
-                    SearchResult albumsResult = QobuzApiServiceManager.GetApiService().SearchAlbums(searchQuery, 15, 0, true);
-                    Fill_AlbumResultsTablePanel(albumsResult);
+                    albumsResult = QobuzApiServiceManager.GetApiService().SearchAlbums(searchQuery, 15, 0, true);
+                    if (albumsResult.Albums.Total == 0)
+                    {
+                        tracksResult = QobuzApiServiceManager.GetApiService().SearchTracks(searchQuery, 15, 0, true);
+                        Fill_TrackResultsTablePanel(tracksResult);
+                    }
+                    else
+                        Fill_AlbumResultsTablePanel(albumsResult);
                 }
                 else if (searchTypeSelect.Text == "Track")
                 {
-                    SearchResult tracksResult = QobuzApiServiceManager.GetApiService().SearchTracks(searchQuery, 15, 0, true);
-                    Fill_TrackResultsTablePanel(tracksResult);
+                    tracksResult = QobuzApiServiceManager.GetApiService().SearchTracks(searchQuery, 15, 0, true);
+                    if (tracksResult.Tracks.Total == 0)
+                    {
+                        albumsResult = QobuzApiServiceManager.GetApiService().SearchAlbums(searchQuery, 15, 0, true);
+                        Fill_AlbumResultsTablePanel(albumsResult);
+                    }
+                    else
+                        Fill_TrackResultsTablePanel(tracksResult);
                 }
             }
             catch (Exception ex)
             {
                 ShowAndLogSearchResultError(ex);
             }
-
             containerScrollPanel.Show();
             searchButton.Enabled = true;
         }

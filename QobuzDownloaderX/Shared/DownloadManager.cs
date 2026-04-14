@@ -34,13 +34,13 @@ namespace QobuzDownloaderX.Shared
 
         public DownloadItemPaths DownloadPaths { get; private set; }
 
-        public bool IsBuzy { get; private set; }
+        public bool IsBusy { get; private set; }
 
         public bool CheckIfStreamable { get; set; }
 
         public DownloadManager(DownloadLogger logger, UpdateAlbumTagsUi updateAlbumTagsUi, UpdateDownloadSpeed updateUiDownloadSpeed)
         {
-            IsBuzy = false;
+            IsBusy = false;
             CheckIfStreamable = true;
             this.logger = logger;
             UpdateUiDownloadSpeed = updateUiDownloadSpeed;
@@ -155,12 +155,15 @@ namespace QobuzDownloaderX.Shared
                     }
                 }
             }
-
+            FileInfo fi = new FileInfo(filePath);
+            if (File.Exists(filePath) && fi.Length == 0)
+                File.Delete(filePath);
             // After download completes successfully
             UpdateUiDownloadSpeed.Invoke("Idle");
         }
 
-        private async Task<bool> DownloadTrackAsync(CancellationToken cancellationToken, Track qobuzTrack, string basePath, bool isPartOfTracklist, bool isPartOfAlbum, bool removeTagArtFileAfterDownload = false, string albumPathSuffix = "")
+        private async Task<bool> DownloadTrackAsync(CancellationToken cancellationToken, Track qobuzTrack, string basePath,
+            bool isPartOfTracklist, bool isPartOfAlbum, bool removeTagArtFileAfterDownload = false, string albumPathSuffix = "")
         {
             // Just for good measure...
             // User requested task cancellation!
@@ -170,7 +173,7 @@ namespace QobuzDownloaderX.Shared
 
             DownloadInfo.SetTrackTaggingInfo(qobuzTrack);
 
-            // If track is downloaded as part of Album, Album related processings should already be done.
+            // If track is downloaded as part of Album, Album related processes should already be done.
             // Only handle Album related processing when downloading a single track.
             if (!isPartOfAlbum)
             {
@@ -529,7 +532,7 @@ namespace QobuzDownloaderX.Shared
             // Create new cancellation token source.
             using (this.cancellationTokenSource = new CancellationTokenSource())
             {
-                IsBuzy = true;
+                IsBusy = true;
 
                 try
                 {
@@ -610,7 +613,7 @@ namespace QobuzDownloaderX.Shared
                 finally
                 {
                     downloadStoppedCallback?.Invoke();
-                    IsBuzy = false;
+                    IsBusy = false;
                 }
             }
         }

@@ -206,7 +206,7 @@ namespace QobuzDownloaderX
 
         private async void DownloadButton_Click(object sender, EventArgs e)
         {
-            if (!downloadManager.IsBuzy)
+            if (!downloadManager.IsBusy)
             {
                 await StartLinkItemDownloadAsync(downloadUrl.Text);
             } else
@@ -249,7 +249,7 @@ namespace QobuzDownloaderX
             }
 
             // If, for some reason, a download is still buzy, do nothing
-            if (downloadManager.IsBuzy)
+            if (downloadManager.IsBusy)
             {
                 return;
             }

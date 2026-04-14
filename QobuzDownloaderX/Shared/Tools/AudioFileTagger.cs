@@ -140,7 +140,9 @@ namespace QobuzDownloaderX.Shared
                     if (fileInfo.MediaType != null && Globals.TaggingOptions.WriteMediaTypeTag) { customId3v2.SetTextFrame("TMED", fileInfo.MediaType); }
 
                     // Album store URL tag
-                    if (fileInfo.Url != null && Globals.TaggingOptions.WriteURLTag) { customId3v2.SetTextFrame("WCOM", fileInfo.Url); }
+                    if (fileInfo.Url != null && Globals.TaggingOptions.WriteURLTag) { customId3v2.SetTextFrame("WCOM",
+                        Globals.Login.User.Store == "fr-fr" ? fileInfo.Url : ("https://www.qobuz.com/" + Globals.Login.User.Store
+                            + fileInfo.Url.Substring(fileInfo.Url.IndexOf("/album"))).ToLower()); }
 
                     // Save all selected tags to file
                     tfile.Save();
@@ -296,8 +298,9 @@ namespace QobuzDownloaderX.Shared
                     }
 
                     // Album store URL tag
-                    if (fileInfo.Url != null && Globals.TaggingOptions.WriteURLTag) { custom.SetField("URL", fileInfo.Url); }
-
+                    if (fileInfo.Url != null && Globals.TaggingOptions.WriteURLTag) { custom.SetField("URL",
+                        Globals.Login.User.Store == "fr-fr" ? fileInfo.Url : ("https://www.qobuz.com/" + Globals.Login.User.Store
+                            + fileInfo.Url.Substring(fileInfo.Url.IndexOf("/album"))).ToLower()); }
                     // Save all selected tags to file
                     tfile.Save();
 
