@@ -15,6 +15,5 @@
         {
             return Type == null || Id == null;
         }
-
     }
 }

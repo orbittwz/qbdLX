@@ -21,7 +21,7 @@ namespace QobuzDownloaderX
         // Button color download inactive
         private readonly Color ReadyButtonBackColor = Color.FromArgb(0, 112, 239); // Windows Blue (Azure Blue)
         // Button color download active
-        private readonly Color BuzyButtonBackColor = Color.FromArgb(200, 30, 0); // Red
+        private readonly Color BusyButtonBackColor = Color.FromArgb(200, 30, 0); // Red
 
         public QobuzDownloaderX()
         {
@@ -44,7 +44,7 @@ namespace QobuzDownloaderX
             string profilePic = Convert.ToString(Globals.Login.User.Avatar);
             profilePictureBox.ImageLocation = profilePic.Replace(@"\", null).Replace("s=50", "s=20");
             // Welcome the user after successful login.
-            logger.ClearUiLogComponent();
+            logger.ClearUILogComponent();
             output.Invoke(new Action(() => output.AppendText("Welcome " + Globals.Login.User.DisplayName + " (" + Globals.Login.User.Email + ") !\r\n")));
             output.Invoke(new Action(() => output.AppendText("User Zone - " + Globals.Login.User.Zone + "\r\n\r\n")));
             output.Invoke(new Action(() => output.AppendText("Qobuz Credential Description - " + Globals.Login.User.Credential.Description + "\r\n")));
@@ -94,7 +94,7 @@ namespace QobuzDownloaderX
                 WriteProducerTag = Settings.Default.producerTag,
                 WriteLabelTag = Settings.Default.labelTag,
                 WriteInvolvedPeopleTag = Settings.Default.involvedPeopleTag,
-                MergePerformers = Settings.Default.mergePerformers,
+                MergePerformers = Settings.Default.mergePerformersTag,
                 PrimaryListSeparator = Settings.Default.initialListSeparator,
                 ListEndSeparator = Settings.Default.listEndSeparator,
                 WriteCopyrightTag = Settings.Default.copyrightTag,
@@ -113,7 +113,7 @@ namespace QobuzDownloaderX
                 WriteCoverImageTag = Settings.Default.imageTag,
                 WriteURLTag = Settings.Default.urlTag,
                 WriteQualityTag = Settings.Default.quality,
-                WriteGetGoodiesTag = Settings.Default.getGoodies
+                WriteGetGoodiesTag = Settings.Default.getGoodiesTag
             };
             // Set saved settings to correct places.
             folderBrowserDialog.SelectedPath = Settings.Default.savedFolder;
@@ -126,7 +126,7 @@ namespace QobuzDownloaderX
             producerCheckbox.Checked = Settings.Default.producerTag;
             labelCheckbox.Checked = Settings.Default.labelTag;
             involvedPeopleCheckBox.Checked = Settings.Default.involvedPeopleTag;
-            mergePerformersCheckBox.Checked = Settings.Default.mergePerformers;
+            mergePerformersCheckBox.Checked = Settings.Default.mergePerformersTag;
             copyrightCheckbox.Checked = Settings.Default.copyrightTag;
             discNumberCheckbox.Checked = Settings.Default.discTag;
             discTotalCheckbox.Checked = Settings.Default.totalDiscsTag;
@@ -156,7 +156,7 @@ namespace QobuzDownloaderX
             flacLowRadioBtn.Checked = Settings.Default.quality == "q2";
             flacMidRadioBtn.Checked = Settings.Default.quality == "q3";
             flacHighRadioBtn.Checked = Settings.Default.quality == "q4";
-            goodiesCheckBox.Checked = Settings.Default.getGoodies;
+            goodiesCheckBox.Checked = Settings.Default.getGoodiesTag;
             // Check if there's no selected path saved.
             if (string.IsNullOrEmpty(folderBrowserDialog.SelectedPath))
             {
@@ -187,13 +187,9 @@ namespace QobuzDownloaderX
             DevClickEggThingValue = 0;
             // Debug mode for things that are only for testing, or shouldn't be on public releases. At the moment, does nothing.
             if (!Debugger.IsAttached)
-            {
                 DebugMode = 0;
-            }
             else
-            {
                 DebugMode = 1;
-            }
             // Show app_secret value.
             //output.Invoke(new Action(() => output.AppendText("\r\n\r\napp_secret = " + Globals.AppSecret)));
             // Show format_id value.
@@ -209,13 +205,9 @@ namespace QobuzDownloaderX
         private async void DownloadButton_Click(object sender, EventArgs e)
         {
             if (!downloadManager.IsBusy)
-            {
                 await StartLinkItemDownloadAsync(downloadUrl.Text);
-            }
             else
-            {
                 downloadManager.StopDownloadTask();
-            }
         }
 
         private async void DownloadUrl_KeyDown(object sender, KeyEventArgs e)
@@ -224,7 +216,6 @@ namespace QobuzDownloaderX
             {
                 e.Handled = true;
                 e.SuppressKeyPress = true;
-
                 await StartLinkItemDownloadAsync(downloadUrl.Text);
             }
         }
@@ -235,54 +226,42 @@ namespace QobuzDownloaderX
             if (string.IsNullOrEmpty(Settings.Default.savedFolder))
             {
                 // If there is NOT a saved path.
-                logger.ClearUiLogComponent();
+                logger.ClearUILogComponent();
                 output.Invoke(new Action(() => output.AppendText($"No path has been set! Remember to Choose a Folder!{Environment.NewLine}")));
                 return;
             }
-
             // Get download item type and ID from url
             DownloadItem downloadItem = DownloadUrlParser.ParseDownloadUrl(downloadLink);
-
             // If download item could not be parsed, abort
             if (downloadItem.IsEmpty())
             {
-                logger.ClearUiLogComponent();
+                logger.ClearUILogComponent();
                 output.Invoke(new Action(() => output.AppendText("URL not understood. Is there a typo?")));
                 return;
             }
-
-            // If, for some reason, a download is still buzy, do nothing
+            // If, for some reason, a download is still busy, do nothing
             if (downloadManager.IsBusy)
-            {
                 return;
-            }
-
             // Run the StartDownloadItemTaskAsync method on a background thread & Wait for the task to complete
             await Task.Run(() => downloadManager.StartDownloadItemTaskAsync(downloadItem, UpdateControlsDownloadStart, UpdateControlsDownloadEnd));
         }
 
         public void UpdateControlsDownloadStart()
         {
-
             downloadUrl.Invoke(new Action(() => downloadUrl.Enabled = false));
-
             selectFolderButton.Invoke(new Action(() => selectFolderButton.Enabled = false));
             openSearchButton.Invoke(new Action(() => openSearchButton.Enabled = false));
-
             downloadButton.Invoke(new Action(() => {
                 downloadButton.Text = "Stop Download";
-                downloadButton.BackColor = BuzyButtonBackColor;
+                downloadButton.BackColor = BusyButtonBackColor;
             }));
         }
 
         public void UpdateControlsDownloadEnd()
         {
-
             downloadUrl.Invoke(new Action(() => downloadUrl.Enabled = true));
-
             selectFolderButton.Invoke(new Action(() => selectFolderButton.Enabled = true));
             openSearchButton.Invoke(new Action(() => openSearchButton.Enabled = true));
-
             downloadButton.Invoke(new Action(() => {
                 downloadButton.Text = "Download";
                 downloadButton.BackColor = ReadyButtonBackColor;
@@ -298,7 +277,6 @@ namespace QobuzDownloaderX
                 Settings.Default.savedFolder = folderBrowserDialog.SelectedPath;
                 Settings.Default.Save();
             }));
-
             // Run your code from a thread that joins the STA Thread
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
@@ -335,10 +313,8 @@ namespace QobuzDownloaderX
         {
             //  Display album art
             albumArtPicBox.Invoke(new Action(() => albumArtPicBox.ImageLocation = downloadInfo.FrontCoverImgBoxUrl));
-
             // Display album quality in Quality textbox.
             qualityTextbox.Invoke(new Action(() => qualityTextbox.Text = downloadInfo.DisplayQuality));
-
             // Display album info textfields
             albumArtistTextBox.Invoke(new Action(() => albumArtistTextBox.Text = downloadInfo.AlbumArtist));
             albumTextBox.Invoke(new Action(() => albumTextBox.Text = downloadInfo.AlbumName));
@@ -499,18 +475,11 @@ namespace QobuzDownloaderX
         {
             // Set filename template to selected value, and save selected option to settings.
             if (filenameTempSelect.SelectedIndex == 0)
-            {
                 Globals.FileNameTemplateString = " ";
-            }
             else if (filenameTempSelect.SelectedIndex == 1)
-            {
                 Globals.FileNameTemplateString = " - ";
-            }
             else
-            {
                 Globals.FileNameTemplateString = " ";
-            }
-
             Settings.Default.savedFilenameTemplate = filenameTempSelect.SelectedIndex;
             Settings.Default.savedFilenameTemplateString = Globals.FileNameTemplateString;
             Settings.Default.Save();
@@ -523,9 +492,7 @@ namespace QobuzDownloaderX
                 try
                 {
                     if (Convert.ToInt32(maxLengthTextbox.Text) > 150)
-                    {
                         maxLengthTextbox.Text = "150";
-                    }
                     Settings.Default.savedMaxLength = Convert.ToInt32(maxLengthTextbox.Text);
                     Settings.Default.Save();
                     Globals.MaxLength = Convert.ToInt32(maxLengthTextbox.Text);
@@ -536,9 +503,7 @@ namespace QobuzDownloaderX
                 }
             }
             else
-            {
                 Globals.MaxLength = 150;
-            }
         }
 
         private void ProducerCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -564,7 +529,7 @@ namespace QobuzDownloaderX
 
         private void MergePerformersCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Default.mergePerformers = mergePerformersCheckBox.Checked;
+            Settings.Default.mergePerformersTag = mergePerformersCheckBox.Checked;
             Settings.Default.Save();
             Globals.TaggingOptions.MergePerformers = mergePerformersCheckBox.Checked;
         }
@@ -579,7 +544,7 @@ namespace QobuzDownloaderX
             }
             else
             {
-                Settings.Default.initialListSeparator = ", ";
+                Settings.Default.initialListSeparator = ";";
                 Settings.Default.Save();
                 Globals.TaggingOptions.PrimaryListSeparator = InitialListSeparatorTextbox.Text;
             }
@@ -611,9 +576,7 @@ namespace QobuzDownloaderX
         private void customFormatIDTextbox_TextChanged(object sender, EventArgs e)
         {
             if (Globals.FormatIdString != "5" || Globals.FormatIdString != "6" || Globals.FormatIdString != "7" || Globals.FormatIdString != "27")
-            {
                 Globals.FormatIdString = customFormatIDTextbox.Text;
-            }
         }
 
         private void exitLabel_Click(object sender, EventArgs e)
@@ -803,7 +766,7 @@ namespace QobuzDownloaderX
 
         private void GoodiesCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Default.getGoodies = goodiesCheckBox.Checked;
+            Settings.Default.getGoodiesTag = goodiesCheckBox.Checked;
             Settings.Default.Save();
             Globals.TaggingOptions.WriteGetGoodiesTag = goodiesCheckBox.Checked;
         }

@@ -534,12 +534,12 @@ namespace QobuzDownloaderX.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
-        public bool mergePerformers {
+        public bool mergePerformersTag {
             get {
-                return ((bool)(this["mergePerformers"]));
+                return ((bool)(this["mergePerformersTag"]));
             }
             set {
-                this["mergePerformers"] = value;
+                this["mergePerformersTag"] = value;
             }
         }
         
@@ -598,12 +598,12 @@ namespace QobuzDownloaderX.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool getGoodies {
+        public bool getGoodiesTag {
             get {
-                return ((bool)(this["getGoodies"]));
+                return ((bool)(this["getGoodiesTag"]));
             }
             set {
-                this["getGoodies"] = value;
+                this["getGoodiesTag"] = value;
             }
         }
     }

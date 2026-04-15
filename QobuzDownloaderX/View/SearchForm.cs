@@ -83,6 +83,7 @@ namespace QobuzDownloaderX
                     errorLines.Add($"Api response reason: {erEx.ResponseReason}");
                     errorLines.Add("");
                     break;
+
                 case ApiResponseParseErrorException pEx:
                     errorLines.Add($"Api response content: {pEx.ResponseContent}");
                     errorLines.Add("");
@@ -278,8 +279,10 @@ namespace QobuzDownloaderX
                 Margin = new Padding(0),
             };
             ControlTools.SetDoubleBuffered(linksPanel);
-            if (webLink != null) linksPanel.Controls.Add(webLink);
-            if (storeLink != null) linksPanel.Controls.Add(storeLink);
+            if (webLink != null)
+                linksPanel.Controls.Add(webLink);
+            if (storeLink != null)
+                linksPanel.Controls.Add(storeLink);
             return linksPanel;
         }
 

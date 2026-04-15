@@ -10,10 +10,7 @@ namespace QobuzDownloaderX.Shared
         public static QobuzApiService GetApiService()
         {
             if (apiService == null)
-            {
                 throw new InvalidOperationException("QobuzApiService not initialized");
-            }
-
             return apiService;
         }
 

@@ -8,24 +8,15 @@ namespace QobuzDownloaderX.Shared
 {
     internal static class StringTools
     {
-        /// <summary>
-        /// Decodes the encoded non ascii characters.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>The decoded string.</returns>
         public static string DecodeEncodedNonAsciiCharacters(string value)
         {
             if (value != null)
             {
-                return Regex.Replace(
-                    value,
-                    @"\\u(?<Value>[a-zA-Z0-9]{4})",
+                return Regex.Replace(value, @"\\u(?<Value>[a-zA-Z0-9]{4})",
                     m => ((char)int.Parse(m.Groups["Value"].Value, NumberStyles.HexNumber)).ToString());
             }
             else
-            {
                 return null;
-            }
         }
 
         // For converting illegal filename characters to an underscore.
@@ -38,9 +29,7 @@ namespace QobuzDownloaderX.Shared
                 return string.Join("_", result.Split(Path.GetInvalidFileNameChars()));
             }
             else
-            {
                 return null;
-            }
         }
 
         // Nullsafe trimming of string to given max length with removal of leading and trailing spaces.
@@ -52,30 +41,21 @@ namespace QobuzDownloaderX.Shared
                 return result.Substring(0, Math.Min(result.Length, maxLength)).Trim();
             }
             else
-            {
                 return "";
-            }
         }
 
         public static string FormatDateTimeOffset(DateTimeOffset? dateTimeOffset)
         {
             if (dateTimeOffset != null)
-            {
                 return dateTimeOffset.GetValueOrDefault().ToString("yyyy-MM-dd");
-            }
             else
-            {
                 return "";
-            }
         }
 
         public static string FormatDurationInSeconds(double durationInSeconds)
         {
             TimeSpan duration = TimeSpan.FromSeconds(durationInSeconds);
-
-            return duration.TotalHours < 1 ?
-                $"{duration:mm\\:ss}" :
-                $"{duration:hh\\:mm\\:ss}";
+            return duration.TotalHours < 1 ? $"{duration:mm\\:ss}" : $"{duration:hh\\:mm\\:ss}";
         }
 
         public static string MergeDoubleDelimitedList(string[] stringList, string initialDelimiter, string finalDelimiter)
@@ -84,20 +64,13 @@ namespace QobuzDownloaderX.Shared
             {
                 string result;
                 if (stringList.Length > 1)
-                {
                     result = string.Join(initialDelimiter, stringList.Take(stringList.Length - 1)) + finalDelimiter + stringList.LastOrDefault();
-                }
                 else
-                {
                     result = stringList.FirstOrDefault();
-                }
-
                 return DecodeEncodedNonAsciiCharacters(result);
             }
             else
-            {
                 return "";
-            }
         }
     }
 }

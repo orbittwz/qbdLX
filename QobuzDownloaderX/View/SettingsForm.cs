@@ -13,11 +13,9 @@ namespace QobuzDownloaderX
             InitializeComponent();
             AppIdTextBox.Text = Settings.Default.appId;
             AppSecretTextBox.Text = Settings.Default.appSecret;
-
             // Add clear buttons
             AddClearTextButton(AppIdTextBox);
             AddClearTextButton(AppSecretTextBox);
-
             // Don't select entire existing value in textbox when it's loaded
             AppIdTextBox.Select(AppIdTextBox.Text.Length, 0);
         }
@@ -34,7 +32,6 @@ namespace QobuzDownloaderX
             };
             clearButton.FlatAppearance.BorderSize = 0;
             clearButton.Click += (s, e) => textBox.Clear();
-
             // Add the button to the same container as the text box
             textBox.Parent.Controls.Add(clearButton);
         }
@@ -76,9 +73,7 @@ namespace QobuzDownloaderX
         {
             Settings.Default.appId = AppIdTextBox.Text;
             Settings.Default.appSecret = AppSecretTextBox.Text;
-
             Settings.Default.Save();
-
             FlexibleMessageBox.Show(
                 "Settings saved!",
                 "Notice",

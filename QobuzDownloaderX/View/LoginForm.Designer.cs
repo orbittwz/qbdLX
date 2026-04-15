@@ -14,9 +14,7 @@
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
             base.Dispose(disposing);
         }
 
@@ -308,7 +306,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.bannerPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

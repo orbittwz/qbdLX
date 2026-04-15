@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace QobuzDownloaderX.Shared
 {
@@ -11,7 +9,7 @@ namespace QobuzDownloaderX.Shared
         private static readonly Dictionary<InvolvedPersonRoleType, List<string>> RoleMappings = new Dictionary<InvolvedPersonRoleType, List<string>>
         {
             { InvolvedPersonRoleType.Miscellaneous, new List<string> { "A&R Director", "A&R", "AAndRAdministrator", "Additional Production",
-                "AHH", "Assistant Mixer", "AssistantEngineer", "Assistant Producer", "Asst. Recording Engineer", "AssociatedPerformer", 
+                "AHH", "Assistant Mixer", "AssistantEngineer", "Assistant Producer", "Asst. Recording Engineer", "AssociatedPerformer",
                 "Author", "Choir", "Chorus Master", "Contractor", "Co-Producer", "Engineer", "Masterer", "Mastering Engineer", "MasteringEngineer",
                 "Misc.Prod.", "Mixer", "Mixing Engineer", "Music Production", "Orchestra", "Performance Arranger", "Programming", "Programmer",
                 "RecordingEngineer", "Soloist", "StudioPersonnel", "Vocals", "Writer"} }, // Default if not mapped!
@@ -30,9 +28,7 @@ namespace QobuzDownloaderX.Shared
         public static List<string> GetStringsByRole(InvolvedPersonRoleType role)
         {
             if (RoleMappings.TryGetValue(role, out var strings))
-            {
                 return strings;
-            }
             return new List<string>();
         }
 

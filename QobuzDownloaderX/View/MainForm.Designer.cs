@@ -14,9 +14,7 @@
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
             base.Dispose(disposing);
         }
 
@@ -1155,6 +1153,7 @@
             this.ListEndSeparatorTextbox.Size = new System.Drawing.Size(15, 17);
             this.ListEndSeparatorTextbox.TabIndex = 116;
             this.ListEndSeparatorTextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ListEndSeparatorTextbox.TextChanged += new System.EventHandler(this.ListEndSeparatorTextbox_TextChanged);
             // 
             // mergePerformersCheckBox
             // 
@@ -1435,7 +1434,6 @@
             this.panel12.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

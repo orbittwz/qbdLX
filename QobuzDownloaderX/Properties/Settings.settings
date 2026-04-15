@@ -119,7 +119,7 @@
     <Setting Name="listEndSeparator" Roaming="true" Type="System.String" Scope="User">
       <Value Profile="(Default)"> &amp; </Value>
     </Setting>
-    <Setting Name="mergePerformers" Roaming="true" Type="System.Boolean" Scope="User">
+    <Setting Name="mergePerformersTag" Roaming="true" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="releaseDateTag" Roaming="true" Type="System.Boolean" Scope="User">
@@ -134,7 +134,7 @@
     <Setting Name="appSecret" Roaming="true" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="getGoodies" Type="System.Boolean" Scope="User">
+    <Setting Name="getGoodiesTag" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

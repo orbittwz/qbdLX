@@ -19,9 +19,7 @@ namespace QobuzDownloaderX.Shared
             {
                 Control control = userControl.Controls[0];
                 if (control.HasChildren)
-                {
                     RemoveControls(control); // Recursively remove and dispose all children
-                }
                 userControl.Controls.Remove(control);
                 control.Dispose(); // Remove Control to clear from memory
             }

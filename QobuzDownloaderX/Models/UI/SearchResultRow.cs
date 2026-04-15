@@ -13,6 +13,5 @@
         public string ReleaseDate { get; set; }
         public bool HiRes { get; set; }
         public string FormattedQuality { get; set; }
-
     }
 }
