@@ -24,15 +24,10 @@ namespace QobuzDownloaderX
         public SearchForm()
         {
             InitializeComponent();
-
             // Remove previous search error log
             if (System.IO.File.Exists(errorLog))
-            {
                 System.IO.File.Delete(errorLog);
-            }
-
             ControlTools.SetDoubleBuffered(containerScrollPanel);
-
             searchTypeSelect.SelectedItem = "Album";
         }
 
@@ -44,7 +39,6 @@ namespace QobuzDownloaderX
                 ControlTools.RemoveControls(resultsTableLayoutPanel);
                 resultsTableLayoutPanel.Dispose();
             }
-
             resultsTableLayoutPanel = new TableLayoutPanel
             {
                 Name = "resultsTableLayoutPanel",
@@ -52,39 +46,34 @@ namespace QobuzDownloaderX
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
                 BackColor = Color.FromArgb(33, 33, 33),
                 Location = new Point(0, 0),
-                Size = new Size(894, 70),
+                Size = new Size(756, 70),
                 TabIndex = 4
             };
             ControlTools.SetDoubleBuffered(resultsTableLayoutPanel);
             resultsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 80F));
-            resultsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 613F));
+            resultsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 475F));
             resultsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
             resultsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 101F));
             resultsTableLayoutPanel.CellPaint += ResultsTableLayoutPanel_CellPaint;
-
             containerScrollPanel.Controls.Add(resultsTableLayoutPanel);
         }
 
         private void ShowAndLogSearchResultError(Exception ex)
         {
             ResetResultsTableLayoutPanel();
-
             resultsTableLayoutPanel.RowCount++;
             resultsTableLayoutPanel.ColumnStyles.Clear();
-            resultsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 914F));
+            resultsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 756F));
             resultsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             TextBox ErrorMesage = CreateTextBox($"{ex.Message}", true, GetResultRowColor(0), Color.OrangeRed,
                 FontManager.CreateFont("Hanken Grotesk Medium", 10, FontStyle.Bold | FontStyle.Italic), BorderStyle.None);
             ResizeControlForText(ErrorMesage, 5);
             resultsTableLayoutPanel.Controls.Add(ErrorMesage, 0, 0);
-
             TextBox ErrorSavedMesage = CreateTextBox($"Error log saved to {errorLog}.", true, GetResultRowColor(0),
                 Color.OrangeRed, FontManager.CreateFont("Hanken Grotesk Medium", 10, FontStyle.Bold | FontStyle.Italic), BorderStyle.None);
             ResizeControlForText(ErrorSavedMesage, 5);
             resultsTableLayoutPanel.Controls.Add(ErrorSavedMesage, 0, 1);
-
             List<string> errorLines = new List<string> { ex.Message };
-
             switch (ex)
             {
                 case ApiErrorResponseException erEx:
@@ -99,16 +88,14 @@ namespace QobuzDownloaderX
                     errorLines.Add("");
                     break;
             }
-
             errorLines.Add(ex.ToString());
-
             // Write detailed info to log
             System.IO.File.AppendAllLines(errorLog, errorLines);
         }
 
         private void ExitLabel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
         }
 
         private void ExitLabel_MouseHover(object sender, EventArgs e)
@@ -190,19 +177,14 @@ namespace QobuzDownloaderX
             resultsTableLayoutPanel.RowCount++;
             resultsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 70));
             int currentRow = resultsTableLayoutPanel.RowCount - 1;
-
             Color rowColor = GetResultRowColor(currentRow);
-
             PictureBox thumbnail = CreateThumbnail(result.ThumbnailUrl, rowColor);
             resultsTableLayoutPanel.Controls.Add(thumbnail, 0, currentRow);
-
             TableLayoutPanel secondColumnPanel = CreateReleaseInfoColumn(result, rowColor);
             resultsTableLayoutPanel.Controls.Add(secondColumnPanel, 1, currentRow);
-
             TableLayoutPanel thirdColumnPanel = CreateQualityColumn(result, rowColor);
             resultsTableLayoutPanel.Controls.Add(thirdColumnPanel, 2, currentRow);
-
-            Button selectButton = CreateDownloadButton(result.WebPlayerUrl);
+            Button selectButton = CreateDownloadButton(result.StoreUrl);
             resultsTableLayoutPanel.Controls.Add(selectButton, 3, currentRow);
         }
 
@@ -230,29 +212,23 @@ namespace QobuzDownloaderX
             Font detailsFont = FontManager.CreateFont("Hanken Grotesk Medium", 10);
             Font titleFont = FontManager.CreateFont("Hanken Grotesk ExtraBold", 13, FontStyle.Bold);
             Font artistFont = FontManager.CreateFont("Hanken Grotesk", 11, FontStyle.Bold | FontStyle.Italic);
-
             // Create TextBox controls
             TextBox titleTextBox = CreateTextBox(result.Title, true, rowColor, Color.White, titleFont, BorderStyle.None);
             TextBox durationTextBox = CreateTextBox(result.FormattedDuration, true, rowColor, Color.WhiteSmoke, detailsFont, BorderStyle.None, HorizontalAlignment.Right);
             TextBox artistTextBox = CreateTextBox(result.Artist, true, rowColor, Color.WhiteSmoke, artistFont, BorderStyle.None);
             TextBox releaseDateTextBox = CreateTextBox(result.ReleaseDate, true, rowColor, Color.WhiteSmoke, detailsFont, BorderStyle.None, HorizontalAlignment.Right);
             TextBox tracks = CreateTracksTextBox(result.TrackCount, rowColor, detailsFont);
-
             // Resize TextBox controls fitting text in given font (estimation)
-            ResizeControlForText(titleTextBox, 0, 500);
+            ResizeControlForText(titleTextBox, 0, 350);
             ResizeControlForText(artistTextBox, 5);
-
             // Create titlePanel
             FlowLayoutPanel titlePanel = CreateTitlePanel(titleTextBox, result.Explicit);
-
             // Create storeLink and webLink
             LinkLabel storeLink = CreateLinkLabel("Preview in Store", result.StoreUrl, Color.FromArgb(0, 112, 239), Color.Blue, rowColor);
             LinkLabel webLink = CreateLinkLabel("Preview in Web Player", result.WebPlayerUrl, Color.FromArgb(0, 112, 239), Color.Blue, rowColor);
-
             // Add storeLink and webLink functionality
             AddLinkLabelFunctionality(storeLink);
             AddLinkLabelFunctionality(webLink);
-
             // Create releaseInfoColumnPanel Control and add child Controls
             return CreateReleaseInfoPanel(rowColor, titlePanel, durationTextBox, artistTextBox, releaseDateTextBox, tracks, webLink, storeLink);
         }
@@ -277,7 +253,6 @@ namespace QobuzDownloaderX
                 //BorderStyle = BorderStyle.FixedSingle
             };
             ControlTools.SetDoubleBuffered(titlePanel);
-
             if (isExplicit)
             {
                 System.Windows.Forms.Label explicitLabel = CreateLabel("E", Color.FromArgb(75, 75, 75), Color.OrangeRed,
@@ -286,13 +261,11 @@ namespace QobuzDownloaderX
                 // Add tooltip for "Explicit"
                 ToolTip toolTip = new ToolTip();
                 toolTip.SetToolTip(explicitLabel, "Explicit");
-
                 // Resize titleTextBox to make room for "Explicit"
                 int finalExplicitLabelWidth = explicitLabel.GetPreferredSize(new Size(0, 0)).Width + explicitLabel.Margin.Left + explicitLabel.Margin.Right;
-                titleTextBox.Width = 500 - finalExplicitLabelWidth;
+                titleTextBox.Width = 350 - finalExplicitLabelWidth;
                 titlePanel.Controls.Add(explicitLabel);
             }
-
             return titlePanel;
         }
 
@@ -305,10 +278,8 @@ namespace QobuzDownloaderX
                 Margin = new Padding(0),
             };
             ControlTools.SetDoubleBuffered(linksPanel);
-
             if (webLink != null) linksPanel.Controls.Add(webLink);
             if (storeLink != null) linksPanel.Controls.Add(storeLink);
-
             return linksPanel;
         }
 
@@ -319,29 +290,23 @@ namespace QobuzDownloaderX
             {
                 Dock = DockStyle.Fill,
                 BackColor = rowColor,
-                ColumnStyles = { new ColumnStyle(SizeType.Absolute, 500), new ColumnStyle(SizeType.Absolute, 80) }
+                ColumnStyles = { new ColumnStyle(SizeType.Absolute, 350), new ColumnStyle(SizeType.Absolute, 80) }
             };
             ControlTools.SetDoubleBuffered(releaseInfoColumnPanel);
-
             // Add controls to releaseInfoColumnPanel
             releaseInfoColumnPanel.Controls.Add(titlePanel, 0, 0);
             releaseInfoColumnPanel.Controls.Add(durationTextBox, 1, 0);
             releaseInfoColumnPanel.Controls.Add(artistTextBox, 0, 1);
             releaseInfoColumnPanel.Controls.Add(releaseDateTextBox, 1, 1);
-
             // Add tracks TextBox if it exists
             if (tracks != null)
-            {
                 releaseInfoColumnPanel.Controls.Add(tracks, 1, 2);
-            }
-
             // Create linksPanel when at least 1 link exists
             if (webLink != null || storeLink != null)
             {
                 FlowLayoutPanel linksPanel = CreateLinksPanel(rowColor, webLink, storeLink);
                 releaseInfoColumnPanel.Controls.Add(linksPanel, 0, 2);
             }
-
             return releaseInfoColumnPanel;
         }
 
@@ -349,7 +314,6 @@ namespace QobuzDownloaderX
         {
             TextBox quality = CreateTextBox(result.FormattedQuality, true, rowColor, Color.White, FontManager.CreateFont("Hanken Grotesk Medium", 10), BorderStyle.None);
             PictureBox hiResIcon = null;
-
             if (result.HiRes)
             {
                 hiResIcon = new PictureBox
@@ -361,7 +325,6 @@ namespace QobuzDownloaderX
                     Anchor = AnchorStyles.Top
                 };
             }
-
             TableLayoutPanel qualityColumnPanel = new TableLayoutPanel
             {
                 ColumnCount = 1,
@@ -371,14 +334,13 @@ namespace QobuzDownloaderX
                 RowStyles = { new RowStyle(SizeType.AutoSize), new RowStyle(SizeType.AutoSize) }
             };
             ControlTools.SetDoubleBuffered(qualityColumnPanel);
-
             qualityColumnPanel.Controls.Add(quality, 0, 0);
-            if (hiResIcon != null) qualityColumnPanel.Controls.Add(hiResIcon, 0, 1);
-
+            if (hiResIcon != null)
+                qualityColumnPanel.Controls.Add(hiResIcon, 0, 1);
             return qualityColumnPanel;
         }
 
-        private Button CreateDownloadButton(string webPlayerUrl)
+        private Button CreateDownloadButton(string url)
         {
             Button downloadButton = new Button
             {
@@ -394,40 +356,36 @@ namespace QobuzDownloaderX
             downloadButton.FlatAppearance.BorderSize = 0;
             downloadButton.Click += (sender, e) =>
             {
-                _ = HandleDownloadAsync(webPlayerUrl);
+                _ = HandleDownloadAsync(url);
             };
-
             return downloadButton;
         }
 
-        private async Task HandleDownloadAsync(string webPlayerUrl)
+        private async Task HandleDownloadAsync(string url)
         {
             try
             {
                 // Copy selected download link to the main form link field for convenience
-                Globals.QbdlxForm.downloadUrl.Invoke(new Action(() => Globals.QbdlxForm.downloadUrl.Text = webPlayerUrl));
-                this.Close();
+                Globals.QbdlxForm.downloadUrl.Invoke(new Action(() => Globals.QbdlxForm.downloadUrl.Text = url));
+                this.Hide();
                 // Start download from the main form
-                await Globals.QbdlxForm.StartLinkItemDownloadAsync(webPlayerUrl);
+                await Globals.QbdlxForm.StartLinkItemDownloadAsync(url);
             }
             catch (Exception ex)
             {
                 // Handle the exception (e.g., log it, show an error message, etc.)
                 List<string> errorLines = new List<string>
                 {
-                    $"Error starting download for {webPlayerUrl}",
+                    $"Error starting download for {url}",
                     ex.ToString(),
                     ""
                 };
-
                 // Write detailed info to log
                 System.IO.File.AppendAllLines(errorLog, errorLines);
-
                 // Show an error message to the user
-                MessageBox.Show($"Error starting download for {webPlayerUrl}\nlog saved to {errorLog}.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error starting download for {url}\nlog saved to {errorLog}.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private TextBox CreateTextBox(string text, bool readOnly, Color backColor, Color foreColor, Font font, BorderStyle borderStyle, HorizontalAlignment textAlign = HorizontalAlignment.Left)
         {
@@ -464,8 +422,8 @@ namespace QobuzDownloaderX
 
         private LinkLabel CreateLinkLabel(string text, string url, Color linkColor, Color activeLinkColor, Color backColor)
         {
-            if (string.IsNullOrEmpty(url)) return null;
-
+            if (string.IsNullOrEmpty(url))
+                return null;
             return new LinkLabel
             {
                 Text = text,
@@ -481,18 +439,15 @@ namespace QobuzDownloaderX
 
         private void AddLinkLabelFunctionality(LinkLabel linkLabel)
         {
-            if (linkLabel == null || linkLabel.Tag == null) return;
-
+            if (linkLabel == null || linkLabel.Tag == null)
+                return;
             // Get URL from Tag attribute
             string url = linkLabel.Tag.ToString();
-
             // Open the URL in the default browser when clicked
             linkLabel.LinkClicked += (sender, e) => Process.Start(url);
-
             // Add tooltip with the URL
             ToolTip toolTip = new ToolTip();
             toolTip.SetToolTip(linkLabel, url);
-
             // Add context menu with "Copy URL" option
             ContextMenu contextMenu = new ContextMenu();
             MenuItem copyUrlItem = new MenuItem("Copy URL");
@@ -558,14 +513,10 @@ namespace QobuzDownloaderX
             searchButton.Enabled = true;
         }
 
-        private void SearchForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            // Nothing yet
-        }
-
         private void SearchForm_Load(object sender, EventArgs e)
         {
-            // Nothing yet
+            this.Left = Globals.QbdlxForm.Right + 30;
+            this.Top = (Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 2;
         }
 
         // Enable moving Form with mouse in absence of titlebar

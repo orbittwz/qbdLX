@@ -37,8 +37,9 @@ namespace QobuzDownloaderX
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // Set main form size on launch and bring to center.
-            this.CenterToScreen();
+            // Set main form size on launch and bring to left center.
+            this.Left = 30;
+            this.Top = (Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 2;
             // Grab profile image
             string profilePic = Convert.ToString(Globals.Login.User.Avatar);
             profilePictureBox.ImageLocation = profilePic.Replace(@"\", null).Replace("s=50", "s=20");
@@ -201,7 +202,8 @@ namespace QobuzDownloaderX
 
         private void OpenSearch_Click(object sender, EventArgs e)
         {
-            Globals.SearchForm.ShowDialog(this);
+            if (Globals.SearchForm.Visible == false)
+                Globals.SearchForm.Show(this);
         }
 
         private async void DownloadButton_Click(object sender, EventArgs e)
@@ -209,7 +211,8 @@ namespace QobuzDownloaderX
             if (!downloadManager.IsBusy)
             {
                 await StartLinkItemDownloadAsync(downloadUrl.Text);
-            } else
+            }
+            else
             {
                 downloadManager.StopDownloadTask();
             }

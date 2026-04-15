@@ -44,11 +44,10 @@
             this.searchInput.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.searchInput.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.searchInput.ForeColor = System.Drawing.Color.White;
-            this.searchInput.Location = new System.Drawing.Point(177, 69);
-            this.searchInput.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.searchInput.Location = new System.Drawing.Point(118, 42);
             this.searchInput.Multiline = true;
             this.searchInput.Name = "searchInput";
-            this.searchInput.Size = new System.Drawing.Size(1023, 31);
+            this.searchInput.Size = new System.Drawing.Size(544, 20);
             this.searchInput.TabIndex = 0;
             this.searchInput.WordWrap = false;
             this.searchInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SearchInput_KeyDown);
@@ -59,10 +58,9 @@
             this.searchButton.FlatAppearance.BorderSize = 0;
             this.searchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.searchButton.ForeColor = System.Drawing.Color.White;
-            this.searchButton.Location = new System.Drawing.Point(1209, 62);
-            this.searchButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.searchButton.Location = new System.Drawing.Point(668, 42);
             this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(180, 35);
+            this.searchButton.Size = new System.Drawing.Size(120, 23);
             this.searchButton.TabIndex = 1;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = false;
@@ -71,10 +69,9 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.panel1.Location = new System.Drawing.Point(177, 97);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panel1.Location = new System.Drawing.Point(118, 60);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1020, 2);
+            this.panel1.Size = new System.Drawing.Size(544, 1);
             this.panel1.TabIndex = 87;
             // 
             // exitlbl
@@ -83,8 +80,7 @@
             this.exitlbl.BackColor = System.Drawing.Color.Transparent;
             this.exitlbl.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitlbl.ForeColor = System.Drawing.Color.White;
-            this.exitlbl.Location = new System.Drawing.Point(1359, 12);
-            this.exitlbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.exitlbl.Location = new System.Drawing.Point(768, 8);
             this.exitlbl.Name = "exitlbl";
             this.exitlbl.Size = new System.Drawing.Size(20, 23);
             this.exitlbl.TabIndex = 89;
@@ -98,10 +94,9 @@
             // 
             this.logoPictureBox.BackColor = System.Drawing.Color.Transparent;
             this.logoPictureBox.Image = global::QobuzDownloaderX.Properties.Resources.qbdlx_white;
-            this.logoPictureBox.Location = new System.Drawing.Point(18, 14);
-            this.logoPictureBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.logoPictureBox.Location = new System.Drawing.Point(12, 8);
             this.logoPictureBox.Name = "logoPictureBox";
-            this.logoPictureBox.Size = new System.Drawing.Size(158, 40);
+            this.logoPictureBox.Size = new System.Drawing.Size(105, 26);
             this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.logoPictureBox.TabIndex = 90;
             this.logoPictureBox.TabStop = false;
@@ -110,10 +105,9 @@
             // 
             this.containerScrollPanel.AutoScroll = true;
             this.containerScrollPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.containerScrollPanel.Location = new System.Drawing.Point(18, 108);
-            this.containerScrollPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.containerScrollPanel.Location = new System.Drawing.Point(12, 70);
             this.containerScrollPanel.Name = "containerScrollPanel";
-            this.containerScrollPanel.Size = new System.Drawing.Size(1371, 694);
+            this.containerScrollPanel.Size = new System.Drawing.Size(776, 518);
             this.containerScrollPanel.TabIndex = 4;
             // 
             // searchTypeSelect
@@ -123,18 +117,17 @@
             this.searchTypeSelect.Items.AddRange(new object[] {
             "Album",
             "Track"});
-            this.searchTypeSelect.Location = new System.Drawing.Point(18, 66);
-            this.searchTypeSelect.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.searchTypeSelect.Location = new System.Drawing.Point(12, 42);
             this.searchTypeSelect.Name = "searchTypeSelect";
-            this.searchTypeSelect.Size = new System.Drawing.Size(148, 28);
+            this.searchTypeSelect.Size = new System.Drawing.Size(100, 21);
             this.searchTypeSelect.TabIndex = 3;
             // 
             // SearchForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ClientSize = new System.Drawing.Size(1407, 820);
+            this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.exitlbl);
             this.Controls.Add(this.searchTypeSelect);
             this.Controls.Add(this.containerScrollPanel);
@@ -146,11 +139,9 @@
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "SearchForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "QobuzDLX | Search";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SearchForm_FormClosed);
             this.Load += new System.EventHandler(this.SearchForm_Load);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SearchForm_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
