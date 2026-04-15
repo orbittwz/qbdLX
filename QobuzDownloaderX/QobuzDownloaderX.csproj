@@ -230,7 +230,9 @@
     <PackageReference Include="QobuzApiSharp">
       <Version>0.0.8</Version>
     </PackageReference>
-    <PackageReference Include="TagLibSharp" Version="2.3.0" />
+    <PackageReference Include="TagLibSharp">
+      <Version>2.3.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\smr-audio.png" />
