@@ -644,6 +644,7 @@ namespace QobuzDownloaderX
 
         private void QobuzDownloaderX_FormClosed(object sender, FormClosedEventArgs e)
         {
+            Globals.SearchForm.Close();
             Application.Exit();
         }
 
