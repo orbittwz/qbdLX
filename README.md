@@ -2,7 +2,7 @@
 
 [![Latest Version](https://img.shields.io/github/v/release/orbittwz/qbdLX?color=blue)](../../releases/latest)
 [![Release date](https://img.shields.io/github/release-date/orbittwz/qbdLX)](../../releases/latest)
-[![Downloads Latest](https://img.shields.io/github/downloads/orbittwz/qbdLX/latest/total?color=blue&label=downloads%20latest)](../../releases)  
+[![Downloads Latest](https://img.shields.io/github/downloads/orbittwz/qbdLX/latest/total?color=blue&label=downloads%20latest)](../../releases)
 [![Downloads Total](https://img.shields.io/github/downloads/orbittwz/qbdLX/total?color=blue&label=downloads%20total)](../../releases)
 [![C#](https://img.shields.io/badge/c%23-%23239120.svg?flat&logo=c-sharp&logoColor=white)](https://learn.microsoft.com/en-us/dotnet/csharp/)
 [![License](https://img.shields.io/github/license/orbittwz/qbdLX?flat)](./LICENSE)
