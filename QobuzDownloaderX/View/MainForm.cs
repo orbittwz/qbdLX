@@ -15,7 +15,6 @@ namespace QobuzDownloaderX
     {
         private readonly DownloadLogger logger;
         private readonly DownloadManager downloadManager;
-        //public string DownloadLogPath { get; set; }
         public int DevClickEggThingValue { get; set; }
         public int DebugMode { get; set; }
         // Button color download inactive
@@ -466,6 +465,8 @@ namespace QobuzDownloaderX
         private void ArtSizeSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Set ArtSize to selected value, and save selected option to settings.
+            if (artSizeSelect.Text == "org")
+                MessageBox.Show("Choosing this embedded cover art size may cause issues!", "Notice", MessageBoxButtons.OK);
             Globals.TaggingOptions.ArtSize = artSizeSelect.Text;
             Settings.Default.savedArtSize = artSizeSelect.SelectedIndex;
             Settings.Default.Save();

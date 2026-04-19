@@ -481,5 +481,22 @@ namespace QobuzDownloaderX
                 userAuthTokenTextbox.UseSystemPasswordChar = false;
             }
         }
+
+        private void ClearLoginInfobtn_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Clearing saved login information... Are you sure?", "Warning", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                emailTextbox.Text = string.Empty;
+                passwordTextbox.Text = string.Empty;
+                userIdTextbox.Text = string.Empty;
+                userAuthTokenTextbox.Text = string.Empty;
+                Settings.Default.savedEmail = emailTextbox.Text;
+                Settings.Default.savedPassword = passwordTextbox.Text;
+                Settings.Default.savedUserID = userIdTextbox.Text;
+                Settings.Default.savedUserAuthToken = userAuthTokenTextbox.Text;
+                Settings.Default.Save();
+            }
+        }
     }
 }

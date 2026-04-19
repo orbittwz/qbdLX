@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using System.Linq;
@@ -86,7 +87,10 @@ namespace QobuzDownloaderX.Shared
             AddEmptyDownloadLogLine(true, true);
             // notify downloading is completed.
             if (noErrorsOccured)
+            {
                 AddDownloadLogLine("Download job completed! All downloaded files will be located in your chosen path.", true, true);
+                this.ChangeTextColor(System.Drawing.Color.LawnGreen);
+            }
             else
                 AddDownloadLogLine("Download job completed with warnings and/or errors! Some or all files could be missing!", true, true);
             updateUiOnDownloadEnd?.Invoke();
@@ -94,7 +98,14 @@ namespace QobuzDownloaderX.Shared
 
         public void ClearUILogComponent()
         {
-            ScreenOutputTextBox.Invoke(new Action(() => ScreenOutputTextBox.Text = String.Empty));
+            this.ScreenOutputTextBox.Invoke(new Action(() => ScreenOutputTextBox.Text = String.Empty));
+            this.ScreenOutputTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+        }
+
+        public void ChangeTextColor(Color color)
+        {
+            //this.ScreenOutputTextBox.BackColor = System.Drawing.Color.Aquamarine;
+            this.ScreenOutputTextBox.ForeColor = color;
         }
     }
 }

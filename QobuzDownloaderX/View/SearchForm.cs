@@ -8,8 +8,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -111,18 +109,20 @@ namespace QobuzDownloaderX
 
         private void Fill_AlbumResultsTablePanel(SearchResult searchResult)
         {
-            foreach (Album album in searchResult?.Albums?.Items.ToList())
-            {
-                if (album == null)
-                    continue;
-                if (Regex.IsMatch(searchInput.Text, album.Artist.Name, RegexOptions.IgnoreCase) == false)
-                    searchResult.Albums?.Items.Remove(album);
-                //todo if I will decide to implement #13 (non-explicit results filtering), this is the place...
-                //todo to iterate and compare if item album name and artist name is the same, along with Duration +- 10 seconds, then remove the non-explicit result.
-                //todo same with tracks.
-            }
+            // 19/4 commented this filter since it's too restrictive.
+            //foreach (Album album in searchResult?.Albums?.Items.ToList())
+            //{
+            //    if (album == null)
+            //        continue;
+            //    if (Regex.IsMatch(searchInput.Text, album.Artist.Name, RegexOptions.IgnoreCase) == false)
+            //        searchResult.Albums?.Items.Remove(album);
+            //    //todo if I will decide to implement #13 (non-explicit results filtering), this is the place...
+            //    //todo to iterate and compare if item album name and artist name is the same, along with Duration +- 10 seconds, then remove the non-explicit result.
+            //    //todo same with tracks.
+            //}
             FillResultsTablePanel(searchResult?.Albums?.Items, album => new SearchResultRow
             {
+                ResultType = "Album",
                 ThumbnailUrl = album.Image.Thumbnail,
                 Artist = album.Artist.Name,
                 Title = StringTools.DecodeEncodedNonAsciiCharacters(album.Version != null ? $"{album.Title.TrimEnd()} ({album.Version})" : album.Title.TrimEnd()),
@@ -139,15 +139,17 @@ namespace QobuzDownloaderX
 
         private void Fill_TrackResultsTablePanel(SearchResult searchResult)
         {
-            foreach (Track track in searchResult?.Tracks?.Items.ToList())
-            {
-                if (track == null)
-                    continue;
-                if (Regex.IsMatch(searchInput.Text, track.Performer.Name, RegexOptions.IgnoreCase) == false)
-                    searchResult.Tracks?.Items.Remove(track);
-            }
+            // 19/4 commented this filter since it's too restrictive.
+            //foreach (Track track in searchResult?.Tracks?.Items.ToList())
+            //{
+            //    if (track == null)
+            //        continue;
+            //    if (Regex.IsMatch(searchInput.Text, track.Performer.Name, RegexOptions.IgnoreCase) == false)
+            //        searchResult.Tracks?.Items.Remove(track);
+            //}
             FillResultsTablePanel(searchResult?.Tracks?.Items, track => new SearchResultRow
             {
+                ResultType = "Track",
                 ThumbnailUrl = track.Album.Image.Thumbnail,
                 Artist = track.Performer.Name,
                 Title = StringTools.DecodeEncodedNonAsciiCharacters(track.Version != null ? $"{track.Title.TrimEnd()} ({track.Version})" : track.Title.TrimEnd()),
@@ -155,8 +157,7 @@ namespace QobuzDownloaderX
                 FormattedDuration = StringTools.FormatDurationInSeconds(track.Duration.GetValueOrDefault()),
                 FormattedQuality = $"{track.MaximumBitDepth}-Bit / {track.MaximumSamplingRate} kHz",
                 WebPlayerUrl = $"{Globals.WEBPLAYER_BASE_URL}/track/{track.Id}",
-                StoreUrl = Globals.Login.User.Store == "fr-fr" ? track.Album.Url : ("https://www.qobuz.com/" + Globals.Login.User.Store +
-                    track.Album.Url.Substring(track.Album.Url.IndexOf("/album"))).ToLower(),
+                StoreUrl = ("https://www.qobuz.com/" + Globals.Login.User.Store + "/album/" + track.Album.Id).ToLower(),
                 ReleaseDate = track.Album.ReleaseDateOriginal.GetValueOrDefault().ToString("yyyy-MM-dd"),
                 HiRes = track.Hires.GetValueOrDefault()
             });
@@ -185,7 +186,7 @@ namespace QobuzDownloaderX
             resultsTableLayoutPanel.Controls.Add(secondColumnPanel, 1, currentRow);
             TableLayoutPanel thirdColumnPanel = CreateQualityColumn(result, rowColor);
             resultsTableLayoutPanel.Controls.Add(thirdColumnPanel, 2, currentRow);
-            Button selectButton = CreateDownloadButton(result.StoreUrl);
+            Button selectButton = CreateDownloadButton(result.ResultType == "Album" ? result.StoreUrl : result.WebPlayerUrl);
             resultsTableLayoutPanel.Controls.Add(selectButton, 3, currentRow);
         }
 
@@ -225,7 +226,11 @@ namespace QobuzDownloaderX
             // Create titlePanel
             FlowLayoutPanel titlePanel = CreateTitlePanel(titleTextBox, result.Explicit);
             // Create storeLink and webLink
-            LinkLabel storeLink = CreateLinkLabel("Preview in Store", result.StoreUrl, Color.FromArgb(0, 112, 239), Color.Blue, rowColor);
+            LinkLabel storeLink;
+            if (result.ResultType == "Album")
+                storeLink = CreateLinkLabel("Preview in Store", result.StoreUrl, Color.FromArgb(0, 112, 239), Color.Blue, rowColor);
+            else
+                storeLink = CreateLinkLabel("Preview whole album in Store", result.StoreUrl, Color.FromArgb(0, 112, 239), Color.Blue, rowColor);
             LinkLabel webLink = CreateLinkLabel("Preview in Web Player", result.WebPlayerUrl, Color.FromArgb(0, 112, 239), Color.Blue, rowColor);
             // Add storeLink and webLink functionality
             AddLinkLabelFunctionality(storeLink);

@@ -558,13 +558,7 @@ namespace QobuzDownloaderX.Shared
                     return;
                 logger.AddDownloadLogLine($"Track \"{qobuzTrack.Title}\" found. Starting Download...", true, true);
                 logger.AddEmptyDownloadLogLine(true, true);
-                bool fileDownloaded = await DownloadTrackAsync(cancellationToken, qobuzTrack, downloadBasePath, true, false, true);
-                // If download failed, abort
-                if (!fileDownloaded)
-                    return;
-                // notify downloading is completed.
-                logger.AddEmptyDownloadLogLine(true, true);
-                logger.AddDownloadLogLine("Download job completed! All downloaded files will be located in your chosen path.", true, true);
+                logger.LogFinishedDownloadJob(await DownloadTrackAsync(cancellationToken, qobuzTrack, downloadBasePath, true, false, true));
             }
             catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
             {
@@ -810,7 +804,7 @@ namespace QobuzDownloaderX.Shared
             try
             {
                 bool noTrackErrorsOccured = true;
-                // Get UserFavoritesIds model object, getting Id's allows all results at once.
+                // Get UserFavoritesIds model object, getting Ids allows all results at once.
                 UserFavoritesIds qobuzUserFavoritesIds = ExecuteApiCall(apiService => apiService.GetUserFavoriteIds(DownloadInfo.DownloadItemID));
                 // If API call failed, abort
                 if (qobuzUserFavoritesIds == null)
@@ -863,7 +857,7 @@ namespace QobuzDownloaderX.Shared
             logger.AddEmptyDownloadLogLine(true, true);
             try
             {
-                // Get Playlist model object with all track_ids
+                // Get Playlist model object with all track ids
                 Playlist qobuzPlaylist = ExecuteApiCall(apiService => apiService.GetPlaylist(DownloadInfo.DownloadItemID, true, "track_ids", 10000));
                 // If API call failed, abort
                 if (qobuzPlaylist == null)
@@ -969,7 +963,7 @@ namespace QobuzDownloaderX.Shared
                 DownloadPaths.Path2Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath, DownloadPaths.AlbumNamePath + albumPathSuffix);
                 DownloadPaths.Path3Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath, DownloadPaths.AlbumNamePath + albumPathSuffix, qualityPath);
                 // If more than 1 disc, create folders for discs. Otherwise, strings will remain null
-                // Pad discnumber with minimum of 2 integer positions based on total number of disks
+                // Pad Disc Number with minimum of 2 integer positions based on total number of discs
                 if (DownloadInfo.DiscTotal > 1)
                 {
                     // Create strings for disc folders

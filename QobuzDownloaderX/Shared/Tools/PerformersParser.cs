@@ -16,7 +16,7 @@ namespace QobuzDownloaderX.Shared
                 performers = performersFullString
                     .Split(new string[] { " - " }, StringSplitOptions.None) // Split performers by " - " because some roles include '-'
                     .Select(performer => performer.Split(',')) // Split name & roles in best effort by ',', first part is name, next parts roles
-                    .GroupBy(parts => parts[0].Trim()) // Group performers by name since they can occure multiple times
+                    .GroupBy(parts => parts[0].Trim()) // Group performers by name since they can occur multiple times
                     .ToDictionary(group => group.Key, group => group.SelectMany(parts =>
                         parts.Skip(1).Select(role => role.Trim())).Distinct().ToList()); // Flatten roles by performer and remove duplicates
             }

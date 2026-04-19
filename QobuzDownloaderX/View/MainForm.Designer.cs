@@ -156,7 +156,6 @@
             this.output.Location = new System.Drawing.Point(12, 141);
             this.output.Multiline = true;
             this.output.Name = "output";
-            this.output.ReadOnly = true;
             this.output.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.output.Size = new System.Drawing.Size(705, 339);
             this.output.TabIndex = 20;
@@ -1434,6 +1433,7 @@
             this.panel12.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
