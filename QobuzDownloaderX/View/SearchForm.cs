@@ -374,7 +374,7 @@ namespace QobuzDownloaderX
             try
             {
                 // Copy selected download link to the main form link field for convenience
-                Globals.QbdlxForm.downloadUrl.Invoke(new Action(() => Globals.QbdlxForm.downloadUrl.Text = url));
+                Globals.QbdlxForm.DownloadUrl.Invoke(new Action(() => Globals.QbdlxForm.DownloadUrl.Text = url));
                 this.Hide();
                 // Start download from the main form
                 await Globals.QbdlxForm.StartLinkItemDownloadAsync(url);

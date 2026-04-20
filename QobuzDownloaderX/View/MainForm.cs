@@ -772,5 +772,17 @@ namespace QobuzDownloaderX
             Settings.Default.Save();
             Globals.TaggingOptions.WriteGetGoodiesTag = goodiesCheckBox.Checked;
         }
+
+        public TextBox DownloadUrl
+        {
+            get
+            {
+                return this.downloadUrl;
+            }
+            set
+            {
+                this.downloadUrl = value;
+            }
+        }
     }
 }
