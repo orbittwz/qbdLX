@@ -40,19 +40,6 @@ namespace QobuzDownloaderX.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
-        public string savedAppID {
-            get {
-                return ((string)(this["savedAppID"]));
-            }
-            set {
-                this["savedAppID"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
         public string savedEmail {
             get {
                 return ((string)(this["savedEmail"]));
@@ -72,19 +59,6 @@ namespace QobuzDownloaderX.Properties {
             }
             set {
                 this["savedPassword"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
-        public string savedFormatID {
-            get {
-                return ((string)(this["savedFormatID"]));
-            }
-            set {
-                this["savedFormatID"] = value;
             }
         }
         

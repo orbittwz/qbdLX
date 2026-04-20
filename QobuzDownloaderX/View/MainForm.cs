@@ -126,6 +126,8 @@ namespace QobuzDownloaderX
             labelCheckbox.Checked = Settings.Default.labelTag;
             involvedPeopleCheckBox.Checked = Settings.Default.involvedPeopleTag;
             mergePerformersCheckBox.Checked = Settings.Default.mergePerformersTag;
+            InitialListSeparatorTextbox.Text = Settings.Default.initialListSeparator;
+            ListEndSeparatorTextbox.Text = Settings.Default.listEndSeparator;
             copyrightCheckbox.Checked = Settings.Default.copyrightTag;
             discNumberCheckbox.Checked = Settings.Default.discTag;
             discTotalCheckbox.Checked = Settings.Default.totalDiscsTag;
@@ -141,6 +143,11 @@ namespace QobuzDownloaderX
             releaseDateCheckbox.Checked = Settings.Default.releaseDateTag;
             imageCheckbox.Checked = Settings.Default.imageTag;
             urlCheckBox.Checked = Settings.Default.urlTag;
+            mp3RadioBtn.Checked = Settings.Default.quality == "q1";
+            flacLowRadioBtn.Checked = Settings.Default.quality == "q2";
+            flacMidRadioBtn.Checked = Settings.Default.quality == "q3";
+            flacHighRadioBtn.Checked = Settings.Default.quality == "q4";
+            goodiesCheckBox.Checked = Settings.Default.getGoodiesTag;
             Globals.FormatIdString = Settings.Default.qualityFormat;
             Globals.AudioFileType = Settings.Default.audioType;
             artSizeSelect.SelectedIndex = Settings.Default.savedArtSize;
@@ -149,13 +156,6 @@ namespace QobuzDownloaderX
             Globals.MaxLength = Settings.Default.savedMaxLength;
             customFormatIDTextbox.Text = Globals.FormatIdString;
             maxLengthTextbox.Text = Globals.MaxLength.ToString();
-            InitialListSeparatorTextbox.Text = Settings.Default.initialListSeparator;
-            ListEndSeparatorTextbox.Text = Settings.Default.listEndSeparator;
-            mp3RadioBtn.Checked = Settings.Default.quality == "q1";
-            flacLowRadioBtn.Checked = Settings.Default.quality == "q2";
-            flacMidRadioBtn.Checked = Settings.Default.quality == "q3";
-            flacHighRadioBtn.Checked = Settings.Default.quality == "q4";
-            goodiesCheckBox.Checked = Settings.Default.getGoodiesTag;
             // Check if there's no selected path saved.
             if (string.IsNullOrEmpty(folderBrowserDialog.SelectedPath))
             {
@@ -238,10 +238,10 @@ namespace QobuzDownloaderX
                 output.Invoke(new Action(() => output.AppendText("URL not understood. Is there a typo?")));
                 return;
             }
-            // If, for some reason, a download is still busy, do nothing
+            // If for some reason a download is still busy, do nothing
             if (downloadManager.IsBusy)
                 return;
-            // Run the StartDownloadItemTaskAsync method on a background thread & Wait for the task to complete
+            // Run the StartDownloadItemTaskAsync method on a background thread & wait for the task to complete
             await Task.Run(() => downloadManager.StartDownloadItemTaskAsync(downloadItem, UpdateControlsDownloadStart, UpdateControlsDownloadEnd));
         }
 
@@ -271,7 +271,7 @@ namespace QobuzDownloaderX
         {
             Thread t = new Thread((ThreadStart)(() =>
             {
-                // Open Folder Browser to select path & Save the selection
+                // Open Folder Browser to select path & save the selection
                 folderBrowserDialog.ShowDialog();
                 Settings.Default.savedFolder = folderBrowserDialog.SelectedPath;
                 Settings.Default.Save();
@@ -310,7 +310,7 @@ namespace QobuzDownloaderX
         // Update UI for downloading album
         public void UpdateAlbumTagsUI(DownloadItemInfo downloadInfo)
         {
-            //  Display album art
+            // Display album art
             albumArtPicBox.Invoke(new Action(() => albumArtPicBox.ImageLocation = downloadInfo.FrontCoverImgBoxUrl));
             // Display album quality in Quality textbox.
             qualityTextbox.Invoke(new Action(() => qualityTextbox.Text = downloadInfo.DisplayQuality));
