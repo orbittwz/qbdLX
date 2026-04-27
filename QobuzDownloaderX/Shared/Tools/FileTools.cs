@@ -6,7 +6,7 @@ namespace QobuzDownloaderX.Shared
 {
     internal static class FileTools
     {
-        public static void DeleteFilesByAge(string folderPath, int maxAgeInDays)
+        private static void DeleteFilesByAge(string folderPath, int maxAgeInDays)
         {
             if (!Directory.Exists(folderPath))
                 return;

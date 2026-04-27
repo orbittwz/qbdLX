@@ -3,11 +3,13 @@ using QobuzDownloaderX.Properties;
 using QobuzDownloaderX.Shared;
 using QobuzDownloaderX.View;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace QobuzDownloaderX
 {
@@ -15,12 +17,13 @@ namespace QobuzDownloaderX
     {
         private readonly DownloadLogger logger;
         private readonly DownloadManager downloadManager;
-        public int DevClickEggThingValue { get; set; }
-        public int DebugMode { get; set; }
+        private readonly List<string> folderNameList1;
+        private int DevClickEggThingValue { get; set; }
+        private int DebugMode { get; set; }
         // Button color download inactive
-        private readonly Color ReadyButtonBackColor = Color.FromArgb(0, 112, 239); // Windows Blue (Azure Blue)
+        private readonly Color readyButtonBackColor = Color.FromArgb(0, 112, 239); // Windows Blue (Azure Blue)
         // Button color download active
-        private readonly Color BusyButtonBackColor = Color.FromArgb(200, 30, 0); // Red
+        private readonly Color busyButtonBackColor = Color.FromArgb(200, 30, 0); // Red
 
         public QobuzDownloaderX()
         {
@@ -32,6 +35,8 @@ namespace QobuzDownloaderX
             {
                 CheckIfStreamable = streamableCheckbox.Checked
             };
+            Markdowns markdowns = new Markdowns();
+            folderNameList1 = markdowns.FolderNameListData;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -80,7 +85,7 @@ namespace QobuzDownloaderX
             albumArtPicBox.ImageLocation = Globals.DEFAULT_COVER_ART_URL;
             // Change account info for logout button
             string oldText = logoutlbl.Text;
-            logoutlbl.Text = oldText.Replace("%name%", Globals.Login.User.DisplayName);
+            logoutlbl.Text = oldText.Replace("%name%", Globals.Login.User?.DisplayName);
             // Initialize Global Tagging options. Selected ArtSize is automatically set in artSizeSelect change event listener.
             Globals.TaggingOptions = new TaggingOptions()
             {
@@ -112,7 +117,8 @@ namespace QobuzDownloaderX
                 WriteCoverImageTag = Settings.Default.imageTag,
                 WriteURLTag = Settings.Default.urlTag,
                 WriteQualityTag = Settings.Default.quality,
-                WriteGetGoodiesTag = Settings.Default.getGoodiesTag
+                WriteGetGoodiesTag = Settings.Default.getGoodiesTag,
+                FolderNameTemplate = Settings.Default.savedFolderNameTemplate
             };
             // Set saved settings to correct places.
             folderBrowserDialog.SelectedPath = Settings.Default.savedFolder;
@@ -153,6 +159,9 @@ namespace QobuzDownloaderX
             artSizeSelect.SelectedIndex = Settings.Default.savedArtSize;
             filenameTempSelect.SelectedIndex = Settings.Default.savedFilenameTemplate;
             Globals.FileNameTemplateString = Settings.Default.savedFilenameTemplateString;
+            foldernameTempSelect.DataSource = folderNameList1;
+            foldernameTempSelect.SelectedItem = Settings.Default.savedFolderNameTemplate;
+            foldernameTempSelect.Width += folderNameList1.Last().Length + 10;
             Globals.MaxLength = Settings.Default.savedMaxLength;
             customFormatIDTextbox.Text = Globals.FormatIdString;
             maxLengthTextbox.Text = Globals.MaxLength.ToString();
@@ -173,15 +182,15 @@ namespace QobuzDownloaderX
                 output.Invoke(new Action(() => output.AppendText(folderBrowserDialog.SelectedPath + "\r\n")));
             }
             // Run anything put into the debug events (For Testing)
-            debuggingEvents(sender, e);
+            DebuggingEvents(sender, e);
         }
 
-        public void UpdateDownloadSpeedLabel(string speed)
+        private void UpdateDownloadSpeedLabel(string speed)
         {
             downloadSpeedlbl.Invoke(new Action(() => downloadSpeedlbl.Text = speed));
         }
 
-        private void debuggingEvents(object sender, EventArgs e)
+        private void DebuggingEvents(object sender, EventArgs e)
         {
             DevClickEggThingValue = 0;
             // Debug mode for things that are only for testing, or shouldn't be on public releases. At the moment, does nothing.
@@ -245,37 +254,37 @@ namespace QobuzDownloaderX
             await Task.Run(() => downloadManager.StartDownloadItemTaskAsync(downloadItem, UpdateControlsDownloadStart, UpdateControlsDownloadEnd));
         }
 
-        public void UpdateControlsDownloadStart()
+        private void UpdateControlsDownloadStart()
         {
             downloadUrl.Invoke(new Action(() => downloadUrl.Enabled = false));
             selectFolderButton.Invoke(new Action(() => selectFolderButton.Enabled = false));
             openSearchButton.Invoke(new Action(() => openSearchButton.Enabled = false));
             downloadButton.Invoke(new Action(() => {
                 downloadButton.Text = "Stop Download";
-                downloadButton.BackColor = BusyButtonBackColor;
+                downloadButton.BackColor = busyButtonBackColor;
             }));
         }
 
-        public void UpdateControlsDownloadEnd()
+        private void UpdateControlsDownloadEnd()
         {
             downloadUrl.Invoke(new Action(() => downloadUrl.Enabled = true));
             selectFolderButton.Invoke(new Action(() => selectFolderButton.Enabled = true));
             openSearchButton.Invoke(new Action(() => openSearchButton.Enabled = true));
             downloadButton.Invoke(new Action(() => {
                 downloadButton.Text = "Download";
-                downloadButton.BackColor = ReadyButtonBackColor;
+                downloadButton.BackColor = readyButtonBackColor;
             }));
         }
 
         private void SelectFolder_Click(object sender, EventArgs e)
         {
-            Thread t = new Thread((ThreadStart)(() =>
+            Thread t = new Thread(() =>
             {
                 // Open Folder Browser to select path & save the selection
                 folderBrowserDialog.ShowDialog();
                 Settings.Default.savedFolder = folderBrowserDialog.SelectedPath;
                 Settings.Default.Save();
-            }));
+            });
             // Run your code from a thread that joins the STA Thread
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
@@ -308,7 +317,7 @@ namespace QobuzDownloaderX
         }
 
         // Update UI for downloading album
-        public void UpdateAlbumTagsUI(DownloadItemInfo downloadInfo)
+        private void UpdateAlbumTagsUI(DownloadItemInfo downloadInfo)
         {
             // Display album art
             albumArtPicBox.Invoke(new Action(() => albumArtPicBox.ImageLocation = downloadInfo.FrontCoverImgBoxUrl));
@@ -783,6 +792,13 @@ namespace QobuzDownloaderX
             {
                 this.downloadUrl = value;
             }
+        }
+
+        private void FoldernameTempSelect_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            Settings.Default.savedFolderNameTemplate = (string)foldernameTempSelect.SelectedItem;
+            Settings.Default.Save();
+            Globals.TaggingOptions.FolderNameTemplate = (string)foldernameTempSelect.SelectedItem;
         }
     }
 }

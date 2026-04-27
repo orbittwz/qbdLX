@@ -9,7 +9,7 @@ namespace QobuzDownloaderX.Shared
 {
     public class DownloadLogger
     {
-        public readonly string downloadErrorLogPath = Path.Combine(Globals.LoggingDir, "Download_Errors.log");
+        private readonly string downloadErrorLogPath = Path.Combine(Globals.LoggingDir, "Download_Errors.log");
         public delegate void DownloadEnded();
         private readonly DownloadEnded updateUiOnDownloadEnd;
         private TextBox ScreenOutputTextBox { get; }
@@ -99,7 +99,7 @@ namespace QobuzDownloaderX.Shared
         public void ClearUILogComponent()
         {
             this.ScreenOutputTextBox.Invoke(new Action(() => ScreenOutputTextBox.Text = String.Empty));
-            this.ScreenOutputTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.ScreenOutputTextBox.ForeColor = System.Drawing.Color.FromArgb(255, 128, 128);
         }
 
         public void ChangeTextColor(Color color)

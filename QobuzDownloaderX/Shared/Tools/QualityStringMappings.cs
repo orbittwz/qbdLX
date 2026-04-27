@@ -21,7 +21,7 @@ namespace QobuzDownloaderX.Shared
             {"27", (24, 196)}
         };
 
-        public static double GetMaxBitDepth(string formatIdString)
+        private static double GetMaxBitDepth(string formatIdString)
         {
             if (MaximumBitDepthAndSampleRateMappings.TryGetValue(formatIdString, out var value))
                 return value.Item1;
@@ -29,7 +29,7 @@ namespace QobuzDownloaderX.Shared
                 throw new KeyNotFoundException($"QualityFormatID '{formatIdString}' not found.");
         }
 
-        public static double GetMaxSampleRate(string formatIdString)
+        private static double GetMaxSampleRate(string formatIdString)
         {
             if (MaximumBitDepthAndSampleRateMappings.TryGetValue(formatIdString, out var value))
                 return value.Item2;
@@ -37,7 +37,7 @@ namespace QobuzDownloaderX.Shared
                 throw new KeyNotFoundException($"QualityFormatID '{formatIdString}' not found.");
         }
 
-        public static (string displayQuality, string pathSafeQuality) GetQualityStrings(string formatIdString)
+        private static (string displayQuality, string pathSafeQuality) GetQualityStrings(string formatIdString)
         {
             if (QualityMappings.TryGetValue(formatIdString, out var value))
                 return value;

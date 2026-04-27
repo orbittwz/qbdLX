@@ -14,7 +14,7 @@ namespace QobuzDownloaderX.Shared
             new Regex("https:\\/\\/(?:.*?).qobuz.com\\/(?:.*?)\\/(?<Type>.*?)\\/(?<Slug>.*?)\\/(?<id>.*?)$", RegexOptions.IgnoreCase | RegexOptions.Compiled)
         };
         // Supported types of links. "interpreter" = "artist" in store links
-        public static readonly string[] LinkTypes = { "album", "track", "artist", "label", "user", "playlist", "interpreter" };
+        private static readonly string[] LinkTypes = { "album", "track", "artist", "label", "user", "playlist", "interpreter" };
 
         public static DownloadItem ParseDownloadUrl(string downloadUrl)
         {

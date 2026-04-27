@@ -10,7 +10,7 @@ namespace QobuzDownloaderX.Shared
         {
             { InvolvedPersonRoleType.Miscellaneous, new List<string> { "A&R Director", "A&R", "AAndRAdministrator", "Additional Production",
                 "AHH", "Assistant Mixer", "AssistantEngineer", "Assistant Producer", "Asst. Recording Engineer", "AssociatedPerformer",
-                "Author", "Choir", "Chorus Master", "Contractor", "Co-Producer", "Engineer", "Masterer", "Mastering Engineer", "MasteringEngineer",
+                "Author", "Choir", "Chorus Master", "Contractor", "Co-Producer", "Engineer", "Mastering Engineer", "MasteringEngineer",
                 "Misc.Prod.", "Mixer", "Mixing Engineer", "Music Production", "Orchestra", "Performance Arranger", "Programming", "Programmer",
                 "RecordingEngineer", "Soloist", "StudioPersonnel", "Vocals", "Writer"} }, // Default if not mapped!
             { InvolvedPersonRoleType.Composer, new List<string> { "Composer", "ComposerLyricist", "Composer-Lyricist" } },

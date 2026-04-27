@@ -572,12 +572,26 @@ namespace QobuzDownloaderX.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
         public bool getGoodiesTag {
             get {
                 return ((bool)(this["getGoodiesTag"]));
             }
             set {
                 this["getGoodiesTag"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Artist-Album-Quality")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
+        public string savedFolderNameTemplate {
+            get {
+                return ((string)(this["savedFolderNameTemplate"]));
+            }
+            set {
+                this["savedFolderNameTemplate"] = value;
             }
         }
     }

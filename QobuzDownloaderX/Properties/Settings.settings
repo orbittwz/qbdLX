@@ -128,8 +128,11 @@
     <Setting Name="appSecret" Roaming="true" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="getGoodiesTag" Type="System.Boolean" Scope="User">
+    <Setting Name="getGoodiesTag" Roaming="true" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="savedFolderNameTemplate" Roaming="true" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Artist-Album-Quality</Value>
     </Setting>
   </Settings>
 </SettingsFile>

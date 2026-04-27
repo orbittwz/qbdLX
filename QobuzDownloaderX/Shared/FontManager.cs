@@ -7,7 +7,7 @@ namespace QobuzDownloaderX.Shared
 {
     public static class FontManager
     {
-        private static readonly PrivateFontCollection _fontCollection = new PrivateFontCollection();
+        private static readonly PrivateFontCollection FontCollection = new PrivateFontCollection();
 
         static FontManager()
         {
@@ -25,13 +25,13 @@ namespace QobuzDownloaderX.Shared
             // We HAVE to do this to register the font to the system (Weird .NET bug !)
             uint cFonts = 0;
             AddFontMemResourceEx(fontPtr, (uint)fontData.Length, IntPtr.Zero, ref cFonts);
-            _fontCollection.AddMemoryFont(fontPtr, fontData.Length);
+            FontCollection.AddMemoryFont(fontPtr, fontData.Length);
             Marshal.FreeCoTaskMem(fontPtr);
         }
 
-        public static FontFamily GetFontFamily(string fontFamilyName)
+        private static FontFamily GetFontFamily(string fontFamilyName)
         {
-            return Array.Find(_fontCollection.Families, f => f.Name == fontFamilyName);
+            return Array.Find(FontCollection.Families, f => f.Name == fontFamilyName);
         }
 
         public static Font CreateFont(string fontFamilyName, float size, FontStyle style = FontStyle.Regular)

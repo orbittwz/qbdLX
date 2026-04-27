@@ -92,6 +92,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Markdowns.cs" />
     <Compile Include="Models\Download\DownloadItemInfo.cs" />
     <Compile Include="Models\Download\DownloadItemPaths.cs" />
     <Compile Include="Models\Download\DownloadItem.cs" />
@@ -113,7 +114,6 @@
     <Compile Include="Shared\Tools\StringTools.cs" />
     <Compile Include="Shared\Globals.cs" />
     <Compile Include="Utils.cs" />
-    <Compile Include="View\FlexibleMessageBox.cs" />
     <Compile Include="View\HeadlessForm.cs">
       <SubType>Form</SubType>
     </Compile>

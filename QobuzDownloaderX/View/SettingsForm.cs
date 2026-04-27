@@ -74,7 +74,7 @@ namespace QobuzDownloaderX
             Settings.Default.appId = AppIdTextBox.Text;
             Settings.Default.appSecret = AppSecretTextBox.Text;
             Settings.Default.Save();
-            FlexibleMessageBox.Show(
+            MessageBox.Show(
                 "Settings saved!",
                 "Notice",
                 MessageBoxButtons.OK,

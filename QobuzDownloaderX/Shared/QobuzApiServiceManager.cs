@@ -5,34 +5,34 @@ namespace QobuzDownloaderX.Shared
 {
     public static class QobuzApiServiceManager
     {
-        private static QobuzApiService apiService;
+        private static QobuzApiService _apiService;
 
         public static QobuzApiService GetApiService()
         {
-            if (apiService == null)
+            if (_apiService == null)
                 throw new InvalidOperationException("QobuzApiService not initialized");
-            return apiService;
+            return _apiService;
         }
 
         public static void Initialize(string appId, string appSecret)
         {
-            apiService?.Dispose();
-            apiService = new QobuzApiService(appId, appSecret);
+            _apiService?.Dispose();
+            _apiService = new QobuzApiService(appId, appSecret);
         }
 
         public static void Initialize()
         {
-            apiService?.Dispose();
-            apiService = new QobuzApiService();
+            _apiService?.Dispose();
+            _apiService = new QobuzApiService();
         }
 
         public static void ReleaseApiService()
         {
-            if (apiService != null)
+            if (_apiService != null)
             {
-                using (apiService)
+                using (_apiService)
                 {
-                    apiService = null;
+                    _apiService = null;
                 }
             }
         }

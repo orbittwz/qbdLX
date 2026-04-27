@@ -11,7 +11,7 @@ namespace QobuzDownloaderX.Models
         public string DownloadItemID { get; set; }
         //public string Stream { get; set; }
         public DownloadItemPaths CurrentDownloadPaths { get; set; }
-        public string TrackVersionName { get; set; }
+        private string TrackVersionName { get; set; }
         public bool? Advisory { get; set; }
         public string AlbumArtist { get; set; }
         public string[] AlbumArtists { get; set; }
@@ -109,7 +109,7 @@ namespace QobuzDownloaderX.Models
         }
 
         // Set Album tagging info
-        public void SetAlbumTaggingInfo(Album qobuzAlbum)
+        private void SetAlbumTaggingInfo(Album qobuzAlbum)
         {
             ClearAlbumTaggingInfo();
             AlbumArtists = GetArtistNames(qobuzAlbum.Artists, InvolvedPersonRoleType.MainArtist);
@@ -118,19 +118,12 @@ namespace QobuzDownloaderX.Models
             // Add Features Artists to Album Artists.
             AlbumArtists = AlbumArtists.Concat(featuredArtists).ToArray();
             if (!string.IsNullOrEmpty(albumArtists) && Globals.TaggingOptions.MergePerformers)
-            {
-                // User Main-Artists by default
-                AlbumArtist = albumArtists;
-            }
+                AlbumArtist = albumArtists; // User Main-Artists by default
             else
-            {
                 AlbumArtist = StringTools.DecodeEncodedNonAsciiCharacters(qobuzAlbum.Artist.Name);
-            }
-            // Qobuz doesn't return an array of Albumartists for compilations, so use singular AlbumArtist
+            // Qobuz doesn't return an array of album artists for compilations, so use singular AlbumArtist
             if (AlbumArtists.Length < 1)
-            {
                 AlbumArtists = new string[] { AlbumArtist };
-            }
             AlbumName = StringTools.DecodeEncodedNonAsciiCharacters(qobuzAlbum.Title.Trim());
             string albumVersionName = StringTools.DecodeEncodedNonAsciiCharacters(qobuzAlbum.Version?.Trim());
             // Add album version to AlbumName if present
@@ -169,39 +162,24 @@ namespace QobuzDownloaderX.Models
             // Add Features Artists to Album Artists.
             PerformerNames = PerformerNames.Concat(featuredArtists).ToArray();
             if (!string.IsNullOrEmpty(trackArtists) && Globals.TaggingOptions.MergePerformers)
-            {
-                // User MainArtist Performers by default
-                PerformerName = trackArtists;
-            }
+                PerformerName = trackArtists; // User MainArtist Performers by default
             else
-            {
                 PerformerName = StringTools.DecodeEncodedNonAsciiCharacters(qobuzTrack.Performer?.Name);
-            }
             // If no performer name, use album artist
             if (string.IsNullOrEmpty(PerformerName))
-            {
                 PerformerName = StringTools.DecodeEncodedNonAsciiCharacters(qobuzTrack.Album?.Artist?.Name);
-            }
             // Qobuz could return an unknown role for the Track Artists. Use singular PerformerName as fallback
             if (PerformerNames.Length < 1)
-            {
                 PerformerNames = new string[] { PerformerName };
-            }
             ComposerNames = performersParser.GetPerformersWithRole(InvolvedPersonRoleType.Composer).ToArray();
             string composers = StringTools.MergeDoubleDelimitedList(ComposerNames, Globals.TaggingOptions.PrimaryListSeparator, Globals.TaggingOptions.ListEndSeparator);
             if (!string.IsNullOrEmpty(composers) && Globals.TaggingOptions.MergePerformers)
-            {
                 ComposerName = composers;
-            }
             else
-            {
                 ComposerName = StringTools.DecodeEncodedNonAsciiCharacters(qobuzTrack.Composer?.Name);
-            }
             // Qobuz could return an unknown role for the Composers. Use singular ComposerName as fallback
             if (ComposerNames.Length < 1)
-            {
                 ComposerNames = new string[] { ComposerName };
-            }
             ProducerNames = performersParser.GetPerformersWithRole(InvolvedPersonRoleType.Producer).ToArray();
             ProducerName = StringTools.MergeDoubleDelimitedList(ProducerNames, Globals.TaggingOptions.PrimaryListSeparator, Globals.TaggingOptions.ListEndSeparator);
             InvolvedPeople = StringTools.DecodeEncodedNonAsciiCharacters(qobuzTrack.Performers);
@@ -216,39 +194,28 @@ namespace QobuzDownloaderX.Models
             TrackNumber = qobuzTrack.TrackNumber.GetValueOrDefault();
             DiscNumber = qobuzTrack.MediaNumber.GetValueOrDefault();
             Duration = qobuzTrack.Duration.GetValueOrDefault();
-            // Paths
-            SetTrackPaths();
-        }
-
-        // Set Track tag based Paths
-        private void SetTrackPaths()
-        {
+            // Set Track tag based Paths
             CurrentDownloadPaths.PerformerNamePath = StringTools.TrimToMaxLength(StringTools.GetSafeFilename(PerformerName), Globals.MaxLength);
             CurrentDownloadPaths.TrackNamePath = StringTools.GetSafeFilename(TrackName);
         }
 
-        public string[] GetArtistNames(List<Artist> artists, InvolvedPersonRoleType role)
+        private string[] GetArtistNames(List<Artist> artists, InvolvedPersonRoleType role)
         {
             return artists.Where(artist => artist.Roles.Exists(roleString => InvolvedPersonRoleMapping.GetRoleByString(roleString) == role))
                 .Select(artist => artist.Name)
                 .ToArray();
         }
 
-        public string MergeFeaturedArtistsWithMainArtists(string[] mainArtists, string[] featuresArtists)
+        private string MergeFeaturedArtistsWithMainArtists(string[] mainArtists, string[] featuresArtists)
         {
             string mergedMainArtists = StringTools.MergeDoubleDelimitedList(mainArtists,
                 Globals.TaggingOptions.PrimaryListSeparator, Globals.TaggingOptions.ListEndSeparator);
             string mergedFeaturedArtists = StringTools.MergeDoubleDelimitedList(featuresArtists,
                 Globals.TaggingOptions.PrimaryListSeparator, Globals.TaggingOptions.ListEndSeparator);
             if (string.IsNullOrEmpty(mergedFeaturedArtists))
-            {
                 return mergedMainArtists;
-            }
             else
-            {
                 return $"{mergedMainArtists} Feat. {mergedFeaturedArtists}";
-            }
-
         }
     }
 }

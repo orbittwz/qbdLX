@@ -63,14 +63,14 @@ namespace QobuzDownloaderX
             resultsTableLayoutPanel.ColumnStyles.Clear();
             resultsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 756F));
             resultsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TextBox ErrorMesage = CreateTextBox($"{ex.Message}", true, GetResultRowColor(0), Color.OrangeRed,
+            TextBox errorMessage = CreateTextBox($"{ex.Message}", true, GetResultRowColor(0), Color.OrangeRed,
                 FontManager.CreateFont("Hanken Grotesk Medium", 10, FontStyle.Bold | FontStyle.Italic), BorderStyle.None);
-            ResizeControlForText(ErrorMesage, 5);
-            resultsTableLayoutPanel.Controls.Add(ErrorMesage, 0, 0);
-            TextBox ErrorSavedMesage = CreateTextBox($"Error log saved to {errorLog}.", true, GetResultRowColor(0),
+            ResizeControlForText(errorMessage, 5);
+            resultsTableLayoutPanel.Controls.Add(errorMessage, 0, 0);
+            TextBox errorSavedMessage = CreateTextBox($"Error log saved to {errorLog}.", true, GetResultRowColor(0),
                 Color.OrangeRed, FontManager.CreateFont("Hanken Grotesk Medium", 10, FontStyle.Bold | FontStyle.Italic), BorderStyle.None);
-            ResizeControlForText(ErrorSavedMesage, 5);
-            resultsTableLayoutPanel.Controls.Add(ErrorSavedMesage, 0, 1);
+            ResizeControlForText(errorSavedMessage, 5);
+            resultsTableLayoutPanel.Controls.Add(errorSavedMessage, 0, 1);
             List<string> errorLines = new List<string> { ex.Message };
             switch (ex)
             {
@@ -174,7 +174,7 @@ namespace QobuzDownloaderX
             }
         }
 
-        public void CreateResultRow(SearchResultRow result)
+        private void CreateResultRow(SearchResultRow result)
         {
             resultsTableLayoutPanel.RowCount++;
             resultsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 70));

@@ -35,5 +35,6 @@
         public string PrimaryListSeparator { get; set; }
         public string ListEndSeparator { get; set; }
         public bool WriteGetGoodiesTag { get; set; }
+        public string FolderNameTemplate { get; set; }
     }
 }

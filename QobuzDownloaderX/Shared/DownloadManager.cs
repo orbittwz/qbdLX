@@ -16,6 +16,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace QobuzDownloaderX.Shared
 {
@@ -28,8 +29,8 @@ namespace QobuzDownloaderX.Shared
         private readonly UpdateAlbumTagsUi UpdateAlbumUiTags;
         public delegate void UpdateDownloadSpeed(string speed);
         private readonly UpdateDownloadSpeed UpdateUiDownloadSpeed;
-        public DownloadItemInfo DownloadInfo { get; private set; }
-        public DownloadItemPaths DownloadPaths { get; private set; }
+        private DownloadItemInfo DownloadInfo { get; set; }
+        private DownloadItemPaths DownloadPaths { get; set; }
         public bool IsBusy { get; private set; }
         public bool CheckIfStreamable { get; set; }
 
@@ -83,7 +84,7 @@ namespace QobuzDownloaderX.Shared
             this.cancellationTokenSource?.Cancel();
         }
 
-        public bool IsStreamable(Track qobuzTrack, bool inPlaylist = false)
+        private bool IsStreamable(Track qobuzTrack, bool inPlaylist = false)
         {
             if (qobuzTrack.Streamable != false)
                 return true;
@@ -108,7 +109,7 @@ namespace QobuzDownloaderX.Shared
             return tryToStream;
         }
 
-        public async Task DownloadFileAsync(HttpClient httpClient, string downloadUrl, string filePath)
+        private async Task DownloadFileAsync(HttpClient httpClient, string downloadUrl, string filePath)
         {
             using (Stream streamToReadFrom = await httpClient.GetStreamAsync(downloadUrl))
             {
@@ -161,9 +162,28 @@ namespace QobuzDownloaderX.Shared
                 return false;
             // Create directories if they don't exist yet
             // Add Album ID to Album Path if requested (to avoid conflicts for similar albums with trimmed long names)
-            CreateTrackDirectories(basePath, DownloadPaths.QualityPath, albumPathSuffix, isPartOfTracklist);
+            //CreateTrackDirectories(basePath, DownloadPaths.QualityPath, albumPathSuffix, isPartOfTracklist);
             // Set trackPath to the created directories
-            string trackPath = DownloadInfo.CurrentDownloadPaths.Path4Full;
+            //string trackPath = DownloadInfo.CurrentDownloadPaths.Path4Full;
+            string trackPath = string.Empty;
+            string folderTemplate = Globals.TaggingOptions.FolderNameTemplate;
+            if (isPartOfTracklist == true)
+                trackPath = Path.Combine(basePath, DownloadPaths.QualityPath);
+            else if (folderTemplate.Contains("Year"))
+                trackPath = Path.Combine(basePath, DownloadPaths.AlbumArtistPath + " - " + DownloadPaths.AlbumNamePath
+                                                   + " - " + DownloadPaths.QualityPath + " - " + qobuzTrack.ReleaseDateStream.Value.Year);
+            else
+                trackPath = Path.Combine(basePath, DownloadPaths.AlbumArtistPath + " - " + DownloadPaths.AlbumNamePath
+                                                   + " - " + DownloadPaths.QualityPath);
+            // If more than 1 disc, create folders for discs. Otherwise, strings will remain null
+            // Pad Disc Number with minimum of 2 integer positions based on total number of discs
+            if (DownloadInfo.DiscTotal > 1)
+            {
+                // Create strings for disc folders
+                string discFolder = "CD " + DownloadInfo.DiscNumber.ToString().PadLeft(Math.Max(2, (int)Math.Floor(Math.Log10(DownloadInfo.DiscTotal) + 1)), '0');
+                trackPath = Path.Combine(trackPath, discFolder);
+            }
+            System.IO.Directory.CreateDirectory(trackPath);
             // Create padded track number string with minimum of 2 integer positions based on number of total tracks
             string paddedTrackNumber = DownloadInfo.TrackNumber.ToString().PadLeft(Math.Max(2, (int)Math.Floor(Math.Log10(DownloadInfo.TrackTotal) + 1)), '0');
             // Create full track filename
@@ -196,8 +216,8 @@ namespace QobuzDownloaderX.Shared
             try
             {
                 // Create file path strings
-                string coverArtFilePath = Path.Combine(DownloadPaths.Path3Full, "Cover.jpg");
-                string coverArtTagFilePath = Path.Combine(DownloadPaths.Path3Full, Globals.TaggingOptions.ArtSize + ".jpg");
+                string coverArtFilePath = Path.Combine(trackPath, "Cover.jpg");
+                string coverArtTagFilePath = Path.Combine(trackPath, Globals.TaggingOptions.ArtSize + ".jpg");
                 using (HttpClient httpClient = new HttpClient())
                 {
                     httpClient.DefaultRequestHeaders.Add("User-Agent", Globals.USER_AGENT);
@@ -308,7 +328,7 @@ namespace QobuzDownloaderX.Shared
             // Don't fail on failed "Goodies" downloads, just log...
             if (Globals.TaggingOptions.WriteGetGoodiesTag == true)
             {
-                if (!await DownloadBookletsAsync(qobuzAlbum, DownloadPaths.Path3Full))
+                if (!await DownloadBookletsAsync(qobuzAlbum, Path.GetDirectoryName(DownloadPaths.FullTrackFilePath)))
                     noErrorsOccured = false;
             }
             return noErrorsOccured;
@@ -934,7 +954,7 @@ namespace QobuzDownloaderX.Shared
             }
         }
 
-        public void AddTrackToPlaylistFile(M3uPlaylist m3uPlaylist, DownloadItemInfo downloadInfo, DownloadItemPaths downloadPaths)
+        private void AddTrackToPlaylistFile(M3uPlaylist m3uPlaylist, DownloadItemInfo downloadInfo, DownloadItemPaths downloadPaths)
         {
             // If the TrackFile doesn't exist, skip.
             if (!System.IO.File.Exists(downloadPaths.FullTrackFilePath))
@@ -948,32 +968,32 @@ namespace QobuzDownloaderX.Shared
             });
         }
 
-        public void CreateTrackDirectories(string basePath, string qualityPath, string albumPathSuffix = "", bool forTracklist = false)
-        {
-            if (forTracklist)
-            {
-                DownloadPaths.Path1Full = basePath;
-                DownloadPaths.Path2Full = DownloadPaths.Path1Full;
-                DownloadPaths.Path3Full = Path.Combine(basePath, qualityPath);
-                DownloadPaths.Path4Full = DownloadPaths.Path3Full;
-            }
-            else
-            {
-                DownloadPaths.Path1Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath);
-                DownloadPaths.Path2Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath, DownloadPaths.AlbumNamePath + albumPathSuffix);
-                DownloadPaths.Path3Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath, DownloadPaths.AlbumNamePath + albumPathSuffix, qualityPath);
-                // If more than 1 disc, create folders for discs. Otherwise, strings will remain null
-                // Pad Disc Number with minimum of 2 integer positions based on total number of discs
-                if (DownloadInfo.DiscTotal > 1)
-                {
-                    // Create strings for disc folders
-                    string discFolder = "CD " + DownloadInfo.DiscNumber.ToString().PadLeft(Math.Max(2, (int)Math.Floor(Math.Log10(DownloadInfo.DiscTotal) + 1)), '0');
-                    DownloadPaths.Path4Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath, DownloadPaths.AlbumNamePath + albumPathSuffix, qualityPath, discFolder);
-                }
-                else
-                    DownloadPaths.Path4Full = DownloadPaths.Path3Full;
-            }
-            System.IO.Directory.CreateDirectory(DownloadPaths.Path4Full);
-        }
+        //private void CreateTrackDirectories(string basePath, string qualityPath, string albumPathSuffix = "", bool forTracklist = false)
+        //{
+        //    if (forTracklist)
+        //    {
+        //        DownloadPaths.Path1Full = basePath;
+        //        DownloadPaths.Path2Full = DownloadPaths.Path1Full;
+        //        DownloadPaths.Path3Full = Path.Combine(basePath, qualityPath);
+        //        DownloadPaths.Path4Full = DownloadPaths.Path3Full;
+        //    }
+        //    else
+        //    {
+        //        DownloadPaths.Path1Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath);
+        //        DownloadPaths.Path2Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath, DownloadPaths.AlbumNamePath + albumPathSuffix);
+        //        DownloadPaths.Path3Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath, DownloadPaths.AlbumNamePath + albumPathSuffix, qualityPath);
+        //        // If more than 1 disc, create folders for discs. Otherwise, strings will remain null
+        //        // Pad Disc Number with minimum of 2 integer positions based on total number of discs
+        //        if (DownloadInfo.DiscTotal > 1)
+        //        {
+        //            // Create strings for disc folders
+        //            string discFolder = "CD " + DownloadInfo.DiscNumber.ToString().PadLeft(Math.Max(2, (int)Math.Floor(Math.Log10(DownloadInfo.DiscTotal) + 1)), '0');
+        //            DownloadPaths.Path4Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath, DownloadPaths.AlbumNamePath + albumPathSuffix, qualityPath, discFolder);
+        //        }
+        //        else
+        //            DownloadPaths.Path4Full = DownloadPaths.Path3Full;
+        //    }
+        //    System.IO.Directory.CreateDirectory(DownloadPaths.Path4Full);
+        //}
     }
 }
