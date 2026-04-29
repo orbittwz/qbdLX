@@ -198,10 +198,6 @@ namespace QobuzDownloaderX
                 DebugMode = 0;
             else
                 DebugMode = 1;
-            // Show app_secret value.
-            //output.Invoke(new Action(() => output.AppendText("\r\n\r\napp_secret = " + Globals.AppSecret)));
-            // Show format_id value.
-            //output.Invoke(new Action(() => output.AppendText("\r\n\r\nformat_id = " + Globals.FormatIdString)));
         }
 
         private void OpenSearch_Click(object sender, EventArgs e)
@@ -235,7 +231,7 @@ namespace QobuzDownloaderX
             {
                 // If there is NOT a saved path.
                 logger.ClearUILogComponent();
-                output.Invoke(new Action(() => output.AppendText($"No path has been set! Remember to Choose a Folder!{Environment.NewLine}")));
+                output.Invoke(new Action(() => output.AppendText($"No path has been set, please choose a Folder!{Environment.NewLine}")));
                 return;
             }
             // Get download item type and ID from url
@@ -244,7 +240,7 @@ namespace QobuzDownloaderX
             if (downloadItem.IsEmpty())
             {
                 logger.ClearUILogComponent();
-                output.Invoke(new Action(() => output.AppendText("URL not understood. Is there a typo?")));
+                output.Invoke(new Action(() => output.AppendText("URL not understood... is there a typo?")));
                 return;
             }
             // If for some reason a download is still busy, do nothing

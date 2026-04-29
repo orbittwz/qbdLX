@@ -63,8 +63,8 @@ namespace QobuzDownloaderX
             resultsTableLayoutPanel.ColumnStyles.Clear();
             resultsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 756F));
             resultsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TextBox errorMessage = CreateTextBox($"{ex.Message}", true, GetResultRowColor(0), Color.OrangeRed,
-                FontManager.CreateFont("Hanken Grotesk Medium", 10, FontStyle.Bold | FontStyle.Italic), BorderStyle.None);
+            TextBox errorMessage = CreateTextBox(ex.GetType() == typeof(NullReferenceException) ? $"There are no results, try again!: {ex.Message}" : ex.Message
+                , true, GetResultRowColor(0), Color.OrangeRed, FontManager.CreateFont("Hanken Grotesk Medium", 10, FontStyle.Bold | FontStyle.Italic), BorderStyle.None);
             ResizeControlForText(errorMessage, 5);
             resultsTableLayoutPanel.Controls.Add(errorMessage, 0, 0);
             TextBox errorSavedMessage = CreateTextBox($"Error log saved to {errorLog}.", true, GetResultRowColor(0),

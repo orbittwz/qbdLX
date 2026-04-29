@@ -15,9 +15,7 @@ namespace QobuzDownloaderX
 {
     public partial class LoginForm : HeadlessForm
     {
-        private readonly string dllCheck = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "TagLibSharp.dll");
         private readonly string loginErrorLog = Path.Combine(Globals.LoggingDir, "Login_Errors.log");
-        private readonly string versionCheckErrorLog = Path.Combine(Globals.LoggingDir, "VersionCheck_Errors.log");
         private string AltLoginValue { get; set; }
 
         public LoginForm()
@@ -26,21 +24,12 @@ namespace QobuzDownloaderX
             // Delete previous login error log
             if (System.IO.File.Exists(loginErrorLog))
                 System.IO.File.Delete(loginErrorLog);
-            // Delete previous version check error log
-            if (System.IO.File.Exists(versionCheckErrorLog))
-                System.IO.File.Delete(versionCheckErrorLog);
         }
 
         private void LoginFrm_Load(object sender, EventArgs e)
         {
             // Get and display version number.
             verNumlbl3.Text = Settings.Version;
-            if (!System.IO.File.Exists(dllCheck))
-            {
-                MessageBox.Show("TagLibSharp.dll missing from folder!\r\nPlease Make sure the DLL is in the same folder as QobuzDownloaderX.exe!", "ERROR",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
-            }
             // Bring to center of screen.
             this.CenterToScreen();
             // Set saved settings to correct places.
@@ -224,9 +213,7 @@ namespace QobuzDownloaderX
             try
             {
                 if (AltLoginValue == "0")
-                {
                     Globals.Login = QobuzApiServiceManager.GetApiService().LoginWithEmail(emailTextbox.Text, passwordTextbox.Text);
-                }
                 else if (AltLoginValue == "1")
                     Globals.Login = QobuzApiServiceManager.GetApiService().LoginWithToken(userIdTextbox.Text, userAuthTokenTextbox.Text);
             }
@@ -277,6 +264,9 @@ namespace QobuzDownloaderX
         private void LoginButton_Click(object sender, EventArgs e)
         {
             // Hide alt login label until job is finished or failed
+            String appId = Settings.Default.appId;
+            String appSecret = Settings.Default.appSecret;
+            bool useCustomAppIdAndSecret = !string.IsNullOrWhiteSpace(appId) && !string.IsNullOrWhiteSpace(appSecret);
             altLoginlbl.Visible = false;
             switch (AltLoginValue)
             {
@@ -285,7 +275,7 @@ namespace QobuzDownloaderX
                     if (emailTextbox.Text == "Email" || string.IsNullOrEmpty(emailTextbox.Text?.Trim()))
                     {
                         // If there's no email typed in.
-                        loginTextlbl.Invoke(new Action(() => loginTextlbl.Text = "No email, please input email first."));
+                        loginTextlbl.Invoke(new Action(() => loginTextlbl.Text = "No email typed, please input email first."));
                         return;
                     }
                     if (passwordTextbox.Text == "Password" || string.IsNullOrEmpty(passwordTextbox.Text?.Trim()))
@@ -331,7 +321,7 @@ namespace QobuzDownloaderX
                     if (userIdTextbox.Text == "user_id" || string.IsNullOrEmpty(userIdTextbox.Text?.Trim()))
                     {
                         // If there's no user_id typed in.
-                        loginTextlbl.Invoke(new Action(() => loginTextlbl.Text = "No user_id, please input user_id first."));
+                        loginTextlbl.Invoke(new Action(() => loginTextlbl.Text = "No user_id typed, please input user_id first."));
                         return;
                     }
                     if (userAuthTokenTextbox.Text == "user_auth_token" || string.IsNullOrEmpty(userAuthTokenTextbox.Text?.Trim()))
@@ -349,6 +339,13 @@ namespace QobuzDownloaderX
                     Settings.Default.savedAltLoginValue = AltLoginValue;
                     Settings.Default.Save();
                     break;
+            }
+            if (useCustomAppIdAndSecret == false && AltLoginValue == "0")
+            {
+                MessageBox.Show("Using this method to login without custom appID and appSecret is not supported anymore, aborting!", "ERROR",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                altLoginlbl.Visible = true;
+                return;
             }
             loginButton.Enabled = false;
             loginTextlbl.Text = "Getting App ID and Secret...";
