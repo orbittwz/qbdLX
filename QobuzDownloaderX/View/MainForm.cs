@@ -605,20 +605,20 @@ namespace QobuzDownloaderX
             minimizelbl.ForeColor = Color.White;
         }
 
-        private void aboutLabel_Click(object sender, EventArgs e)
-        {
-            Globals.AboutForm.ShowDialog();
-        }
+        //private void aboutLabel_Click(object sender, EventArgs e)
+        //{
+        //    Globals.AboutForm.ShowDialog();
+        //}
 
-        private void aboutLabel_MouseHover(object sender, EventArgs e)
-        {
-            aboutlbl.ForeColor = Color.FromArgb(0, 112, 239);
-        }
+        //private void aboutLabel_MouseHover(object sender, EventArgs e)
+        //{
+        //    aboutlbl.ForeColor = Color.FromArgb(0, 112, 239);
+        //}
 
-        private void aboutLabel_MouseLeave(object sender, EventArgs e)
-        {
-            aboutlbl.ForeColor = Color.White;
-        }
+        //private void aboutLabel_MouseLeave(object sender, EventArgs e)
+        //{
+        //    aboutlbl.ForeColor = Color.White;
+        //}
 
         private void exitLabel_MouseHover(object sender, EventArgs e)
         {

@@ -112,11 +112,11 @@
             this.AppSecretTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.AppSecretTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.AppSecretTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.AppSecretTextBox.Location = new System.Drawing.Point(21, 129);
+            this.AppSecretTextBox.Location = new System.Drawing.Point(21, 134);
             this.AppSecretTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.AppSecretTextBox.Multiline = true;
             this.AppSecretTextBox.Name = "AppSecretTextBox";
-            this.AppSecretTextBox.Size = new System.Drawing.Size(630, 31);
+            this.AppSecretTextBox.Size = new System.Drawing.Size(641, 31);
             this.AppSecretTextBox.TabIndex = 2;
             this.AppSecretTextBox.WordWrap = false;
             // 
@@ -136,11 +136,11 @@
             this.AppIdTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.AppIdTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.AppIdTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.AppIdTextBox.Location = new System.Drawing.Point(21, 65);
+            this.AppIdTextBox.Location = new System.Drawing.Point(21, 70);
             this.AppIdTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.AppIdTextBox.Multiline = true;
             this.AppIdTextBox.Name = "AppIdTextBox";
-            this.AppIdTextBox.Size = new System.Drawing.Size(630, 31);
+            this.AppIdTextBox.Size = new System.Drawing.Size(641, 31);
             this.AppIdTextBox.TabIndex = 1;
             this.AppIdTextBox.WordWrap = false;
             // 
@@ -177,7 +177,7 @@
             this.settingsTitlelbl.AutoSize = true;
             this.settingsTitlelbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.settingsTitlelbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.settingsTitlelbl.Location = new System.Drawing.Point(308, 20);
+            this.settingsTitlelbl.Location = new System.Drawing.Point(327, 23);
             this.settingsTitlelbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.settingsTitlelbl.Name = "settingsTitlelbl";
             this.settingsTitlelbl.Size = new System.Drawing.Size(90, 25);
@@ -189,7 +189,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ClientSize = new System.Drawing.Size(750, 349);
+            this.ClientSize = new System.Drawing.Size(750, 350);
             this.Controls.Add(this.settingsTitlelbl);
             this.Controls.Add(this.exitlbl);
             this.Controls.Add(this.SystemGroupBox);
@@ -199,13 +199,14 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "SettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "QobuzDLX | Settings";
+            this.Text = "qbdLX | Settings";
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SettingsForm_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.LogoPictureBox)).EndInit();
             this.SystemGroupBox.ResumeLayout(false);
             this.SystemGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion

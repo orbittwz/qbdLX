@@ -26,7 +26,7 @@ namespace QobuzDownloaderX
             {
                 Text = "X",
                 Size = new Size(25, textBox.ClientSize.Height + 2),
-                Location = new Point(textBox.Location.X + textBox.Width + 2, textBox.Location.Y),
+                Location = new Point(textBox.Location.X + textBox.Width + 2, textBox.Location.Y + -5),
                 Cursor = Cursors.Default,
                 FlatStyle = FlatStyle.Flat
             };

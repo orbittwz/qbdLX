@@ -112,10 +112,10 @@ namespace QobuzDownloaderX
             Globals.SettingsForm.ShowDialog(this);
         }
 
-        private void AboutLabel_Click(object sender, EventArgs e)
-        {
-            Globals.AboutForm.ShowDialog();
-        }
+        //private void AboutLabel_Click(object sender, EventArgs e)
+        //{
+        //    Globals.AboutForm.ShowDialog();
+        //}
 
         private void AltLoginLabel_Click(object sender, EventArgs e)
         {

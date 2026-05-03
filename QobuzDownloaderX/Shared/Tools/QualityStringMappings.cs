@@ -10,15 +10,14 @@ namespace QobuzDownloaderX.Shared
             {"5", ("MP3 320kbps CBR", "MP3")},
             {"6", ("FLAC (16bit/44.1kHz)", "FLAC (16bit-44.1kHz)")},
             {"7", ("FLAC (24bit/96kHz)", "FLAC (24bit-96kHz)")},
-            {"27", ("FLAC (24bit/192kHz)", "FLAC (24bit-196kHz)")}
+            {"27", ("FLAC (24bit/192kHz)", "FLAC (24bit-192kHz)")}
         };
-
         private static readonly Dictionary<string, (double, double)> MaximumBitDepthAndSampleRateMappings = new Dictionary<string, (double, double)>
         {
             {"5", (0, 0)}, // N/A, using 0 for easy calculation check.
             {"6", (16, 44.1)},
             {"7", (24, 96)},
-            {"27", (24, 196)}
+            {"27", (24, 192)}
         };
 
         private static double GetMaxBitDepth(string formatIdString)
