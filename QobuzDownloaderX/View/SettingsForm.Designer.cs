@@ -46,10 +46,9 @@
             // 
             this.LogoPictureBox.BackColor = System.Drawing.Color.Transparent;
             this.LogoPictureBox.Image = global::QobuzDownloaderX.Properties.Resources.qbdlx_white;
-            this.LogoPictureBox.Location = new System.Drawing.Point(18, 18);
-            this.LogoPictureBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.LogoPictureBox.Location = new System.Drawing.Point(12, 12);
             this.LogoPictureBox.Name = "LogoPictureBox";
-            this.LogoPictureBox.Size = new System.Drawing.Size(158, 40);
+            this.LogoPictureBox.Size = new System.Drawing.Size(105, 26);
             this.LogoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.LogoPictureBox.TabIndex = 91;
             this.LogoPictureBox.TabStop = false;
@@ -65,11 +64,9 @@
             this.SystemGroupBox.Controls.Add(this.AppIdTextBox);
             this.SystemGroupBox.Controls.Add(this.appIDlbl);
             this.SystemGroupBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.SystemGroupBox.Location = new System.Drawing.Point(18, 86);
-            this.SystemGroupBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.SystemGroupBox.Location = new System.Drawing.Point(12, 56);
             this.SystemGroupBox.Name = "SystemGroupBox";
-            this.SystemGroupBox.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.SystemGroupBox.Size = new System.Drawing.Size(714, 245);
+            this.SystemGroupBox.Size = new System.Drawing.Size(476, 159);
             this.SystemGroupBox.TabIndex = 93;
             this.SystemGroupBox.TabStop = false;
             this.SystemGroupBox.Text = "System";
@@ -80,10 +77,9 @@
             this.SaveButton.FlatAppearance.BorderSize = 0;
             this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveButton.ForeColor = System.Drawing.Color.White;
-            this.SaveButton.Location = new System.Drawing.Point(21, 194);
-            this.SaveButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.SaveButton.Location = new System.Drawing.Point(14, 126);
             this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(180, 35);
+            this.SaveButton.Size = new System.Drawing.Size(120, 23);
             this.SaveButton.TabIndex = 3;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = false;
@@ -92,19 +88,17 @@
             // DividerPanel2
             // 
             this.DividerPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.DividerPanel2.Location = new System.Drawing.Point(21, 158);
-            this.DividerPanel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.DividerPanel2.Location = new System.Drawing.Point(14, 103);
             this.DividerPanel2.Name = "DividerPanel2";
-            this.DividerPanel2.Size = new System.Drawing.Size(668, 2);
+            this.DividerPanel2.Size = new System.Drawing.Size(445, 1);
             this.DividerPanel2.TabIndex = 95;
             // 
             // DividerPanel1
             // 
             this.DividerPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.DividerPanel1.Location = new System.Drawing.Point(21, 94);
-            this.DividerPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.DividerPanel1.Location = new System.Drawing.Point(14, 61);
             this.DividerPanel1.Name = "DividerPanel1";
-            this.DividerPanel1.Size = new System.Drawing.Size(668, 2);
+            this.DividerPanel1.Size = new System.Drawing.Size(445, 1);
             this.DividerPanel1.TabIndex = 94;
             // 
             // AppSecretTextBox
@@ -112,11 +106,10 @@
             this.AppSecretTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.AppSecretTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.AppSecretTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.AppSecretTextBox.Location = new System.Drawing.Point(21, 134);
-            this.AppSecretTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.AppSecretTextBox.Location = new System.Drawing.Point(14, 87);
             this.AppSecretTextBox.Multiline = true;
             this.AppSecretTextBox.Name = "AppSecretTextBox";
-            this.AppSecretTextBox.Size = new System.Drawing.Size(641, 31);
+            this.AppSecretTextBox.Size = new System.Drawing.Size(427, 20);
             this.AppSecretTextBox.TabIndex = 2;
             this.AppSecretTextBox.WordWrap = false;
             // 
@@ -124,10 +117,9 @@
             // 
             this.appSecretlbl.AutoSize = true;
             this.appSecretlbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.appSecretlbl.Location = new System.Drawing.Point(16, 105);
-            this.appSecretlbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.appSecretlbl.Location = new System.Drawing.Point(11, 68);
             this.appSecretlbl.Name = "appSecretlbl";
-            this.appSecretlbl.Size = new System.Drawing.Size(89, 20);
+            this.appSecretlbl.Size = new System.Drawing.Size(60, 13);
             this.appSecretlbl.TabIndex = 92;
             this.appSecretlbl.Text = "App Secret";
             // 
@@ -136,11 +128,10 @@
             this.AppIdTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.AppIdTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.AppIdTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.AppIdTextBox.Location = new System.Drawing.Point(21, 70);
-            this.AppIdTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.AppIdTextBox.Location = new System.Drawing.Point(14, 45);
             this.AppIdTextBox.Multiline = true;
             this.AppIdTextBox.Name = "AppIdTextBox";
-            this.AppIdTextBox.Size = new System.Drawing.Size(641, 31);
+            this.AppIdTextBox.Size = new System.Drawing.Size(427, 20);
             this.AppIdTextBox.TabIndex = 1;
             this.AppIdTextBox.WordWrap = false;
             // 
@@ -148,10 +139,9 @@
             // 
             this.appIDlbl.AutoSize = true;
             this.appIDlbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.appIDlbl.Location = new System.Drawing.Point(16, 40);
-            this.appIDlbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.appIDlbl.Location = new System.Drawing.Point(11, 26);
             this.appIDlbl.Name = "appIDlbl";
-            this.appIDlbl.Size = new System.Drawing.Size(59, 20);
+            this.appIDlbl.Size = new System.Drawing.Size(40, 13);
             this.appIDlbl.TabIndex = 90;
             this.appIDlbl.Text = "App ID";
             // 
@@ -161,8 +151,7 @@
             this.exitlbl.BackColor = System.Drawing.Color.Transparent;
             this.exitlbl.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitlbl.ForeColor = System.Drawing.Color.White;
-            this.exitlbl.Location = new System.Drawing.Point(702, 14);
-            this.exitlbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.exitlbl.Location = new System.Drawing.Point(468, 9);
             this.exitlbl.Name = "exitlbl";
             this.exitlbl.Size = new System.Drawing.Size(20, 23);
             this.exitlbl.TabIndex = 4;
@@ -177,8 +166,7 @@
             this.settingsTitlelbl.AutoSize = true;
             this.settingsTitlelbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.settingsTitlelbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.settingsTitlelbl.Location = new System.Drawing.Point(327, 23);
-            this.settingsTitlelbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.settingsTitlelbl.Location = new System.Drawing.Point(218, 15);
             this.settingsTitlelbl.Name = "settingsTitlelbl";
             this.settingsTitlelbl.Size = new System.Drawing.Size(90, 25);
             this.settingsTitlelbl.TabIndex = 95;
@@ -186,17 +174,16 @@
             // 
             // SettingsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ClientSize = new System.Drawing.Size(750, 350);
+            this.ClientSize = new System.Drawing.Size(500, 227);
             this.Controls.Add(this.settingsTitlelbl);
             this.Controls.Add(this.exitlbl);
             this.Controls.Add(this.SystemGroupBox);
             this.Controls.Add(this.LogoPictureBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "SettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "qbdLX | Settings";

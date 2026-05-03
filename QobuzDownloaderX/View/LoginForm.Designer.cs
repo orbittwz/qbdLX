@@ -59,19 +59,17 @@
             this.topPanel.Controls.Add(this.bannerPictureBox);
             this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topPanel.Location = new System.Drawing.Point(0, 0);
-            this.topPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.topPanel.Name = "topPanel";
-            this.topPanel.Size = new System.Drawing.Size(423, 269);
+            this.topPanel.Size = new System.Drawing.Size(282, 175);
             this.topPanel.TabIndex = 0;
             this.topPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TopPanel_MouseMove);
             // 
             // clearLoginInfobtn
             // 
             this.clearLoginInfobtn.Font = new System.Drawing.Font("Trebuchet MS", 8F, System.Drawing.FontStyle.Bold);
-            this.clearLoginInfobtn.Location = new System.Drawing.Point(18, 212);
-            this.clearLoginInfobtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.clearLoginInfobtn.Location = new System.Drawing.Point(12, 138);
             this.clearLoginInfobtn.Name = "clearLoginInfobtn";
-            this.clearLoginInfobtn.Size = new System.Drawing.Size(158, 35);
+            this.clearLoginInfobtn.Size = new System.Drawing.Size(105, 23);
             this.clearLoginInfobtn.TabIndex = 37;
             this.clearLoginInfobtn.Text = "Clear login info";
             this.clearLoginInfobtn.UseVisualStyleBackColor = true;
@@ -82,10 +80,9 @@
             this.settingsPictureBox.BackColor = System.Drawing.Color.Transparent;
             this.settingsPictureBox.Image = global::QobuzDownloaderX.Properties.Resources.settings_icon;
             this.settingsPictureBox.InitialImage = global::QobuzDownloaderX.Properties.Resources.settings_icon;
-            this.settingsPictureBox.Location = new System.Drawing.Point(363, 6);
-            this.settingsPictureBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.settingsPictureBox.Location = new System.Drawing.Point(242, 4);
             this.settingsPictureBox.Name = "settingsPictureBox";
-            this.settingsPictureBox.Size = new System.Drawing.Size(22, 23);
+            this.settingsPictureBox.Size = new System.Drawing.Size(15, 15);
             this.settingsPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.settingsPictureBox.TabIndex = 36;
             this.settingsPictureBox.TabStop = false;
@@ -96,10 +93,9 @@
             this.verNumlbl3.BackColor = System.Drawing.Color.Transparent;
             this.verNumlbl3.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.verNumlbl3.ForeColor = System.Drawing.Color.White;
-            this.verNumlbl3.Location = new System.Drawing.Point(291, 242);
-            this.verNumlbl3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.verNumlbl3.Location = new System.Drawing.Point(194, 157);
             this.verNumlbl3.Name = "verNumlbl3";
-            this.verNumlbl3.Size = new System.Drawing.Size(128, 28);
+            this.verNumlbl3.Size = new System.Drawing.Size(85, 18);
             this.verNumlbl3.TabIndex = 32;
             this.verNumlbl3.Text = "#.#.#";
             this.verNumlbl3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -111,8 +107,7 @@
             this.exitlbl.BackColor = System.Drawing.Color.Transparent;
             this.exitlbl.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitlbl.ForeColor = System.Drawing.Color.Black;
-            this.exitlbl.Location = new System.Drawing.Point(393, 0);
-            this.exitlbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.exitlbl.Location = new System.Drawing.Point(262, 0);
             this.exitlbl.Name = "exitlbl";
             this.exitlbl.Size = new System.Drawing.Size(20, 23);
             this.exitlbl.TabIndex = 9;
@@ -124,10 +119,9 @@
             // 
             this.bannerPictureBox.BackColor = System.Drawing.Color.Transparent;
             this.bannerPictureBox.Image = global::QobuzDownloaderX.Properties.Resources.qbdlx_white;
-            this.bannerPictureBox.Location = new System.Drawing.Point(18, 80);
-            this.bannerPictureBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.bannerPictureBox.Location = new System.Drawing.Point(12, 52);
             this.bannerPictureBox.Name = "bannerPictureBox";
-            this.bannerPictureBox.Size = new System.Drawing.Size(387, 98);
+            this.bannerPictureBox.Size = new System.Drawing.Size(258, 64);
             this.bannerPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.bannerPictureBox.TabIndex = 29;
             this.bannerPictureBox.TabStop = false;
@@ -139,11 +133,10 @@
             this.userAuthTokenTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.userAuthTokenTextbox.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.userAuthTokenTextbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.userAuthTokenTextbox.Location = new System.Drawing.Point(18, 392);
-            this.userAuthTokenTextbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.userAuthTokenTextbox.Location = new System.Drawing.Point(12, 255);
             this.userAuthTokenTextbox.Multiline = true;
             this.userAuthTokenTextbox.Name = "userAuthTokenTextbox";
-            this.userAuthTokenTextbox.Size = new System.Drawing.Size(356, 35);
+            this.userAuthTokenTextbox.Size = new System.Drawing.Size(237, 23);
             this.userAuthTokenTextbox.TabIndex = 35;
             this.userAuthTokenTextbox.Text = "user_auth_token";
             this.userAuthTokenTextbox.Visible = false;
@@ -157,10 +150,9 @@
             this.loginButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loginButton.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loginButton.ForeColor = System.Drawing.Color.White;
-            this.loginButton.Location = new System.Drawing.Point(18, 451);
-            this.loginButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.loginButton.Location = new System.Drawing.Point(12, 293);
             this.loginButton.Name = "loginButton";
-            this.loginButton.Size = new System.Drawing.Size(387, 46);
+            this.loginButton.Size = new System.Drawing.Size(258, 30);
             this.loginButton.TabIndex = 2;
             this.loginButton.Text = "LOGIN";
             this.loginButton.UseVisualStyleBackColor = false;
@@ -169,19 +161,17 @@
             // emailDividerPanel
             // 
             this.emailDividerPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.emailDividerPanel.Location = new System.Drawing.Point(18, 340);
-            this.emailDividerPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.emailDividerPanel.Location = new System.Drawing.Point(12, 221);
             this.emailDividerPanel.Name = "emailDividerPanel";
-            this.emailDividerPanel.Size = new System.Drawing.Size(387, 2);
+            this.emailDividerPanel.Size = new System.Drawing.Size(258, 1);
             this.emailDividerPanel.TabIndex = 2;
             // 
             // passwordDividerPanel
             // 
             this.passwordDividerPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.passwordDividerPanel.Location = new System.Drawing.Point(18, 426);
-            this.passwordDividerPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.passwordDividerPanel.Location = new System.Drawing.Point(12, 277);
             this.passwordDividerPanel.Name = "passwordDividerPanel";
-            this.passwordDividerPanel.Size = new System.Drawing.Size(387, 2);
+            this.passwordDividerPanel.Size = new System.Drawing.Size(258, 1);
             this.passwordDividerPanel.TabIndex = 2;
             // 
             // emailTextbox
@@ -190,11 +180,10 @@
             this.emailTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.emailTextbox.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.emailTextbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.emailTextbox.Location = new System.Drawing.Point(18, 306);
-            this.emailTextbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.emailTextbox.Location = new System.Drawing.Point(12, 199);
             this.emailTextbox.Multiline = true;
             this.emailTextbox.Name = "emailTextbox";
-            this.emailTextbox.Size = new System.Drawing.Size(387, 35);
+            this.emailTextbox.Size = new System.Drawing.Size(258, 23);
             this.emailTextbox.TabIndex = 7;
             this.emailTextbox.Text = "Email";
             this.emailTextbox.Click += new System.EventHandler(this.EmailTextbox_Click);
@@ -206,11 +195,10 @@
             this.passwordTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.passwordTextbox.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passwordTextbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.passwordTextbox.Location = new System.Drawing.Point(18, 392);
-            this.passwordTextbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.passwordTextbox.Location = new System.Drawing.Point(12, 255);
             this.passwordTextbox.Multiline = true;
             this.passwordTextbox.Name = "passwordTextbox";
-            this.passwordTextbox.Size = new System.Drawing.Size(356, 35);
+            this.passwordTextbox.Size = new System.Drawing.Size(237, 23);
             this.passwordTextbox.TabIndex = 8;
             this.passwordTextbox.Text = "Password";
             this.passwordTextbox.Click += new System.EventHandler(this.PasswordTextbox_Click);
@@ -221,10 +209,9 @@
             // 
             this.loginTextlbl.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loginTextlbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.loginTextlbl.Location = new System.Drawing.Point(18, 537);
-            this.loginTextlbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.loginTextlbl.Location = new System.Drawing.Point(12, 349);
             this.loginTextlbl.Name = "loginTextlbl";
-            this.loginTextlbl.Size = new System.Drawing.Size(387, 35);
+            this.loginTextlbl.Size = new System.Drawing.Size(258, 23);
             this.loginTextlbl.TabIndex = 30;
             this.loginTextlbl.Text = "Waiting for login...";
             this.loginTextlbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -236,8 +223,7 @@
             // visableCheckbox
             // 
             this.visableCheckbox.AutoSize = true;
-            this.visableCheckbox.Location = new System.Drawing.Point(382, 394);
-            this.visableCheckbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.visableCheckbox.Location = new System.Drawing.Point(255, 256);
             this.visableCheckbox.Name = "visableCheckbox";
             this.visableCheckbox.Size = new System.Drawing.Size(15, 14);
             this.visableCheckbox.TabIndex = 31;
@@ -248,10 +234,9 @@
             // 
             this.altLoginlbl.Font = new System.Drawing.Font("Trebuchet MS", 8.25F);
             this.altLoginlbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.altLoginlbl.Location = new System.Drawing.Point(18, 502);
-            this.altLoginlbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.altLoginlbl.Location = new System.Drawing.Point(12, 326);
             this.altLoginlbl.Name = "altLoginlbl";
-            this.altLoginlbl.Size = new System.Drawing.Size(387, 31);
+            this.altLoginlbl.Size = new System.Drawing.Size(258, 20);
             this.altLoginlbl.TabIndex = 32;
             this.altLoginlbl.Text = "Can\'t login? Click here";
             this.altLoginlbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -263,11 +248,10 @@
             this.userIdTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.userIdTextbox.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.userIdTextbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.userIdTextbox.Location = new System.Drawing.Point(18, 306);
-            this.userIdTextbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.userIdTextbox.Location = new System.Drawing.Point(12, 199);
             this.userIdTextbox.Multiline = true;
             this.userIdTextbox.Name = "userIdTextbox";
-            this.userIdTextbox.Size = new System.Drawing.Size(387, 35);
+            this.userIdTextbox.Size = new System.Drawing.Size(258, 23);
             this.userIdTextbox.TabIndex = 9;
             this.userIdTextbox.Text = "user_id";
             this.userIdTextbox.Visible = false;
@@ -276,10 +260,10 @@
             // 
             // LoginForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ClientSize = new System.Drawing.Size(423, 603);
+            this.ClientSize = new System.Drawing.Size(282, 392);
             this.Controls.Add(this.altLoginlbl);
             this.Controls.Add(this.visableCheckbox);
             this.Controls.Add(this.loginTextlbl);
@@ -293,7 +277,6 @@
             this.Controls.Add(this.userAuthTokenTextbox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "LoginForm";
             this.Text = "qbdLX | Login";
             this.Load += new System.EventHandler(this.LoginFrm_Load);
