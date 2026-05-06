@@ -157,9 +157,6 @@ namespace QobuzDownloaderX.Shared
                 DownloadInfo.SetAlbumDownloadInfo(qobuzTrack.Album);
                 UpdateAlbumUiTags.Invoke(DownloadInfo);
             }
-            // Check if available for streaming.
-            if (!IsStreamable(qobuzTrack))
-                return false;
             // Create directories if they don't exist yet
             // Add Album ID to Album Path if requested (to avoid conflicts for similar albums with trimmed long names)
             //CreateTrackDirectories(basePath, DownloadPaths.QualityPath, albumPathSuffix, isPartOfTracklist);
@@ -196,6 +193,14 @@ namespace QobuzDownloaderX.Shared
             // Construct Full filename & file path
             DownloadPaths.FullTrackFileName = DownloadPaths.FinalTrackNamePath + Globals.AudioFileType;
             DownloadPaths.FullTrackFilePath = Path.Combine(trackPath, DownloadPaths.FullTrackFileName);
+            // Check if available for streaming.
+            if (!IsStreamable(qobuzTrack))
+            {
+                System.IO.File.Create(DownloadPaths.FullTrackFilePath.Contains(".flac")
+                    ? DownloadPaths.FullTrackFilePath.Replace(".flac", ".missing")
+                    : DownloadPaths.FullTrackFilePath.Replace(".mp3", ".missing"));
+                return false;
+            }
             // Check if the file already exists
             if (System.IO.File.Exists(DownloadPaths.FullTrackFilePath))
             {
