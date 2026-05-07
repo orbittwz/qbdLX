@@ -164,6 +164,7 @@ namespace QobuzDownloaderX.Shared
             //string trackPath = DownloadInfo.CurrentDownloadPaths.Path4Full;
             string trackPath = string.Empty;
             string folderTemplate = Globals.TaggingOptions.FolderNameTemplate;
+            string fileTemplate = Globals.TaggingOptions.FileNameTemplate;
             if (isPartOfTracklist == true)
                 trackPath = Path.Combine(basePath, DownloadPaths.QualityPath);
             else if (folderTemplate.Contains("Year"))
@@ -184,10 +185,14 @@ namespace QobuzDownloaderX.Shared
             // Create padded track number string with minimum of 2 integer positions based on number of total tracks
             string paddedTrackNumber = DownloadInfo.TrackNumber.ToString().PadLeft(Math.Max(2, (int)Math.Floor(Math.Log10(DownloadInfo.TrackTotal) + 1)), '0');
             // Create full track filename
-            if (isPartOfTracklist)
-                DownloadPaths.FinalTrackNamePath = string.Concat(DownloadPaths.PerformerNamePath, Globals.FileNameTemplateString, DownloadPaths.TrackNamePath).TrimEnd();
+            if (isPartOfTracklist == true)
+                DownloadPaths.FinalTrackNamePath = string.Concat(DownloadPaths.PerformerNamePath, " - ", DownloadPaths.TrackNamePath).TrimEnd();
+            else if (fileTemplate.Contains("-") == false)
+                DownloadPaths.FinalTrackNamePath = string.Concat(paddedTrackNumber, " " ,DownloadPaths.TrackNamePath).TrimEnd();
+            else if (fileTemplate.Contains("Artist") == true)
+                DownloadPaths.FinalTrackNamePath = string.Concat(paddedTrackNumber, " - " , DownloadPaths.PerformerNamePath ," - ", DownloadPaths.TrackNamePath).TrimEnd();
             else
-                DownloadPaths.FinalTrackNamePath = string.Concat(paddedTrackNumber, Globals.FileNameTemplateString, DownloadPaths.TrackNamePath).TrimEnd();
+                DownloadPaths.FinalTrackNamePath = string.Concat(paddedTrackNumber, " - ", DownloadPaths.TrackNamePath).TrimEnd();
             // Shorten full filename if over MaxLength to avoid errors with file names being too long
             DownloadPaths.FinalTrackNamePath = StringTools.TrimToMaxLength(DownloadPaths.FinalTrackNamePath, Globals.MaxLength);
             // Construct Full filename & file path

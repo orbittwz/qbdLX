@@ -338,8 +338,8 @@
             this.logoBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.logoBox.TabIndex = 36;
             this.logoBox.TabStop = false;
-            this.logoBox.Click += new System.EventHandler(this.logoBox_Click);
-            this.logoBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
+            this.logoBox.Click += new System.EventHandler(this.LogoBox_Click);
+            this.logoBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseMove);
             // 
             // qobuzLinklbl
             // 
@@ -694,9 +694,9 @@
             this.exitlbl.TabIndex = 22;
             this.exitlbl.Text = "X";
             this.exitlbl.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.exitlbl.Click += new System.EventHandler(this.exitLabel_Click);
-            this.exitlbl.MouseLeave += new System.EventHandler(this.exitLabel_MouseLeave);
-            this.exitlbl.MouseHover += new System.EventHandler(this.exitLabel_MouseHover);
+            this.exitlbl.Click += new System.EventHandler(this.ExitLabel_Click);
+            this.exitlbl.MouseLeave += new System.EventHandler(this.ExitLabel_MouseLeave);
+            this.exitlbl.MouseHover += new System.EventHandler(this.ExitLabel_MouseHover);
             // 
             // minimizelbl
             // 
@@ -710,9 +710,9 @@
             this.minimizelbl.TabIndex = 21;
             this.minimizelbl.Text = "_";
             this.minimizelbl.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.minimizelbl.Click += new System.EventHandler(this.minimizeLabel_Click);
-            this.minimizelbl.MouseLeave += new System.EventHandler(this.minimizeLabel_MouseLeave);
-            this.minimizelbl.MouseHover += new System.EventHandler(this.minimizeLabel_MouseHover);
+            this.minimizelbl.Click += new System.EventHandler(this.MinimizeLabel_Click);
+            this.minimizelbl.MouseLeave += new System.EventHandler(this.MinimizeLabel_MouseLeave);
+            this.minimizelbl.MouseHover += new System.EventHandler(this.MinimizeLabel_MouseHover);
             // 
             // panel2
             // 
@@ -812,7 +812,7 @@
             this.displaySecretButton.Text = "Display App Secret";
             this.displaySecretButton.UseVisualStyleBackColor = false;
             this.displaySecretButton.Visible = false;
-            this.displaySecretButton.Click += new System.EventHandler(this.displaySecretButton_Click);
+            this.displaySecretButton.Click += new System.EventHandler(this.DisplaySecretButton_Click);
             // 
             // profilePictureBox
             // 
@@ -831,9 +831,9 @@
             this.logoutlbl.Size = new System.Drawing.Size(161, 13);
             this.logoutlbl.TabIndex = 43;
             this.logoutlbl.Text = "Logged in as %name%, Log out?";
-            this.logoutlbl.Click += new System.EventHandler(this.logoutLabel_Click);
-            this.logoutlbl.MouseLeave += new System.EventHandler(this.logoutLabel_MouseLeave);
-            this.logoutlbl.MouseHover += new System.EventHandler(this.logoutLabel_MouseHover);
+            this.logoutlbl.Click += new System.EventHandler(this.LogoutLabel_Click);
+            this.logoutlbl.MouseLeave += new System.EventHandler(this.LogoutLabel_MouseLeave);
+            this.logoutlbl.MouseHover += new System.EventHandler(this.LogoutLabel_MouseHover);
             // 
             // hiddenTextPanel
             // 
@@ -898,7 +898,7 @@
             this.enableBtnsButton.Text = "Re-Enable Buttons";
             this.enableBtnsButton.UseVisualStyleBackColor = false;
             this.enableBtnsButton.Visible = false;
-            this.enableBtnsButton.Click += new System.EventHandler(this.enableBtnsButton_Click);
+            this.enableBtnsButton.Click += new System.EventHandler(this.EnableBtnsButton_Click);
             // 
             // hideDebugButton
             // 
@@ -913,7 +913,7 @@
             this.hideDebugButton.Text = "Hide";
             this.hideDebugButton.UseVisualStyleBackColor = false;
             this.hideDebugButton.Visible = false;
-            this.hideDebugButton.Click += new System.EventHandler(this.hideDebugButton_Click);
+            this.hideDebugButton.Click += new System.EventHandler(this.HideDebugButton_Click);
             // 
             // maxFilenameLengthlbl
             // 
@@ -943,7 +943,7 @@
             this.maxLengthTextbox.Name = "maxLengthTextbox";
             this.maxLengthTextbox.Size = new System.Drawing.Size(68, 17);
             this.maxLengthTextbox.TabIndex = 88;
-            this.maxLengthTextbox.TextChanged += new System.EventHandler(this.maxLengthTextbox_TextChanged);
+            this.maxLengthTextbox.TextChanged += new System.EventHandler(this.MaxLengthTextbox_TextChanged);
             // 
             // maxFilenameLengthWarninglbl
             // 
@@ -976,7 +976,7 @@
             this.customFormatIDTextbox.TabIndex = 8;
             this.customFormatIDTextbox.Visible = false;
             this.customFormatIDTextbox.WordWrap = false;
-            this.customFormatIDTextbox.TextChanged += new System.EventHandler(this.customFormatIDTextbox_TextChanged);
+            this.customFormatIDTextbox.TextChanged += new System.EventHandler(this.CustomFormatIDTextbox_TextChanged);
             // 
             // formatIDlbl
             // 
@@ -993,14 +993,11 @@
             // 
             this.filenameTempSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.filenameTempSelect.FormattingEnabled = true;
-            this.filenameTempSelect.Items.AddRange(new object[] {
-            "00 Trackname",
-            "00 - Trackname"});
             this.filenameTempSelect.Location = new System.Drawing.Point(547, 615);
             this.filenameTempSelect.Name = "filenameTempSelect";
-            this.filenameTempSelect.Size = new System.Drawing.Size(108, 21);
+            this.filenameTempSelect.Size = new System.Drawing.Size(87, 21);
             this.filenameTempSelect.TabIndex = 82;
-            this.filenameTempSelect.SelectedIndexChanged += new System.EventHandler(this.filenameTempSelect_SelectedIndexChanged);
+            this.filenameTempSelect.SelectionChangeCommitted += new System.EventHandler(this.FilenameTempSelect_SelectionChangeCommitted);
             // 
             // filenameTemplatelbl
             // 
@@ -1199,7 +1196,7 @@
             this.flacHighRadioBtn.Tag = "q4";
             this.flacHighRadioBtn.Text = "FLAC 24/192";
             this.flacHighRadioBtn.UseVisualStyleBackColor = true;
-            this.flacHighRadioBtn.CheckedChanged += new System.EventHandler(this.qualityRadioBtn_CheckedChanged);
+            this.flacHighRadioBtn.CheckedChanged += new System.EventHandler(this.QualityRadioBtn_CheckedChanged);
             // 
             // flacMidRadioBtn
             // 
@@ -1213,7 +1210,7 @@
             this.flacMidRadioBtn.Tag = "q3";
             this.flacMidRadioBtn.Text = "FLAC 24/96";
             this.flacMidRadioBtn.UseVisualStyleBackColor = true;
-            this.flacMidRadioBtn.CheckedChanged += new System.EventHandler(this.qualityRadioBtn_CheckedChanged);
+            this.flacMidRadioBtn.CheckedChanged += new System.EventHandler(this.QualityRadioBtn_CheckedChanged);
             // 
             // flacLowRadioBtn
             // 
@@ -1227,7 +1224,7 @@
             this.flacLowRadioBtn.Tag = "q2";
             this.flacLowRadioBtn.Text = "FLAC 16/44.1";
             this.flacLowRadioBtn.UseVisualStyleBackColor = true;
-            this.flacLowRadioBtn.CheckedChanged += new System.EventHandler(this.qualityRadioBtn_CheckedChanged);
+            this.flacLowRadioBtn.CheckedChanged += new System.EventHandler(this.QualityRadioBtn_CheckedChanged);
             // 
             // mp3RadioBtn
             // 
@@ -1241,7 +1238,7 @@
             this.mp3RadioBtn.Tag = "q1";
             this.mp3RadioBtn.Text = "MP3 320";
             this.mp3RadioBtn.UseVisualStyleBackColor = true;
-            this.mp3RadioBtn.CheckedChanged += new System.EventHandler(this.qualityRadioBtn_CheckedChanged);
+            this.mp3RadioBtn.CheckedChanged += new System.EventHandler(this.QualityRadioBtn_CheckedChanged);
             // 
             // panel12
             // 
@@ -1259,7 +1256,7 @@
             this.goodiesCheckBox.AutoSize = true;
             this.goodiesCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
             this.goodiesCheckBox.Location = new System.Drawing.Point(449, 551);
-            this.goodiesCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.goodiesCheckBox.Margin = new System.Windows.Forms.Padding(2);
             this.goodiesCheckBox.Name = "goodiesCheckBox";
             this.goodiesCheckBox.Size = new System.Drawing.Size(65, 17);
             this.goodiesCheckBox.TabIndex = 73;
@@ -1425,7 +1422,7 @@
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "QobuzDownloaderX";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;

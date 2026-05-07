@@ -18,6 +18,7 @@ namespace QobuzDownloaderX
         private readonly DownloadLogger logger;
         private readonly DownloadManager downloadManager;
         private readonly List<string> folderNameList1;
+        private readonly List<string> fileNameList1;
         private int DevClickEggThingValue { get; set; }
         private int DebugMode { get; set; }
         // Button color download inactive
@@ -37,6 +38,7 @@ namespace QobuzDownloaderX
             };
             Markdowns markdowns = new Markdowns();
             folderNameList1 = markdowns.FolderNameListData;
+            fileNameList1 = markdowns.FileNameListData;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -118,7 +120,8 @@ namespace QobuzDownloaderX
                 WriteURLTag = Settings.Default.urlTag,
                 WriteQualityTag = Settings.Default.quality,
                 WriteGetGoodiesTag = Settings.Default.getGoodiesTag,
-                FolderNameTemplate = Settings.Default.savedFolderNameTemplate
+                FolderNameTemplate = Settings.Default.savedFolderNameTemplate,
+                FileNameTemplate = Settings.Default.savedFileNameTemplate
             };
             // Set saved settings to correct places.
             folderBrowserDialog.SelectedPath = Settings.Default.savedFolder;
@@ -157,11 +160,12 @@ namespace QobuzDownloaderX
             Globals.FormatIdString = Settings.Default.qualityFormat;
             Globals.AudioFileType = Settings.Default.audioType;
             artSizeSelect.SelectedIndex = Settings.Default.savedArtSize;
-            filenameTempSelect.SelectedIndex = Settings.Default.savedFilenameTemplate;
-            Globals.FileNameTemplateString = Settings.Default.savedFilenameTemplateString;
             foldernameTempSelect.DataSource = folderNameList1;
             foldernameTempSelect.SelectedItem = Settings.Default.savedFolderNameTemplate;
-            foldernameTempSelect.Width += folderNameList1.Last().Length + 10;
+            foldernameTempSelect.Width += folderNameList1.Max(st => st.Length) + 20;
+            filenameTempSelect.DataSource = fileNameList1;
+            filenameTempSelect.SelectedItem = Settings.Default.savedFileNameTemplate;
+            filenameTempSelect.Width += fileNameList1.Max(st => st.Length) + 10;
             Globals.MaxLength = Settings.Default.savedMaxLength;
             customFormatIDTextbox.Text = Globals.FormatIdString;
             maxLengthTextbox.Text = Globals.MaxLength.ToString();
@@ -477,21 +481,7 @@ namespace QobuzDownloaderX
             Settings.Default.Save();
         }
 
-        private void filenameTempSelect_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Set filename template to selected value, and save selected option to settings.
-            if (filenameTempSelect.SelectedIndex == 0)
-                Globals.FileNameTemplateString = " ";
-            else if (filenameTempSelect.SelectedIndex == 1)
-                Globals.FileNameTemplateString = " - ";
-            else
-                Globals.FileNameTemplateString = " ";
-            Settings.Default.savedFilenameTemplate = filenameTempSelect.SelectedIndex;
-            Settings.Default.savedFilenameTemplateString = Globals.FileNameTemplateString;
-            Settings.Default.Save();
-        }
-
-        private void maxLengthTextbox_TextChanged(object sender, EventArgs e)
+        private void MaxLengthTextbox_TextChanged(object sender, EventArgs e)
         {
             if (maxLengthTextbox.Text != null)
             {
@@ -579,53 +569,38 @@ namespace QobuzDownloaderX
             Globals.TaggingOptions.WriteURLTag = urlCheckBox.Checked;
         }
 
-        private void customFormatIDTextbox_TextChanged(object sender, EventArgs e)
+        private void CustomFormatIDTextbox_TextChanged(object sender, EventArgs e)
         {
             if (Globals.FormatIdString != "5" || Globals.FormatIdString != "6" || Globals.FormatIdString != "7" || Globals.FormatIdString != "27")
                 Globals.FormatIdString = customFormatIDTextbox.Text;
         }
 
-        private void exitLabel_Click(object sender, EventArgs e)
+        private void ExitLabel_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void minimizeLabel_Click(object sender, EventArgs e)
+        private void MinimizeLabel_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
         }
 
-        private void minimizeLabel_MouseHover(object sender, EventArgs e)
+        private void MinimizeLabel_MouseHover(object sender, EventArgs e)
         {
             minimizelbl.ForeColor = Color.FromArgb(0, 112, 239);
         }
 
-        private void minimizeLabel_MouseLeave(object sender, EventArgs e)
+        private void MinimizeLabel_MouseLeave(object sender, EventArgs e)
         {
             minimizelbl.ForeColor = Color.White;
         }
 
-        //private void aboutLabel_Click(object sender, EventArgs e)
-        //{
-        //    Globals.AboutForm.ShowDialog();
-        //}
-
-        //private void aboutLabel_MouseHover(object sender, EventArgs e)
-        //{
-        //    aboutlbl.ForeColor = Color.FromArgb(0, 112, 239);
-        //}
-
-        //private void aboutLabel_MouseLeave(object sender, EventArgs e)
-        //{
-        //    aboutlbl.ForeColor = Color.White;
-        //}
-
-        private void exitLabel_MouseHover(object sender, EventArgs e)
+        private void ExitLabel_MouseHover(object sender, EventArgs e)
         {
             exitlbl.ForeColor = Color.FromArgb(0, 112, 239);
         }
 
-        private void exitLabel_MouseLeave(object sender, EventArgs e)
+        private void ExitLabel_MouseLeave(object sender, EventArgs e)
         {
             exitlbl.ForeColor = Color.White;
         }
@@ -639,7 +614,7 @@ namespace QobuzDownloaderX
             }
         }
 
-        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        private void PictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -654,7 +629,7 @@ namespace QobuzDownloaderX
             Application.Exit();
         }
 
-        private void logoBox_Click(object sender, EventArgs e)
+        private void LogoBox_Click(object sender, EventArgs e)
         {
             DevClickEggThingValue += 1;
             if (DevClickEggThingValue > 3)
@@ -683,7 +658,7 @@ namespace QobuzDownloaderX
             }
         }
 
-        private void hideDebugButton_Click(object sender, EventArgs e)
+        private void HideDebugButton_Click(object sender, EventArgs e)
         {
             streamableCheckbox.Visible = false;
             displaySecretButton.Visible = false;
@@ -697,29 +672,29 @@ namespace QobuzDownloaderX
             DevClickEggThingValue = 0;
         }
 
-        private void displaySecretButton_Click(object sender, EventArgs e)
+        private void DisplaySecretButton_Click(object sender, EventArgs e)
         {
             secretTextbox.Text = QobuzApiServiceManager.GetApiService().AppSecret;
         }
 
-        private void logoutLabel_MouseHover(object sender, EventArgs e)
+        private void LogoutLabel_MouseHover(object sender, EventArgs e)
         {
             logoutlbl.ForeColor = Color.FromArgb(0, 112, 239);
         }
 
-        private void logoutLabel_MouseLeave(object sender, EventArgs e)
+        private void LogoutLabel_MouseLeave(object sender, EventArgs e)
         {
             logoutlbl.ForeColor = Color.FromArgb(88, 92, 102);
         }
 
-        private void logoutLabel_Click(object sender, EventArgs e)
+        private void LogoutLabel_Click(object sender, EventArgs e)
         {
             // Could use some work, but this works.
             Process.Start("QobuzDownloaderX.exe");
             Application.Exit();
         }
 
-        private void enableBtnsButton_Click(object sender, EventArgs e)
+        private void EnableBtnsButton_Click(object sender, EventArgs e)
         {
             UpdateControlsDownloadEnd();
         }
@@ -729,7 +704,7 @@ namespace QobuzDownloaderX
             downloadManager.CheckIfStreamable = streamableCheckbox.Checked;
         }
 
-        private void qualityRadioBtn_CheckedChanged(object sender, EventArgs e)
+        private void QualityRadioBtn_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton rb = sender as RadioButton;
             if (rb == null)
@@ -795,6 +770,13 @@ namespace QobuzDownloaderX
             Settings.Default.savedFolderNameTemplate = (string)foldernameTempSelect.SelectedItem;
             Settings.Default.Save();
             Globals.TaggingOptions.FolderNameTemplate = (string)foldernameTempSelect.SelectedItem;
+        }
+
+        private void FilenameTempSelect_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            Settings.Default.savedFileNameTemplate = (string)filenameTempSelect.SelectedItem;
+            Settings.Default.Save();
+            Globals.TaggingOptions.FileNameTemplate = (string)filenameTempSelect.SelectedItem;
         }
     }
 }

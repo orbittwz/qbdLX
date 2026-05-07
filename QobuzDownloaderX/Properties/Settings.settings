@@ -92,11 +92,8 @@
     <Setting Name="savedMaxLength" Roaming="true" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">150</Value>
     </Setting>
-    <Setting Name="savedFilenameTemplate" Roaming="true" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1</Value>
-    </Setting>
-    <Setting Name="savedFilenameTemplateString" Roaming="true" Type="System.String" Scope="User">
-      <Value Profile="(Default)"> - </Value>
+    <Setting Name="savedFileNameTemplate" Roaming="true" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Track - Title</Value>
     </Setting>
     <Setting Name="producerTag" Roaming="true" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -132,7 +129,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="savedFolderNameTemplate" Roaming="true" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Artist-Album-Quality</Value>
+      <Value Profile="(Default)">Artist - Album - Quality</Value>
     </Setting>
   </Settings>
 </SettingsFile>

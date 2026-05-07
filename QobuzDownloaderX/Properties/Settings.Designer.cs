@@ -415,27 +415,14 @@ namespace QobuzDownloaderX.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Track - Title")]
         [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
-        public int savedFilenameTemplate {
+        public string savedFileNameTemplate {
             get {
-                return ((int)(this["savedFilenameTemplate"]));
+                return ((string)(this["savedFileNameTemplate"]));
             }
             set {
-                this["savedFilenameTemplate"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(" - ")]
-        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
-        public string savedFilenameTemplateString {
-            get {
-                return ((string)(this["savedFilenameTemplateString"]));
-            }
-            set {
-                this["savedFilenameTemplateString"] = value;
+                this["savedFileNameTemplate"] = value;
             }
         }
         
@@ -584,7 +571,7 @@ namespace QobuzDownloaderX.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Artist-Album-Quality")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Artist - Album - Quality")]
         [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
         public string savedFolderNameTemplate {
             get {
