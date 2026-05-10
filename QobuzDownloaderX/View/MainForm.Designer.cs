@@ -81,24 +81,15 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
-            this.streamableCheckbox = new System.Windows.Forms.CheckBox();
-            this.secretTextbox = new System.Windows.Forms.TextBox();
-            this.displaySecretButton = new System.Windows.Forms.Button();
             this.profilePictureBox = new System.Windows.Forms.PictureBox();
             this.logoutlbl = new System.Windows.Forms.Label();
-            this.hiddenTextPanel = new System.Windows.Forms.Panel();
             this.artSizeSelect = new System.Windows.Forms.ComboBox();
             this.artSizelbl = new System.Windows.Forms.Label();
             this.typeCheckbox = new System.Windows.Forms.CheckBox();
-            this.enableBtnsButton = new System.Windows.Forms.Button();
-            this.hideDebugButton = new System.Windows.Forms.Button();
             this.maxFilenameLengthlbl = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
             this.maxLengthTextbox = new System.Windows.Forms.TextBox();
             this.maxFilenameLengthWarninglbl = new System.Windows.Forms.Label();
-            this.customFormatPanel = new System.Windows.Forms.Panel();
-            this.customFormatIDTextbox = new System.Windows.Forms.TextBox();
-            this.formatIDlbl = new System.Windows.Forms.Label();
             this.filenameTempSelect = new System.Windows.Forms.ComboBox();
             this.filenameTemplatelbl = new System.Windows.Forms.Label();
             this.openLogFolderButton = new System.Windows.Forms.Button();
@@ -127,6 +118,7 @@
             this.misclbl = new System.Windows.Forms.Label();
             this.foldernameTempSelect = new System.Windows.Forms.ComboBox();
             this.foldernameTemplatelbl = new System.Windows.Forms.Label();
+            this.tagsLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.albumArtPicBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.logoBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).BeginInit();
@@ -139,9 +131,9 @@
             this.selectFolderButton.FlatAppearance.BorderSize = 0;
             this.selectFolderButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.selectFolderButton.ForeColor = System.Drawing.Color.White;
-            this.selectFolderButton.Location = new System.Drawing.Point(12, 112);
+            this.selectFolderButton.Location = new System.Drawing.Point(241, 8);
             this.selectFolderButton.Name = "selectFolderButton";
-            this.selectFolderButton.Size = new System.Drawing.Size(231, 23);
+            this.selectFolderButton.Size = new System.Drawing.Size(138, 23);
             this.selectFolderButton.TabIndex = 15;
             this.selectFolderButton.Text = "Choose Download Folder";
             this.selectFolderButton.UseVisualStyleBackColor = false;
@@ -154,11 +146,11 @@
             this.output.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.output.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.output.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.output.Location = new System.Drawing.Point(12, 141);
+            this.output.Location = new System.Drawing.Point(12, 148);
             this.output.Multiline = true;
             this.output.Name = "output";
             this.output.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.output.Size = new System.Drawing.Size(705, 339);
+            this.output.Size = new System.Drawing.Size(590, 332);
             this.output.TabIndex = 19;
             this.output.Text = "Test String";
             // 
@@ -168,9 +160,9 @@
             this.openFolderButton.FlatAppearance.BorderSize = 0;
             this.openFolderButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.openFolderButton.ForeColor = System.Drawing.Color.White;
-            this.openFolderButton.Location = new System.Drawing.Point(250, 112);
+            this.openFolderButton.Location = new System.Drawing.Point(241, 37);
             this.openFolderButton.Name = "openFolderButton";
-            this.openFolderButton.Size = new System.Drawing.Size(231, 23);
+            this.openFolderButton.Size = new System.Drawing.Size(138, 23);
             this.openFolderButton.TabIndex = 17;
             this.openFolderButton.Text = "Open Download Folder";
             this.openFolderButton.UseVisualStyleBackColor = false;
@@ -182,9 +174,9 @@
             this.downloadButton.FlatAppearance.BorderSize = 0;
             this.downloadButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.downloadButton.ForeColor = System.Drawing.Color.White;
-            this.downloadButton.Location = new System.Drawing.Point(598, 83);
+            this.downloadButton.Location = new System.Drawing.Point(514, 119);
             this.downloadButton.Name = "downloadButton";
-            this.downloadButton.Size = new System.Drawing.Size(120, 23);
+            this.downloadButton.Size = new System.Drawing.Size(88, 23);
             this.downloadButton.TabIndex = 14;
             this.downloadButton.Text = "Download";
             this.downloadButton.UseVisualStyleBackColor = false;
@@ -195,10 +187,10 @@
             this.downloadUrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.downloadUrl.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.downloadUrl.ForeColor = System.Drawing.Color.White;
-            this.downloadUrl.Location = new System.Drawing.Point(15, 86);
+            this.downloadUrl.Location = new System.Drawing.Point(12, 122);
             this.downloadUrl.Multiline = true;
             this.downloadUrl.Name = "downloadUrl";
-            this.downloadUrl.Size = new System.Drawing.Size(576, 20);
+            this.downloadUrl.Size = new System.Drawing.Size(496, 20);
             this.downloadUrl.TabIndex = 0;
             this.downloadUrl.WordWrap = false;
             this.downloadUrl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DownloadUrl_KeyDown);
@@ -217,7 +209,7 @@
             // 
             this.coverArtlbl.AutoSize = true;
             this.coverArtlbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.coverArtlbl.Location = new System.Drawing.Point(778, 297);
+            this.coverArtlbl.Location = new System.Drawing.Point(225, 734);
             this.coverArtlbl.Name = "coverArtlbl";
             this.coverArtlbl.Size = new System.Drawing.Size(51, 13);
             this.coverArtlbl.TabIndex = 23;
@@ -227,7 +219,7 @@
             // 
             this.albumArtistlbl.AutoSize = true;
             this.albumArtistlbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.albumArtistlbl.Location = new System.Drawing.Point(728, 320);
+            this.albumArtistlbl.Location = new System.Drawing.Point(373, 495);
             this.albumArtistlbl.Name = "albumArtistlbl";
             this.albumArtistlbl.Size = new System.Drawing.Size(62, 13);
             this.albumArtistlbl.TabIndex = 24;
@@ -238,11 +230,11 @@
             this.albumArtistTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.albumArtistTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.albumArtistTextBox.ForeColor = System.Drawing.Color.White;
-            this.albumArtistTextBox.Location = new System.Drawing.Point(731, 336);
+            this.albumArtistTextBox.Location = new System.Drawing.Point(376, 511);
             this.albumArtistTextBox.Multiline = true;
             this.albumArtistTextBox.Name = "albumArtistTextBox";
             this.albumArtistTextBox.ReadOnly = true;
-            this.albumArtistTextBox.Size = new System.Drawing.Size(150, 20);
+            this.albumArtistTextBox.Size = new System.Drawing.Size(187, 20);
             this.albumArtistTextBox.TabIndex = 25;
             this.albumArtistTextBox.TabStop = false;
             this.albumArtistTextBox.WordWrap = false;
@@ -252,11 +244,11 @@
             this.albumTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.albumTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.albumTextBox.ForeColor = System.Drawing.Color.White;
-            this.albumTextBox.Location = new System.Drawing.Point(731, 378);
+            this.albumTextBox.Location = new System.Drawing.Point(376, 550);
             this.albumTextBox.Multiline = true;
             this.albumTextBox.Name = "albumTextBox";
             this.albumTextBox.ReadOnly = true;
-            this.albumTextBox.Size = new System.Drawing.Size(150, 20);
+            this.albumTextBox.Size = new System.Drawing.Size(187, 20);
             this.albumTextBox.TabIndex = 28;
             this.albumTextBox.TabStop = false;
             this.albumTextBox.WordWrap = false;
@@ -265,7 +257,7 @@
             // 
             this.albumlbl.AutoSize = true;
             this.albumlbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.albumlbl.Location = new System.Drawing.Point(728, 362);
+            this.albumlbl.Location = new System.Drawing.Point(373, 534);
             this.albumlbl.Name = "albumlbl";
             this.albumlbl.Size = new System.Drawing.Size(36, 13);
             this.albumlbl.TabIndex = 27;
@@ -276,11 +268,11 @@
             this.releaseDateTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.releaseDateTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.releaseDateTextBox.ForeColor = System.Drawing.Color.White;
-            this.releaseDateTextBox.Location = new System.Drawing.Point(731, 547);
+            this.releaseDateTextBox.Location = new System.Drawing.Point(376, 720);
             this.releaseDateTextBox.Multiline = true;
             this.releaseDateTextBox.Name = "releaseDateTextBox";
             this.releaseDateTextBox.ReadOnly = true;
-            this.releaseDateTextBox.Size = new System.Drawing.Size(150, 20);
+            this.releaseDateTextBox.Size = new System.Drawing.Size(187, 20);
             this.releaseDateTextBox.TabIndex = 40;
             this.releaseDateTextBox.TabStop = false;
             this.releaseDateTextBox.WordWrap = false;
@@ -289,7 +281,7 @@
             // 
             this.releaseDatelbl.AutoSize = true;
             this.releaseDatelbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.releaseDatelbl.Location = new System.Drawing.Point(728, 531);
+            this.releaseDatelbl.Location = new System.Drawing.Point(373, 704);
             this.releaseDatelbl.Name = "releaseDatelbl";
             this.releaseDatelbl.Size = new System.Drawing.Size(72, 13);
             this.releaseDatelbl.TabIndex = 39;
@@ -300,11 +292,11 @@
             this.upcTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.upcTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.upcTextBox.ForeColor = System.Drawing.Color.White;
-            this.upcTextBox.Location = new System.Drawing.Point(731, 504);
+            this.upcTextBox.Location = new System.Drawing.Point(376, 677);
             this.upcTextBox.Multiline = true;
             this.upcTextBox.Name = "upcTextBox";
             this.upcTextBox.ReadOnly = true;
-            this.upcTextBox.Size = new System.Drawing.Size(150, 20);
+            this.upcTextBox.Size = new System.Drawing.Size(187, 20);
             this.upcTextBox.TabIndex = 37;
             this.upcTextBox.TabStop = false;
             this.upcTextBox.WordWrap = false;
@@ -313,7 +305,7 @@
             // 
             this.UPClbl.AutoSize = true;
             this.UPClbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.UPClbl.Location = new System.Drawing.Point(728, 488);
+            this.UPClbl.Location = new System.Drawing.Point(373, 661);
             this.UPClbl.Name = "UPClbl";
             this.UPClbl.Size = new System.Drawing.Size(29, 13);
             this.UPClbl.TabIndex = 36;
@@ -321,11 +313,11 @@
             // 
             // albumArtPicBox
             // 
-            this.albumArtPicBox.Location = new System.Drawing.Point(731, 141);
-            this.albumArtPicBox.MaximumSize = new System.Drawing.Size(150, 150);
-            this.albumArtPicBox.MinimumSize = new System.Drawing.Size(150, 150);
+            this.albumArtPicBox.Location = new System.Drawing.Point(150, 523);
+            this.albumArtPicBox.MaximumSize = new System.Drawing.Size(200, 200);
             this.albumArtPicBox.Name = "albumArtPicBox";
-            this.albumArtPicBox.Size = new System.Drawing.Size(150, 150);
+            this.albumArtPicBox.Size = new System.Drawing.Size(200, 200);
+            this.albumArtPicBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.albumArtPicBox.TabIndex = 39;
             this.albumArtPicBox.TabStop = false;
             // 
@@ -338,14 +330,13 @@
             this.logoBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.logoBox.TabIndex = 36;
             this.logoBox.TabStop = false;
-            this.logoBox.Click += new System.EventHandler(this.LogoBox_Click);
             this.logoBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseMove);
             // 
             // qobuzLinklbl
             // 
             this.qobuzLinklbl.AutoSize = true;
             this.qobuzLinklbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.qobuzLinklbl.Location = new System.Drawing.Point(12, 67);
+            this.qobuzLinklbl.Location = new System.Drawing.Point(9, 106);
             this.qobuzLinklbl.Name = "qobuzLinklbl";
             this.qobuzLinklbl.Size = new System.Drawing.Size(61, 13);
             this.qobuzLinklbl.TabIndex = 10;
@@ -356,11 +347,11 @@
             this.totalTracksTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.totalTracksTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.totalTracksTextbox.ForeColor = System.Drawing.Color.White;
-            this.totalTracksTextbox.Location = new System.Drawing.Point(731, 462);
+            this.totalTracksTextbox.Location = new System.Drawing.Point(376, 635);
             this.totalTracksTextbox.Multiline = true;
             this.totalTracksTextbox.Name = "totalTracksTextbox";
             this.totalTracksTextbox.ReadOnly = true;
-            this.totalTracksTextbox.Size = new System.Drawing.Size(150, 20);
+            this.totalTracksTextbox.Size = new System.Drawing.Size(187, 20);
             this.totalTracksTextbox.TabIndex = 34;
             this.totalTracksTextbox.TabStop = false;
             this.totalTracksTextbox.WordWrap = false;
@@ -369,7 +360,7 @@
             // 
             this.totalTrackslbl.AutoSize = true;
             this.totalTrackslbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.totalTrackslbl.Location = new System.Drawing.Point(728, 446);
+            this.totalTrackslbl.Location = new System.Drawing.Point(373, 619);
             this.totalTrackslbl.Name = "totalTrackslbl";
             this.totalTrackslbl.Size = new System.Drawing.Size(67, 13);
             this.totalTrackslbl.TabIndex = 33;
@@ -380,11 +371,11 @@
             this.qualityTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.qualityTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.qualityTextbox.ForeColor = System.Drawing.Color.White;
-            this.qualityTextbox.Location = new System.Drawing.Point(731, 420);
+            this.qualityTextbox.Location = new System.Drawing.Point(376, 593);
             this.qualityTextbox.Multiline = true;
             this.qualityTextbox.Name = "qualityTextbox";
             this.qualityTextbox.ReadOnly = true;
-            this.qualityTextbox.Size = new System.Drawing.Size(150, 20);
+            this.qualityTextbox.Size = new System.Drawing.Size(187, 20);
             this.qualityTextbox.TabIndex = 31;
             this.qualityTextbox.TabStop = false;
             this.qualityTextbox.WordWrap = false;
@@ -393,7 +384,7 @@
             // 
             this.albumQualitylbl.AutoSize = true;
             this.albumQualitylbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.albumQualitylbl.Location = new System.Drawing.Point(728, 404);
+            this.albumQualitylbl.Location = new System.Drawing.Point(373, 577);
             this.albumQualitylbl.Name = "albumQualitylbl";
             this.albumQualitylbl.Size = new System.Drawing.Size(71, 13);
             this.albumQualitylbl.TabIndex = 30;
@@ -405,9 +396,9 @@
             this.openSearchButton.FlatAppearance.BorderSize = 0;
             this.openSearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.openSearchButton.ForeColor = System.Drawing.Color.White;
-            this.openSearchButton.Location = new System.Drawing.Point(598, 54);
+            this.openSearchButton.Location = new System.Drawing.Point(241, 95);
             this.openSearchButton.Name = "openSearchButton";
-            this.openSearchButton.Size = new System.Drawing.Size(120, 23);
+            this.openSearchButton.Size = new System.Drawing.Size(138, 23);
             this.openSearchButton.TabIndex = 12;
             this.openSearchButton.Text = "Open Search";
             this.openSearchButton.UseVisualStyleBackColor = false;
@@ -420,7 +411,7 @@
             this.albumArtistCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.albumArtistCheckbox.FlatAppearance.BorderSize = 0;
             this.albumArtistCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.albumArtistCheckbox.Location = new System.Drawing.Point(64, 618);
+            this.albumArtistCheckbox.Location = new System.Drawing.Point(626, 141);
             this.albumArtistCheckbox.Name = "albumArtistCheckbox";
             this.albumArtistCheckbox.Size = new System.Drawing.Size(81, 17);
             this.albumArtistCheckbox.TabIndex = 49;
@@ -435,7 +426,7 @@
             this.artistCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.artistCheckbox.FlatAppearance.BorderSize = 0;
             this.artistCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.artistCheckbox.Location = new System.Drawing.Point(64, 574);
+            this.artistCheckbox.Location = new System.Drawing.Point(626, 97);
             this.artistCheckbox.Name = "artistCheckbox";
             this.artistCheckbox.Size = new System.Drawing.Size(80, 17);
             this.artistCheckbox.TabIndex = 47;
@@ -450,7 +441,7 @@
             this.trackTitleCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.trackTitleCheckbox.FlatAppearance.BorderSize = 0;
             this.trackTitleCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.trackTitleCheckbox.Location = new System.Drawing.Point(64, 551);
+            this.trackTitleCheckbox.Location = new System.Drawing.Point(626, 74);
             this.trackTitleCheckbox.Name = "trackTitleCheckbox";
             this.trackTitleCheckbox.Size = new System.Drawing.Size(77, 17);
             this.trackTitleCheckbox.TabIndex = 46;
@@ -465,7 +456,7 @@
             this.trackNumberCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.trackNumberCheckbox.FlatAppearance.BorderSize = 0;
             this.trackNumberCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.trackNumberCheckbox.Location = new System.Drawing.Point(64, 684);
+            this.trackNumberCheckbox.Location = new System.Drawing.Point(723, 97);
             this.trackNumberCheckbox.Name = "trackNumberCheckbox";
             this.trackNumberCheckbox.Size = new System.Drawing.Size(94, 17);
             this.trackNumberCheckbox.TabIndex = 52;
@@ -480,7 +471,7 @@
             this.trackTotalCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.trackTotalCheckbox.FlatAppearance.BorderSize = 0;
             this.trackTotalCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.trackTotalCheckbox.Location = new System.Drawing.Point(64, 706);
+            this.trackTotalCheckbox.Location = new System.Drawing.Point(723, 119);
             this.trackTotalCheckbox.Name = "trackTotalCheckbox";
             this.trackTotalCheckbox.Size = new System.Drawing.Size(86, 17);
             this.trackTotalCheckbox.TabIndex = 53;
@@ -495,7 +486,7 @@
             this.discNumberCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.discNumberCheckbox.FlatAppearance.BorderSize = 0;
             this.discNumberCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.discNumberCheckbox.Location = new System.Drawing.Point(64, 728);
+            this.discNumberCheckbox.Location = new System.Drawing.Point(723, 141);
             this.discNumberCheckbox.Name = "discNumberCheckbox";
             this.discNumberCheckbox.Size = new System.Drawing.Size(87, 17);
             this.discNumberCheckbox.TabIndex = 54;
@@ -510,7 +501,7 @@
             this.discTotalCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.discTotalCheckbox.FlatAppearance.BorderSize = 0;
             this.discTotalCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.discTotalCheckbox.Location = new System.Drawing.Point(64, 750);
+            this.discTotalCheckbox.Location = new System.Drawing.Point(723, 163);
             this.discTotalCheckbox.Name = "discTotalCheckbox";
             this.discTotalCheckbox.Size = new System.Drawing.Size(79, 17);
             this.discTotalCheckbox.TabIndex = 55;
@@ -525,7 +516,7 @@
             this.albumCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.albumCheckbox.FlatAppearance.BorderSize = 0;
             this.albumCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.albumCheckbox.Location = new System.Drawing.Point(64, 596);
+            this.albumCheckbox.Location = new System.Drawing.Point(626, 119);
             this.albumCheckbox.Name = "albumCheckbox";
             this.albumCheckbox.Size = new System.Drawing.Size(78, 17);
             this.albumCheckbox.TabIndex = 48;
@@ -538,7 +529,7 @@
             this.explicitCheckbox.AutoSize = true;
             this.explicitCheckbox.FlatAppearance.BorderSize = 0;
             this.explicitCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.explicitCheckbox.Location = new System.Drawing.Point(175, 706);
+            this.explicitCheckbox.Location = new System.Drawing.Point(723, 243);
             this.explicitCheckbox.Name = "explicitCheckbox";
             this.explicitCheckbox.Size = new System.Drawing.Size(106, 17);
             this.explicitCheckbox.TabIndex = 64;
@@ -551,7 +542,7 @@
             this.upcCheckbox.AutoSize = true;
             this.upcCheckbox.FlatAppearance.BorderSize = 0;
             this.upcCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.upcCheckbox.Location = new System.Drawing.Point(175, 618);
+            this.upcCheckbox.Location = new System.Drawing.Point(626, 288);
             this.upcCheckbox.Name = "upcCheckbox";
             this.upcCheckbox.Size = new System.Drawing.Size(52, 17);
             this.upcCheckbox.TabIndex = 60;
@@ -564,7 +555,7 @@
             this.isrcCheckbox.AutoSize = true;
             this.isrcCheckbox.FlatAppearance.BorderSize = 0;
             this.isrcCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.isrcCheckbox.Location = new System.Drawing.Point(175, 662);
+            this.isrcCheckbox.Location = new System.Drawing.Point(626, 332);
             this.isrcCheckbox.Name = "isrcCheckbox";
             this.isrcCheckbox.Size = new System.Drawing.Size(51, 17);
             this.isrcCheckbox.TabIndex = 62;
@@ -577,7 +568,7 @@
             this.copyrightCheckbox.AutoSize = true;
             this.copyrightCheckbox.FlatAppearance.BorderSize = 0;
             this.copyrightCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.copyrightCheckbox.Location = new System.Drawing.Point(175, 684);
+            this.copyrightCheckbox.Location = new System.Drawing.Point(723, 221);
             this.copyrightCheckbox.Name = "copyrightCheckbox";
             this.copyrightCheckbox.Size = new System.Drawing.Size(70, 17);
             this.copyrightCheckbox.TabIndex = 63;
@@ -590,7 +581,7 @@
             this.composerCheckbox.AutoSize = true;
             this.composerCheckbox.FlatAppearance.BorderSize = 0;
             this.composerCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.composerCheckbox.Location = new System.Drawing.Point(175, 640);
+            this.composerCheckbox.Location = new System.Drawing.Point(626, 310);
             this.composerCheckbox.Name = "composerCheckbox";
             this.composerCheckbox.Size = new System.Drawing.Size(73, 17);
             this.composerCheckbox.TabIndex = 61;
@@ -605,7 +596,7 @@
             this.genreCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.genreCheckbox.FlatAppearance.BorderSize = 0;
             this.genreCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.genreCheckbox.Location = new System.Drawing.Point(64, 640);
+            this.genreCheckbox.Location = new System.Drawing.Point(626, 163);
             this.genreCheckbox.Name = "genreCheckbox";
             this.genreCheckbox.Size = new System.Drawing.Size(55, 17);
             this.genreCheckbox.TabIndex = 50;
@@ -618,7 +609,7 @@
             this.releasYearCheckbox.AutoSize = true;
             this.releasYearCheckbox.FlatAppearance.BorderSize = 0;
             this.releasYearCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.releasYearCheckbox.Location = new System.Drawing.Point(175, 551);
+            this.releasYearCheckbox.Location = new System.Drawing.Point(626, 221);
             this.releasYearCheckbox.Name = "releasYearCheckbox";
             this.releasYearCheckbox.Size = new System.Drawing.Size(90, 17);
             this.releasYearCheckbox.TabIndex = 57;
@@ -631,7 +622,7 @@
             this.commentCheckbox.AutoSize = true;
             this.commentCheckbox.FlatAppearance.BorderSize = 0;
             this.commentCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.commentCheckbox.Location = new System.Drawing.Point(175, 750);
+            this.commentCheckbox.Location = new System.Drawing.Point(626, 355);
             this.commentCheckbox.Name = "commentCheckbox";
             this.commentCheckbox.Size = new System.Drawing.Size(70, 17);
             this.commentCheckbox.TabIndex = 66;
@@ -644,7 +635,7 @@
             this.commentTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.commentTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.commentTextbox.ForeColor = System.Drawing.Color.White;
-            this.commentTextbox.Location = new System.Drawing.Point(241, 750);
+            this.commentTextbox.Location = new System.Drawing.Point(692, 355);
             this.commentTextbox.Multiline = true;
             this.commentTextbox.Name = "commentTextbox";
             this.commentTextbox.Size = new System.Drawing.Size(112, 17);
@@ -656,7 +647,7 @@
             this.imageCheckbox.AutoSize = true;
             this.imageCheckbox.FlatAppearance.BorderSize = 0;
             this.imageCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.imageCheckbox.Location = new System.Drawing.Point(449, 574);
+            this.imageCheckbox.Location = new System.Drawing.Point(626, 435);
             this.imageCheckbox.Name = "imageCheckbox";
             this.imageCheckbox.Size = new System.Drawing.Size(70, 17);
             this.imageCheckbox.TabIndex = 74;
@@ -668,7 +659,7 @@
             // 
             this.mp3Warninglbl.AutoSize = true;
             this.mp3Warninglbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.mp3Warninglbl.Location = new System.Drawing.Point(534, 744);
+            this.mp3Warninglbl.Location = new System.Drawing.Point(669, 601);
             this.mp3Warninglbl.Name = "mp3Warninglbl";
             this.mp3Warninglbl.Size = new System.Drawing.Size(182, 13);
             this.mp3Warninglbl.TabIndex = 90;
@@ -677,9 +668,9 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.panel1.Location = new System.Drawing.Point(15, 104);
+            this.panel1.Location = new System.Drawing.Point(12, 140);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(576, 1);
+            this.panel1.Size = new System.Drawing.Size(496, 1);
             this.panel1.TabIndex = 16;
             // 
             // exitlbl
@@ -717,106 +708,62 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.panel2.Location = new System.Drawing.Point(731, 355);
+            this.panel2.Location = new System.Drawing.Point(376, 530);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(150, 1);
+            this.panel2.Size = new System.Drawing.Size(187, 1);
             this.panel2.TabIndex = 26;
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.panel3.Location = new System.Drawing.Point(731, 397);
+            this.panel3.Location = new System.Drawing.Point(376, 569);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(150, 1);
+            this.panel3.Size = new System.Drawing.Size(187, 1);
             this.panel3.TabIndex = 29;
             // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.panel4.Location = new System.Drawing.Point(731, 439);
+            this.panel4.Location = new System.Drawing.Point(376, 612);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(150, 1);
+            this.panel4.Size = new System.Drawing.Size(187, 1);
             this.panel4.TabIndex = 32;
             // 
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.panel5.Location = new System.Drawing.Point(731, 481);
+            this.panel5.Location = new System.Drawing.Point(376, 654);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(150, 1);
+            this.panel5.Size = new System.Drawing.Size(187, 1);
             this.panel5.TabIndex = 35;
             // 
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.panel6.Location = new System.Drawing.Point(731, 522);
+            this.panel6.Location = new System.Drawing.Point(376, 695);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(150, 1);
+            this.panel6.Size = new System.Drawing.Size(187, 1);
             this.panel6.TabIndex = 38;
             // 
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.panel7.Location = new System.Drawing.Point(731, 566);
+            this.panel7.Location = new System.Drawing.Point(376, 739);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(150, 1);
+            this.panel7.Size = new System.Drawing.Size(187, 1);
             this.panel7.TabIndex = 41;
             // 
             // panel8
             // 
             this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.panel8.Location = new System.Drawing.Point(241, 767);
+            this.panel8.Location = new System.Drawing.Point(692, 372);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(112, 1);
             this.panel8.TabIndex = 68;
             // 
-            // streamableCheckbox
-            // 
-            this.streamableCheckbox.AutoSize = true;
-            this.streamableCheckbox.Checked = true;
-            this.streamableCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.streamableCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.streamableCheckbox.Location = new System.Drawing.Point(243, 38);
-            this.streamableCheckbox.Name = "streamableCheckbox";
-            this.streamableCheckbox.Size = new System.Drawing.Size(113, 17);
-            this.streamableCheckbox.TabIndex = 2;
-            this.streamableCheckbox.Text = "Streamable Check";
-            this.streamableCheckbox.UseVisualStyleBackColor = true;
-            this.streamableCheckbox.Visible = false;
-            this.streamableCheckbox.CheckedChanged += new System.EventHandler(this.StreamableCheckbox_CheckedChanged);
-            // 
-            // secretTextbox
-            // 
-            this.secretTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.secretTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.secretTextbox.ForeColor = System.Drawing.Color.White;
-            this.secretTextbox.Location = new System.Drawing.Point(428, 13);
-            this.secretTextbox.Multiline = true;
-            this.secretTextbox.Name = "secretTextbox";
-            this.secretTextbox.ReadOnly = true;
-            this.secretTextbox.Size = new System.Drawing.Size(160, 20);
-            this.secretTextbox.TabIndex = 5;
-            this.secretTextbox.Visible = false;
-            this.secretTextbox.WordWrap = false;
-            // 
-            // displaySecretButton
-            // 
-            this.displaySecretButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(112)))), ((int)(((byte)(239)))));
-            this.displaySecretButton.FlatAppearance.BorderSize = 0;
-            this.displaySecretButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.displaySecretButton.ForeColor = System.Drawing.Color.White;
-            this.displaySecretButton.Location = new System.Drawing.Point(303, 9);
-            this.displaySecretButton.Name = "displaySecretButton";
-            this.displaySecretButton.Size = new System.Drawing.Size(119, 23);
-            this.displaySecretButton.TabIndex = 4;
-            this.displaySecretButton.Text = "Display App Secret";
-            this.displaySecretButton.UseVisualStyleBackColor = false;
-            this.displaySecretButton.Visible = false;
-            this.displaySecretButton.Click += new System.EventHandler(this.DisplaySecretButton_Click);
-            // 
             // profilePictureBox
             // 
-            this.profilePictureBox.Location = new System.Drawing.Point(12, 498);
+            this.profilePictureBox.Location = new System.Drawing.Point(12, 488);
             this.profilePictureBox.Name = "profilePictureBox";
             this.profilePictureBox.Size = new System.Drawing.Size(20, 20);
             this.profilePictureBox.TabIndex = 94;
@@ -826,7 +773,7 @@
             // 
             this.logoutlbl.AutoSize = true;
             this.logoutlbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.logoutlbl.Location = new System.Drawing.Point(36, 502);
+            this.logoutlbl.Location = new System.Drawing.Point(36, 492);
             this.logoutlbl.Name = "logoutlbl";
             this.logoutlbl.Size = new System.Drawing.Size(161, 13);
             this.logoutlbl.TabIndex = 43;
@@ -834,15 +781,6 @@
             this.logoutlbl.Click += new System.EventHandler(this.LogoutLabel_Click);
             this.logoutlbl.MouseLeave += new System.EventHandler(this.LogoutLabel_MouseLeave);
             this.logoutlbl.MouseHover += new System.EventHandler(this.LogoutLabel_MouseHover);
-            // 
-            // hiddenTextPanel
-            // 
-            this.hiddenTextPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.hiddenTextPanel.Location = new System.Drawing.Point(430, 33);
-            this.hiddenTextPanel.Name = "hiddenTextPanel";
-            this.hiddenTextPanel.Size = new System.Drawing.Size(160, 1);
-            this.hiddenTextPanel.TabIndex = 6;
-            this.hiddenTextPanel.Visible = false;
             // 
             // artSizeSelect
             // 
@@ -856,7 +794,7 @@
             "150",
             "100",
             "50"});
-            this.artSizeSelect.Location = new System.Drawing.Point(547, 590);
+            this.artSizeSelect.Location = new System.Drawing.Point(723, 451);
             this.artSizeSelect.Name = "artSizeSelect";
             this.artSizeSelect.Size = new System.Drawing.Size(87, 21);
             this.artSizeSelect.TabIndex = 81;
@@ -866,7 +804,7 @@
             // 
             this.artSizelbl.AutoSize = true;
             this.artSizelbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.artSizelbl.Location = new System.Drawing.Point(447, 596);
+            this.artSizelbl.Location = new System.Drawing.Point(623, 457);
             this.artSizelbl.Name = "artSizelbl";
             this.artSizelbl.Size = new System.Drawing.Size(207, 13);
             this.artSizelbl.TabIndex = 75;
@@ -877,7 +815,7 @@
             this.typeCheckbox.AutoSize = true;
             this.typeCheckbox.FlatAppearance.BorderSize = 0;
             this.typeCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.typeCheckbox.Location = new System.Drawing.Point(175, 574);
+            this.typeCheckbox.Location = new System.Drawing.Point(626, 244);
             this.typeCheckbox.Name = "typeCheckbox";
             this.typeCheckbox.Size = new System.Drawing.Size(92, 17);
             this.typeCheckbox.TabIndex = 58;
@@ -885,41 +823,11 @@
             this.typeCheckbox.UseVisualStyleBackColor = true;
             this.typeCheckbox.CheckedChanged += new System.EventHandler(this.TypeCheckbox_CheckedChanged);
             // 
-            // enableBtnsButton
-            // 
-            this.enableBtnsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(112)))), ((int)(((byte)(239)))));
-            this.enableBtnsButton.FlatAppearance.BorderSize = 0;
-            this.enableBtnsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.enableBtnsButton.ForeColor = System.Drawing.Color.White;
-            this.enableBtnsButton.Location = new System.Drawing.Point(598, 25);
-            this.enableBtnsButton.Name = "enableBtnsButton";
-            this.enableBtnsButton.Size = new System.Drawing.Size(120, 23);
-            this.enableBtnsButton.TabIndex = 11;
-            this.enableBtnsButton.Text = "Re-Enable Buttons";
-            this.enableBtnsButton.UseVisualStyleBackColor = false;
-            this.enableBtnsButton.Visible = false;
-            this.enableBtnsButton.Click += new System.EventHandler(this.EnableBtnsButton_Click);
-            // 
-            // hideDebugButton
-            // 
-            this.hideDebugButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(112)))), ((int)(((byte)(239)))));
-            this.hideDebugButton.FlatAppearance.BorderSize = 0;
-            this.hideDebugButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.hideDebugButton.ForeColor = System.Drawing.Color.White;
-            this.hideDebugButton.Location = new System.Drawing.Point(243, 9);
-            this.hideDebugButton.Name = "hideDebugButton";
-            this.hideDebugButton.Size = new System.Drawing.Size(54, 23);
-            this.hideDebugButton.TabIndex = 3;
-            this.hideDebugButton.Text = "Hide";
-            this.hideDebugButton.UseVisualStyleBackColor = false;
-            this.hideDebugButton.Visible = false;
-            this.hideDebugButton.Click += new System.EventHandler(this.HideDebugButton_Click);
-            // 
             // maxFilenameLengthlbl
             // 
             this.maxFilenameLengthlbl.AutoSize = true;
             this.maxFilenameLengthlbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.maxFilenameLengthlbl.Location = new System.Drawing.Point(447, 706);
+            this.maxFilenameLengthlbl.Location = new System.Drawing.Point(623, 567);
             this.maxFilenameLengthlbl.Name = "maxFilenameLengthlbl";
             this.maxFilenameLengthlbl.Size = new System.Drawing.Size(121, 13);
             this.maxFilenameLengthlbl.TabIndex = 80;
@@ -928,7 +836,7 @@
             // panel9
             // 
             this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.panel9.Location = new System.Drawing.Point(569, 721);
+            this.panel9.Location = new System.Drawing.Point(745, 582);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(68, 1);
             this.panel9.TabIndex = 89;
@@ -938,7 +846,7 @@
             this.maxLengthTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.maxLengthTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.maxLengthTextbox.ForeColor = System.Drawing.Color.White;
-            this.maxLengthTextbox.Location = new System.Drawing.Point(569, 706);
+            this.maxLengthTextbox.Location = new System.Drawing.Point(745, 567);
             this.maxLengthTextbox.Multiline = true;
             this.maxLengthTextbox.Name = "maxLengthTextbox";
             this.maxLengthTextbox.Size = new System.Drawing.Size(68, 17);
@@ -949,51 +857,17 @@
             // 
             this.maxFilenameLengthWarninglbl.AutoSize = true;
             this.maxFilenameLengthWarninglbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.maxFilenameLengthWarninglbl.Location = new System.Drawing.Point(607, 757);
+            this.maxFilenameLengthWarninglbl.Location = new System.Drawing.Point(742, 614);
             this.maxFilenameLengthWarninglbl.Name = "maxFilenameLengthWarninglbl";
             this.maxFilenameLengthWarninglbl.Size = new System.Drawing.Size(107, 13);
             this.maxFilenameLengthWarninglbl.TabIndex = 0;
             this.maxFilenameLengthWarninglbl.Text = "** = Max value is 150";
             // 
-            // customFormatPanel
-            // 
-            this.customFormatPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.customFormatPanel.Location = new System.Drawing.Point(562, 57);
-            this.customFormatPanel.Name = "customFormatPanel";
-            this.customFormatPanel.Size = new System.Drawing.Size(19, 1);
-            this.customFormatPanel.TabIndex = 13;
-            this.customFormatPanel.Visible = false;
-            // 
-            // customFormatIDTextbox
-            // 
-            this.customFormatIDTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.customFormatIDTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.customFormatIDTextbox.ForeColor = System.Drawing.Color.White;
-            this.customFormatIDTextbox.Location = new System.Drawing.Point(562, 39);
-            this.customFormatIDTextbox.Multiline = true;
-            this.customFormatIDTextbox.Name = "customFormatIDTextbox";
-            this.customFormatIDTextbox.Size = new System.Drawing.Size(19, 16);
-            this.customFormatIDTextbox.TabIndex = 8;
-            this.customFormatIDTextbox.Visible = false;
-            this.customFormatIDTextbox.WordWrap = false;
-            this.customFormatIDTextbox.TextChanged += new System.EventHandler(this.CustomFormatIDTextbox_TextChanged);
-            // 
-            // formatIDlbl
-            // 
-            this.formatIDlbl.AutoSize = true;
-            this.formatIDlbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.formatIDlbl.Location = new System.Drawing.Point(510, 39);
-            this.formatIDlbl.Name = "formatIDlbl";
-            this.formatIDlbl.Size = new System.Drawing.Size(53, 13);
-            this.formatIDlbl.TabIndex = 7;
-            this.formatIDlbl.Text = "Format ID";
-            this.formatIDlbl.Visible = false;
-            // 
             // filenameTempSelect
             // 
             this.filenameTempSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.filenameTempSelect.FormattingEnabled = true;
-            this.filenameTempSelect.Location = new System.Drawing.Point(547, 615);
+            this.filenameTempSelect.Location = new System.Drawing.Point(723, 476);
             this.filenameTempSelect.Name = "filenameTempSelect";
             this.filenameTempSelect.Size = new System.Drawing.Size(87, 21);
             this.filenameTempSelect.TabIndex = 82;
@@ -1003,7 +877,7 @@
             // 
             this.filenameTemplatelbl.AutoSize = true;
             this.filenameTemplatelbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.filenameTemplatelbl.Location = new System.Drawing.Point(447, 618);
+            this.filenameTemplatelbl.Location = new System.Drawing.Point(623, 479);
             this.filenameTemplatelbl.Name = "filenameTemplatelbl";
             this.filenameTemplatelbl.Size = new System.Drawing.Size(99, 13);
             this.filenameTemplatelbl.TabIndex = 76;
@@ -1015,9 +889,9 @@
             this.openLogFolderButton.FlatAppearance.BorderSize = 0;
             this.openLogFolderButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.openLogFolderButton.ForeColor = System.Drawing.Color.White;
-            this.openLogFolderButton.Location = new System.Drawing.Point(486, 112);
+            this.openLogFolderButton.Location = new System.Drawing.Point(241, 66);
             this.openLogFolderButton.Name = "openLogFolderButton";
-            this.openLogFolderButton.Size = new System.Drawing.Size(231, 23);
+            this.openLogFolderButton.Size = new System.Drawing.Size(138, 23);
             this.openLogFolderButton.TabIndex = 18;
             this.openLogFolderButton.Text = "Open Log Folder";
             this.openLogFolderButton.UseVisualStyleBackColor = false;
@@ -1026,9 +900,9 @@
             // downloadSpeedlbl
             // 
             this.downloadSpeedlbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.downloadSpeedlbl.Location = new System.Drawing.Point(731, 607);
+            this.downloadSpeedlbl.Location = new System.Drawing.Point(375, 753);
             this.downloadSpeedlbl.Name = "downloadSpeedlbl";
-            this.downloadSpeedlbl.Size = new System.Drawing.Size(151, 13);
+            this.downloadSpeedlbl.Size = new System.Drawing.Size(188, 13);
             this.downloadSpeedlbl.TabIndex = 42;
             this.downloadSpeedlbl.Text = "Idle";
             this.downloadSpeedlbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -1036,7 +910,7 @@
             // panel10
             // 
             this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.panel10.Location = new System.Drawing.Point(553, 677);
+            this.panel10.Location = new System.Drawing.Point(732, 538);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(15, 1);
             this.panel10.TabIndex = 85;
@@ -1046,7 +920,7 @@
             this.labelCheckbox.AutoSize = true;
             this.labelCheckbox.FlatAppearance.BorderSize = 0;
             this.labelCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.labelCheckbox.Location = new System.Drawing.Point(175, 596);
+            this.labelCheckbox.Location = new System.Drawing.Point(626, 266);
             this.labelCheckbox.Name = "labelCheckbox";
             this.labelCheckbox.Size = new System.Drawing.Size(52, 17);
             this.labelCheckbox.TabIndex = 59;
@@ -1059,7 +933,7 @@
             this.InitialListSeparatorTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.InitialListSeparatorTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.InitialListSeparatorTextbox.ForeColor = System.Drawing.Color.White;
-            this.InitialListSeparatorTextbox.Location = new System.Drawing.Point(553, 662);
+            this.InitialListSeparatorTextbox.Location = new System.Drawing.Point(732, 523);
             this.InitialListSeparatorTextbox.MaxLength = 3;
             this.InitialListSeparatorTextbox.Multiline = true;
             this.InitialListSeparatorTextbox.Name = "InitialListSeparatorTextbox";
@@ -1073,7 +947,7 @@
             this.involvedPeopleCheckBox.AutoSize = true;
             this.involvedPeopleCheckBox.FlatAppearance.BorderSize = 0;
             this.involvedPeopleCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.involvedPeopleCheckBox.Location = new System.Drawing.Point(305, 551);
+            this.involvedPeopleCheckBox.Location = new System.Drawing.Point(723, 288);
             this.involvedPeopleCheckBox.Name = "involvedPeopleCheckBox";
             this.involvedPeopleCheckBox.Size = new System.Drawing.Size(103, 17);
             this.involvedPeopleCheckBox.TabIndex = 69;
@@ -1086,7 +960,7 @@
             this.producerCheckbox.AutoSize = true;
             this.producerCheckbox.FlatAppearance.BorderSize = 0;
             this.producerCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.producerCheckbox.Location = new System.Drawing.Point(175, 728);
+            this.producerCheckbox.Location = new System.Drawing.Point(723, 265);
             this.producerCheckbox.Name = "producerCheckbox";
             this.producerCheckbox.Size = new System.Drawing.Size(73, 17);
             this.producerCheckbox.TabIndex = 65;
@@ -1098,26 +972,26 @@
             // 
             this.primaryListSeparatorlbl.AutoSize = true;
             this.primaryListSeparatorlbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.primaryListSeparatorlbl.Location = new System.Drawing.Point(447, 662);
+            this.primaryListSeparatorlbl.Location = new System.Drawing.Point(623, 523);
             this.primaryListSeparatorlbl.Name = "primaryListSeparatorlbl";
-            this.primaryListSeparatorlbl.Size = new System.Drawing.Size(103, 13);
+            this.primaryListSeparatorlbl.Size = new System.Drawing.Size(109, 13);
             this.primaryListSeparatorlbl.TabIndex = 78;
-            this.primaryListSeparatorlbl.Text = "PrimaryListSeparator";
+            this.primaryListSeparatorlbl.Text = "Primary List Separator";
             // 
             // listEndSeparatorlbl
             // 
             this.listEndSeparatorlbl.AutoSize = true;
             this.listEndSeparatorlbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.listEndSeparatorlbl.Location = new System.Drawing.Point(447, 684);
+            this.listEndSeparatorlbl.Location = new System.Drawing.Point(623, 545);
             this.listEndSeparatorlbl.Name = "listEndSeparatorlbl";
-            this.listEndSeparatorlbl.Size = new System.Drawing.Size(88, 13);
+            this.listEndSeparatorlbl.Size = new System.Drawing.Size(94, 13);
             this.listEndSeparatorlbl.TabIndex = 79;
-            this.listEndSeparatorlbl.Text = "ListEndSeparator";
+            this.listEndSeparatorlbl.Text = "List End Separator";
             // 
             // panel11
             // 
             this.panel11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.panel11.Location = new System.Drawing.Point(540, 699);
+            this.panel11.Location = new System.Drawing.Point(718, 560);
             this.panel11.Name = "panel11";
             this.panel11.Size = new System.Drawing.Size(15, 1);
             this.panel11.TabIndex = 87;
@@ -1127,7 +1001,7 @@
             this.ListEndSeparatorTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.ListEndSeparatorTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ListEndSeparatorTextbox.ForeColor = System.Drawing.Color.White;
-            this.ListEndSeparatorTextbox.Location = new System.Drawing.Point(540, 684);
+            this.ListEndSeparatorTextbox.Location = new System.Drawing.Point(718, 545);
             this.ListEndSeparatorTextbox.MaxLength = 3;
             this.ListEndSeparatorTextbox.Multiline = true;
             this.ListEndSeparatorTextbox.Name = "ListEndSeparatorTextbox";
@@ -1141,7 +1015,7 @@
             this.mergePerformersCheckBox.AutoSize = true;
             this.mergePerformersCheckBox.FlatAppearance.BorderSize = 0;
             this.mergePerformersCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.mergePerformersCheckBox.Location = new System.Drawing.Point(305, 574);
+            this.mergePerformersCheckBox.Location = new System.Drawing.Point(723, 311);
             this.mergePerformersCheckBox.Name = "mergePerformersCheckBox";
             this.mergePerformersCheckBox.Size = new System.Drawing.Size(109, 17);
             this.mergePerformersCheckBox.TabIndex = 70;
@@ -1163,7 +1037,7 @@
             this.releaseDateCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.releaseDateCheckbox.FlatAppearance.BorderSize = 0;
             this.releaseDateCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.releaseDateCheckbox.Location = new System.Drawing.Point(64, 662);
+            this.releaseDateCheckbox.Location = new System.Drawing.Point(723, 74);
             this.releaseDateCheckbox.Name = "releaseDateCheckbox";
             this.releaseDateCheckbox.Size = new System.Drawing.Size(91, 17);
             this.releaseDateCheckbox.TabIndex = 51;
@@ -1176,7 +1050,7 @@
             this.urlCheckBox.AutoSize = true;
             this.urlCheckBox.FlatAppearance.BorderSize = 0;
             this.urlCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.urlCheckBox.Location = new System.Drawing.Point(305, 596);
+            this.urlCheckBox.Location = new System.Drawing.Point(723, 333);
             this.urlCheckBox.Name = "urlCheckBox";
             this.urlCheckBox.Size = new System.Drawing.Size(48, 17);
             this.urlCheckBox.TabIndex = 71;
@@ -1188,7 +1062,7 @@
             // 
             this.flacHighRadioBtn.AutoSize = true;
             this.flacHighRadioBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.flacHighRadioBtn.Location = new System.Drawing.Point(266, 7);
+            this.flacHighRadioBtn.Location = new System.Drawing.Point(6, 76);
             this.flacHighRadioBtn.Name = "flacHighRadioBtn";
             this.flacHighRadioBtn.Size = new System.Drawing.Size(89, 17);
             this.flacHighRadioBtn.TabIndex = 3;
@@ -1202,7 +1076,7 @@
             // 
             this.flacMidRadioBtn.AutoSize = true;
             this.flacMidRadioBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.flacMidRadioBtn.Location = new System.Drawing.Point(179, 7);
+            this.flacMidRadioBtn.Location = new System.Drawing.Point(6, 53);
             this.flacMidRadioBtn.Name = "flacMidRadioBtn";
             this.flacMidRadioBtn.Size = new System.Drawing.Size(83, 17);
             this.flacMidRadioBtn.TabIndex = 2;
@@ -1216,7 +1090,7 @@
             // 
             this.flacLowRadioBtn.AutoSize = true;
             this.flacLowRadioBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.flacLowRadioBtn.Location = new System.Drawing.Point(81, 7);
+            this.flacLowRadioBtn.Location = new System.Drawing.Point(6, 30);
             this.flacLowRadioBtn.Name = "flacLowRadioBtn";
             this.flacLowRadioBtn.Size = new System.Drawing.Size(92, 17);
             this.flacLowRadioBtn.TabIndex = 1;
@@ -1246,16 +1120,16 @@
             this.panel12.Controls.Add(this.flacHighRadioBtn);
             this.panel12.Controls.Add(this.flacMidRadioBtn);
             this.panel12.Controls.Add(this.flacLowRadioBtn);
-            this.panel12.Location = new System.Drawing.Point(235, 59);
+            this.panel12.Location = new System.Drawing.Point(385, 12);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(361, 26);
+            this.panel12.Size = new System.Drawing.Size(105, 97);
             this.panel12.TabIndex = 1;
             // 
             // goodiesCheckBox
             // 
             this.goodiesCheckBox.AutoSize = true;
             this.goodiesCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.goodiesCheckBox.Location = new System.Drawing.Point(449, 551);
+            this.goodiesCheckBox.Location = new System.Drawing.Point(626, 412);
             this.goodiesCheckBox.Margin = new System.Windows.Forms.Padding(2);
             this.goodiesCheckBox.Name = "goodiesCheckBox";
             this.goodiesCheckBox.Size = new System.Drawing.Size(65, 17);
@@ -1269,7 +1143,7 @@
             this.mandatorylbl.AutoSize = true;
             this.mandatorylbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.mandatorylbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.mandatorylbl.Location = new System.Drawing.Point(61, 524);
+            this.mandatorylbl.Location = new System.Drawing.Point(622, 47);
             this.mandatorylbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.mandatorylbl.Name = "mandatorylbl";
             this.mandatorylbl.Size = new System.Drawing.Size(93, 20);
@@ -1281,7 +1155,7 @@
             this.optionallbl.AutoSize = true;
             this.optionallbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.optionallbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.optionallbl.Location = new System.Drawing.Point(172, 524);
+            this.optionallbl.Location = new System.Drawing.Point(622, 194);
             this.optionallbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.optionallbl.Name = "optionallbl";
             this.optionallbl.Size = new System.Drawing.Size(76, 20);
@@ -1293,7 +1167,7 @@
             this.misclbl.AutoSize = true;
             this.misclbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.misclbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.misclbl.Location = new System.Drawing.Point(447, 524);
+            this.misclbl.Location = new System.Drawing.Point(622, 385);
             this.misclbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.misclbl.Name = "misclbl";
             this.misclbl.Size = new System.Drawing.Size(50, 20);
@@ -1304,7 +1178,7 @@
             // 
             this.foldernameTempSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.foldernameTempSelect.FormattingEnabled = true;
-            this.foldernameTempSelect.Location = new System.Drawing.Point(547, 640);
+            this.foldernameTempSelect.Location = new System.Drawing.Point(723, 501);
             this.foldernameTempSelect.Name = "foldernameTempSelect";
             this.foldernameTempSelect.Size = new System.Drawing.Size(108, 21);
             this.foldernameTempSelect.TabIndex = 83;
@@ -1314,11 +1188,23 @@
             // 
             this.foldernameTemplatelbl.AutoSize = true;
             this.foldernameTemplatelbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.foldernameTemplatelbl.Location = new System.Drawing.Point(447, 640);
+            this.foldernameTemplatelbl.Location = new System.Drawing.Point(623, 501);
             this.foldernameTemplatelbl.Name = "foldernameTemplatelbl";
             this.foldernameTemplatelbl.Size = new System.Drawing.Size(86, 13);
             this.foldernameTemplatelbl.TabIndex = 77;
             this.foldernameTemplatelbl.Text = "Folder Template:";
+            // 
+            // tagsLabel
+            // 
+            this.tagsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.tagsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.tagsLabel.Location = new System.Drawing.Point(496, 30);
+            this.tagsLabel.Name = "tagsLabel";
+            this.tagsLabel.Size = new System.Drawing.Size(106, 56);
+            this.tagsLabel.TabIndex = 12;
+            this.tagsLabel.Text = "Show/Hide 🠊 tags/options 🠊";
+            this.tagsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.tagsLabel.Click += new System.EventHandler(this.TagsLabel_Click);
             // 
             // QobuzDownloaderX
             // 
@@ -1326,6 +1212,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.ClientSize = new System.Drawing.Size(900, 780);
+            this.Controls.Add(this.tagsLabel);
             this.Controls.Add(this.foldernameTempSelect);
             this.Controls.Add(this.foldernameTemplatelbl);
             this.Controls.Add(this.misclbl);
@@ -1348,24 +1235,15 @@
             this.Controls.Add(this.openLogFolderButton);
             this.Controls.Add(this.filenameTempSelect);
             this.Controls.Add(this.filenameTemplatelbl);
-            this.Controls.Add(this.formatIDlbl);
-            this.Controls.Add(this.customFormatPanel);
-            this.Controls.Add(this.customFormatIDTextbox);
             this.Controls.Add(this.maxFilenameLengthWarninglbl);
             this.Controls.Add(this.panel9);
             this.Controls.Add(this.maxLengthTextbox);
             this.Controls.Add(this.maxFilenameLengthlbl);
-            this.Controls.Add(this.hideDebugButton);
-            this.Controls.Add(this.enableBtnsButton);
             this.Controls.Add(this.typeCheckbox);
             this.Controls.Add(this.artSizeSelect);
             this.Controls.Add(this.artSizelbl);
-            this.Controls.Add(this.hiddenTextPanel);
             this.Controls.Add(this.logoutlbl);
             this.Controls.Add(this.profilePictureBox);
-            this.Controls.Add(this.displaySecretButton);
-            this.Controls.Add(this.secretTextbox);
-            this.Controls.Add(this.streamableCheckbox);
             this.Controls.Add(this.panel8);
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel6);
@@ -1494,24 +1372,15 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel8;
-        private System.Windows.Forms.CheckBox streamableCheckbox;
-        private System.Windows.Forms.TextBox secretTextbox;
-        private System.Windows.Forms.Button displaySecretButton;
         private System.Windows.Forms.PictureBox profilePictureBox;
         private System.Windows.Forms.Label logoutlbl;
-        private System.Windows.Forms.Panel hiddenTextPanel;
         private System.Windows.Forms.ComboBox artSizeSelect;
         private System.Windows.Forms.Label artSizelbl;
         private System.Windows.Forms.CheckBox typeCheckbox;
-        private System.Windows.Forms.Button enableBtnsButton;
-        private System.Windows.Forms.Button hideDebugButton;
         private System.Windows.Forms.Label maxFilenameLengthlbl;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.TextBox maxLengthTextbox;
         private System.Windows.Forms.Label maxFilenameLengthWarninglbl;
-        private System.Windows.Forms.Panel customFormatPanel;
-        private System.Windows.Forms.TextBox customFormatIDTextbox;
-        private System.Windows.Forms.Label formatIDlbl;
         private System.Windows.Forms.ComboBox filenameTempSelect;
         private System.Windows.Forms.Label filenameTemplatelbl;
         private System.Windows.Forms.TextBox downloadUrl;
@@ -1541,5 +1410,6 @@
         private System.Windows.Forms.Label misclbl;
         private System.Windows.Forms.ComboBox foldernameTempSelect;
         private System.Windows.Forms.Label foldernameTemplatelbl;
+        private System.Windows.Forms.Label tagsLabel;
     }
 }

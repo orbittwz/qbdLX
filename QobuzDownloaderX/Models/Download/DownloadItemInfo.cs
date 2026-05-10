@@ -101,7 +101,7 @@ namespace QobuzDownloaderX.Models
             // Grab cover art link
             FrontCoverImgUrl = qobuzAlbum.Image.Large;
             // Get 150x150 artwork for cover art box
-            FrontCoverImgBoxUrl = FrontCoverImgUrl.Replace("_600.jpg", "_150.jpg");
+            FrontCoverImgBoxUrl = FrontCoverImgUrl.Replace("_600.jpg", "_300.jpg");
             // Get selected artwork size for tagging
             FrontCoverImgTagUrl = FrontCoverImgUrl.Replace("_600.jpg", $"_{Globals.TaggingOptions.ArtSize}.jpg");
             // Get max sized artwork ("_org.jpg" is compressed version of the original "_org.jpg")

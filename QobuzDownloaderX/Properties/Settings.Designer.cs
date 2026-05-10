@@ -581,5 +581,17 @@ namespace QobuzDownloaderX.Properties {
                 this["savedFolderNameTemplate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool hideTagsSection {
+            get {
+                return ((bool)(this["hideTagsSection"]));
+            }
+            set {
+                this["hideTagsSection"] = value;
+            }
+        }
     }
 }

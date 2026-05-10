@@ -142,7 +142,7 @@ namespace QobuzDownloaderX.Shared
         }
 
         private async Task<bool> DownloadTrackAsync(CancellationToken cancellationToken, Track qobuzTrack, string basePath,
-            bool isPartOfTracklist, bool isPartOfAlbum, bool removeTagArtFileAfterDownload = false, string albumPathSuffix = "")
+            bool isPartOfTracklist, bool isPartOfAlbum, bool removeTagArtFileAfterDownload = false)
         {
             // Just for good measure...
             // User requested task cancellation!
@@ -159,7 +159,6 @@ namespace QobuzDownloaderX.Shared
             }
             // Create directories if they don't exist yet
             // Add Album ID to Album Path if requested (to avoid conflicts for similar albums with trimmed long names)
-            //CreateTrackDirectories(basePath, DownloadPaths.QualityPath, albumPathSuffix, isPartOfTracklist);
             // Set trackPath to the created directories
             //string trackPath = DownloadInfo.CurrentDownloadPaths.Path4Full;
             string trackPath = string.Empty;
@@ -167,6 +166,9 @@ namespace QobuzDownloaderX.Shared
             string fileTemplate = Globals.TaggingOptions.FileNameTemplate;
             if (isPartOfTracklist == true)
                 trackPath = Path.Combine(basePath, DownloadPaths.QualityPath);
+            if (folderTemplate.Contains("\\"))
+                trackPath = Path.Combine(basePath, DownloadPaths.AlbumArtistPath , DownloadPaths.AlbumNamePath
+                                                   , DownloadPaths.QualityPath);
             else if (folderTemplate.Contains("Year"))
                 trackPath = Path.Combine(basePath, DownloadPaths.AlbumArtistPath + " - " + DownloadPaths.AlbumNamePath
                                                    + " - " + DownloadPaths.QualityPath + " - " + qobuzTrack.ReleaseDateStream.Value.Year);
@@ -226,8 +228,8 @@ namespace QobuzDownloaderX.Shared
             try
             {
                 // Create file path strings
-                string coverArtFilePath = Path.Combine(trackPath, "Cover.jpg");
-                string coverArtTagFilePath = Path.Combine(trackPath, Globals.TaggingOptions.ArtSize + ".jpg");
+                string coverArtFilePath = Path.Combine(trackPath.Contains("CD ") ? Path.GetDirectoryName(trackPath) : trackPath, "Cover.jpg");
+                string coverArtTagFilePath = Path.Combine(trackPath.Contains("CD ") ? Path.GetDirectoryName(trackPath) : trackPath, Globals.TaggingOptions.ArtSize + ".jpg");
                 using (HttpClient httpClient = new HttpClient())
                 {
                     httpClient.DefaultRequestHeaders.Add("User-Agent", Globals.USER_AGENT);
@@ -290,7 +292,7 @@ namespace QobuzDownloaderX.Shared
             return true;
         }
 
-        private async Task<bool> DownloadAlbumAsync(CancellationToken cancellationToken, Album qobuzAlbum, string basePath, string albumPathSuffix = "")
+        private async Task<bool> DownloadAlbumAsync(CancellationToken cancellationToken, Album qobuzAlbum, string basePath)
         {
             bool noErrorsOccured = true;
             // Get Album model object with first batch of tracks
@@ -316,7 +318,7 @@ namespace QobuzDownloaderX.Shared
                 // Nested Album objects in Tracks are not always fully populated, inject current qobuzAlbum in Track to be downloaded
                 qobuzTrack.Album = qobuzAlbum;
                 if (!await DownloadTrackAsync(cancellationToken, qobuzTrack, basePath,
-                        false, true, isLastTrackOfAlbum, albumPathSuffix)) noErrorsOccured = false;
+                        false, true, isLastTrackOfAlbum)) noErrorsOccured = false;
                 i++;
                 if (i == tracksLoaded && tracksTotal > i + tracksPageOffset)
                 {
@@ -418,7 +420,7 @@ namespace QobuzDownloaderX.Shared
                 logger.AddEmptyDownloadLogLine(true, false);
                 logger.AddDownloadLogLine($"Starting Downloads for album \"{qobuzAlbum.Title}\" with ID: <{qobuzAlbum.Id}>...", true, true);
                 logger.AddEmptyDownloadLogLine(true, true);
-                bool albumDownloadOK = await DownloadAlbumAsync(cancellationToken, qobuzAlbum, basePath, $" [{qobuzAlbum.Id}]");
+                bool albumDownloadOK = await DownloadAlbumAsync(cancellationToken, qobuzAlbum, basePath);
                 // If album download failed, mark error occured and continue
                 if (!albumDownloadOK)
                     noAlbumErrorsOccured = false;
@@ -449,7 +451,7 @@ namespace QobuzDownloaderX.Shared
                 logger.AddEmptyDownloadLogLine(true, false);
                 logger.AddDownloadLogLine($"Starting Downloads for album \"{qobuzAlbum.Title}\" with ID: <{qobuzAlbum.Id}>...", true, true);
                 logger.AddEmptyDownloadLogLine(true, true);
-                bool albumDownloadOK = await DownloadAlbumAsync(cancellationToken, qobuzAlbum, basePath, $" [{qobuzAlbum.Id}]");
+                bool albumDownloadOK = await DownloadAlbumAsync(cancellationToken, qobuzAlbum, basePath);
                 // If album download failed, mark error occured and continue
                 if (!albumDownloadOK)
                     noAlbumErrorsOccured = false;
@@ -977,33 +979,5 @@ namespace QobuzDownloaderX.Shared
                 Title = $"{downloadInfo.PerformerName} - {downloadInfo.TrackName}"
             });
         }
-
-        //private void CreateTrackDirectories(string basePath, string qualityPath, string albumPathSuffix = "", bool forTracklist = false)
-        //{
-        //    if (forTracklist)
-        //    {
-        //        DownloadPaths.Path1Full = basePath;
-        //        DownloadPaths.Path2Full = DownloadPaths.Path1Full;
-        //        DownloadPaths.Path3Full = Path.Combine(basePath, qualityPath);
-        //        DownloadPaths.Path4Full = DownloadPaths.Path3Full;
-        //    }
-        //    else
-        //    {
-        //        DownloadPaths.Path1Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath);
-        //        DownloadPaths.Path2Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath, DownloadPaths.AlbumNamePath + albumPathSuffix);
-        //        DownloadPaths.Path3Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath, DownloadPaths.AlbumNamePath + albumPathSuffix, qualityPath);
-        //        // If more than 1 disc, create folders for discs. Otherwise, strings will remain null
-        //        // Pad Disc Number with minimum of 2 integer positions based on total number of discs
-        //        if (DownloadInfo.DiscTotal > 1)
-        //        {
-        //            // Create strings for disc folders
-        //            string discFolder = "CD " + DownloadInfo.DiscNumber.ToString().PadLeft(Math.Max(2, (int)Math.Floor(Math.Log10(DownloadInfo.DiscTotal) + 1)), '0');
-        //            DownloadPaths.Path4Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath, DownloadPaths.AlbumNamePath + albumPathSuffix, qualityPath, discFolder);
-        //        }
-        //        else
-        //            DownloadPaths.Path4Full = DownloadPaths.Path3Full;
-        //    }
-        //    System.IO.Directory.CreateDirectory(DownloadPaths.Path4Full);
-        //}
     }
 }

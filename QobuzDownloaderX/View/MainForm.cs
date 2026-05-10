@@ -19,8 +19,8 @@ namespace QobuzDownloaderX
         private readonly DownloadManager downloadManager;
         private readonly List<string> folderNameList1;
         private readonly List<string> fileNameList1;
-        private int DevClickEggThingValue { get; set; }
-        private int DebugMode { get; set; }
+        //private int DevClickEggThingValue { get; set; }
+        //private int DebugMode { get; set; }
         // Button color download inactive
         private readonly Color readyButtonBackColor = Color.FromArgb(0, 112, 239); // Windows Blue (Azure Blue)
         // Button color download active
@@ -34,7 +34,7 @@ namespace QobuzDownloaderX
             logger.RemovePreviousErrorLog();
             downloadManager = new DownloadManager(logger, UpdateAlbumTagsUI, UpdateDownloadSpeedLabel)
             {
-                CheckIfStreamable = streamableCheckbox.Checked
+                CheckIfStreamable = true
             };
             Markdowns markdowns = new Markdowns();
             folderNameList1 = markdowns.FolderNameListData;
@@ -44,6 +44,14 @@ namespace QobuzDownloaderX
         private void MainForm_Load(object sender, EventArgs e)
         {
             // Set main form size on launch and bring to left center.
+            if (Settings.Default.hideTagsSection == true)
+            {
+                this.minimizelbl.Left -= 285;
+                this.exitlbl.Left -= 285;
+                this.Width = 615;
+            }
+            else
+                this.Width = 900;
             this.Left = 30;
             this.Top = (Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 2;
             // Grab profile image
@@ -167,7 +175,7 @@ namespace QobuzDownloaderX
             filenameTempSelect.SelectedItem = Settings.Default.savedFileNameTemplate;
             filenameTempSelect.Width += fileNameList1.Max(st => st.Length) + 10;
             Globals.MaxLength = Settings.Default.savedMaxLength;
-            customFormatIDTextbox.Text = Globals.FormatIdString;
+            //customFormatIDTextbox.Text = Globals.FormatIdString;
             maxLengthTextbox.Text = Globals.MaxLength.ToString();
             // Check if there's no selected path saved.
             if (string.IsNullOrEmpty(folderBrowserDialog.SelectedPath))
@@ -186,7 +194,7 @@ namespace QobuzDownloaderX
                 output.Invoke(new Action(() => output.AppendText(folderBrowserDialog.SelectedPath + "\r\n")));
             }
             // Run anything put into the debug events (For Testing)
-            DebuggingEvents(sender, e);
+            //DebuggingEvents(sender, e);
         }
 
         private void UpdateDownloadSpeedLabel(string speed)
@@ -194,15 +202,15 @@ namespace QobuzDownloaderX
             downloadSpeedlbl.Invoke(new Action(() => downloadSpeedlbl.Text = speed));
         }
 
-        private void DebuggingEvents(object sender, EventArgs e)
-        {
-            DevClickEggThingValue = 0;
-            // Debug mode for things that are only for testing, or shouldn't be on public releases. At the moment, does nothing.
-            if (!Debugger.IsAttached)
-                DebugMode = 0;
-            else
-                DebugMode = 1;
-        }
+        //private void DebuggingEvents(object sender, EventArgs e)
+        //{
+        //    DevClickEggThingValue = 0;
+        //    // Debug mode for things that are only for testing, or shouldn't be on public releases. At the moment, does nothing.
+        //    if (!Debugger.IsAttached)
+        //        DebugMode = 0;
+        //    else
+        //        DebugMode = 1;
+        //}
 
         private void OpenSearch_Click(object sender, EventArgs e)
         {
@@ -569,11 +577,11 @@ namespace QobuzDownloaderX
             Globals.TaggingOptions.WriteURLTag = urlCheckBox.Checked;
         }
 
-        private void CustomFormatIDTextbox_TextChanged(object sender, EventArgs e)
-        {
-            if (Globals.FormatIdString != "5" || Globals.FormatIdString != "6" || Globals.FormatIdString != "7" || Globals.FormatIdString != "27")
-                Globals.FormatIdString = customFormatIDTextbox.Text;
-        }
+        //private void CustomFormatIDTextbox_TextChanged(object sender, EventArgs e)
+        //{
+        //    if (Globals.FormatIdString != "5" || Globals.FormatIdString != "6" || Globals.FormatIdString != "7" || Globals.FormatIdString != "27")
+        //        Globals.FormatIdString = customFormatIDTextbox.Text;
+        //}
 
         private void ExitLabel_Click(object sender, EventArgs e)
         {
@@ -629,53 +637,53 @@ namespace QobuzDownloaderX
             Application.Exit();
         }
 
-        private void LogoBox_Click(object sender, EventArgs e)
-        {
-            DevClickEggThingValue += 1;
-            if (DevClickEggThingValue > 3)
-            {
-                streamableCheckbox.Visible = true;
-                enableBtnsButton.Visible = true;
-                hideDebugButton.Visible = true;
-                displaySecretButton.Visible = true;
-                secretTextbox.Visible = true;
-                hiddenTextPanel.Visible = true;
-                customFormatIDTextbox.Visible = true;
-                customFormatPanel.Visible = true;
-                formatIDlbl.Visible = true;
-            }
-            else
-            {
-                streamableCheckbox.Visible = false;
-                displaySecretButton.Visible = false;
-                secretTextbox.Visible = false;
-                hiddenTextPanel.Visible = false;
-                enableBtnsButton.Visible = false;
-                hideDebugButton.Visible = false;
-                customFormatIDTextbox.Visible = false;
-                customFormatPanel.Visible = false;
-                formatIDlbl.Visible = false;
-            }
-        }
+        //private void LogoBox_Click(object sender, EventArgs e)
+        //{
+        //    DevClickEggThingValue += 1;
+        //    if (DevClickEggThingValue > 3)
+        //    {
+        //        streamableCheckbox.Visible = true;
+        //        enableBtnsButton.Visible = true;
+        //        hideDebugButton.Visible = true;
+        //        displaySecretButton.Visible = true;
+        //        secretTextbox.Visible = true;
+        //        hiddenTextPanel.Visible = true;
+        //        customFormatIDTextbox.Visible = true;
+        //        customFormatPanel.Visible = true;
+        //        formatIDlbl.Visible = true;
+        //    }
+        //    else
+        //    {
+        //        streamableCheckbox.Visible = false;
+        //        displaySecretButton.Visible = false;
+        //        secretTextbox.Visible = false;
+        //        hiddenTextPanel.Visible = false;
+        //        enableBtnsButton.Visible = false;
+        //        hideDebugButton.Visible = false;
+        //        customFormatIDTextbox.Visible = false;
+        //        customFormatPanel.Visible = false;
+        //        formatIDlbl.Visible = false;
+        //    }
+        //}
 
-        private void HideDebugButton_Click(object sender, EventArgs e)
-        {
-            streamableCheckbox.Visible = false;
-            displaySecretButton.Visible = false;
-            secretTextbox.Visible = false;
-            hiddenTextPanel.Visible = false;
-            enableBtnsButton.Visible = false;
-            hideDebugButton.Visible = false;
-            customFormatIDTextbox.Visible = false;
-            customFormatPanel.Visible = false;
-            formatIDlbl.Visible = false;
-            DevClickEggThingValue = 0;
-        }
+        //private void HideDebugButton_Click(object sender, EventArgs e)
+        //{
+        //    streamableCheckbox.Visible = false;
+        //    displaySecretButton.Visible = false;
+        //    secretTextbox.Visible = false;
+        //    hiddenTextPanel.Visible = false;
+        //    enableBtnsButton.Visible = false;
+        //    hideDebugButton.Visible = false;
+        //    customFormatIDTextbox.Visible = false;
+        //    customFormatPanel.Visible = false;
+        //    formatIDlbl.Visible = false;
+        //    DevClickEggThingValue = 0;
+        //}
 
-        private void DisplaySecretButton_Click(object sender, EventArgs e)
-        {
-            secretTextbox.Text = QobuzApiServiceManager.GetApiService().AppSecret;
-        }
+        //private void DisplaySecretButton_Click(object sender, EventArgs e)
+        //{
+        //    secretTextbox.Text = QobuzApiServiceManager.GetApiService().AppSecret;
+        //}
 
         private void LogoutLabel_MouseHover(object sender, EventArgs e)
         {
@@ -694,15 +702,15 @@ namespace QobuzDownloaderX
             Application.Exit();
         }
 
-        private void EnableBtnsButton_Click(object sender, EventArgs e)
-        {
-            UpdateControlsDownloadEnd();
-        }
+        //private void EnableBtnsButton_Click(object sender, EventArgs e)
+        //{
+        //    UpdateControlsDownloadEnd();
+        //}
 
-        private void StreamableCheckbox_CheckedChanged(object sender, EventArgs e)
-        {
-            downloadManager.CheckIfStreamable = streamableCheckbox.Checked;
-        }
+        //private void StreamableCheckbox_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    downloadManager.CheckIfStreamable = streamableCheckbox.Checked;
+        //}
 
         private void QualityRadioBtn_CheckedChanged(object sender, EventArgs e)
         {
@@ -717,25 +725,25 @@ namespace QobuzDownloaderX
                 if ((string)rb.Tag == "q4")
                 {
                     Globals.FormatIdString = "27";
-                    customFormatIDTextbox.Text = "27";
+                    //customFormatIDTextbox.Text = "27";
                     Globals.AudioFileType = ".flac";
                 }
                 if ((string)rb.Tag == "q3")
                 {
                     Globals.FormatIdString = "7";
-                    customFormatIDTextbox.Text = "7";
+                    //customFormatIDTextbox.Text = "7";
                     Globals.AudioFileType = ".flac";
                 }
                 if ((string)rb.Tag == "q2")
                 {
                     Globals.FormatIdString = "6";
-                    customFormatIDTextbox.Text = "6";
+                    //customFormatIDTextbox.Text = "6";
                     Globals.AudioFileType = ".flac";
                 }
                 if ((string)rb.Tag == "q1")
                 {
                     Globals.FormatIdString = "5";
-                    customFormatIDTextbox.Text = "5";
+                    //customFormatIDTextbox.Text = "5";
                     Globals.AudioFileType = ".mp3";
                 }
                 Settings.Default.qualityFormat = Globals.FormatIdString;
@@ -777,6 +785,30 @@ namespace QobuzDownloaderX
             Settings.Default.savedFileNameTemplate = (string)filenameTempSelect.SelectedItem;
             Settings.Default.Save();
             Globals.TaggingOptions.FileNameTemplate = (string)filenameTempSelect.SelectedItem;
+        }
+
+        private void TagsLabel_Click(object sender, EventArgs e)
+        {
+            if (this.Width == 900)
+            {
+                this.Width = 615;
+                this.minimizelbl.Left -= 285;
+                this.exitlbl.Left -= 285;
+                Globals.SearchForm.Left -= 285;
+                this.tagsLabel.Text = "Show/Hide 🠈 tags/options 🠈";
+                Settings.Default.hideTagsSection = true;
+                Settings.Default.Save();
+            }
+            else if (this.Width == 615)
+            {
+                this.Width = 900;
+                this.minimizelbl.Left += 285;
+                this.exitlbl.Left += 285;
+                Globals.SearchForm.Left += 285;
+                this.tagsLabel.Text = "Show/Hide 🠊 tags/options 🠊";
+                Settings.Default.hideTagsSection = false;
+                Settings.Default.Save();
+            }
         }
     }
 }

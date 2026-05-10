@@ -131,5 +131,8 @@
     <Setting Name="savedFolderNameTemplate" Roaming="true" Type="System.String" Scope="User">
       <Value Profile="(Default)">Artist - Album - Quality</Value>
     </Setting>
+    <Setting Name="hideTagsSection" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
