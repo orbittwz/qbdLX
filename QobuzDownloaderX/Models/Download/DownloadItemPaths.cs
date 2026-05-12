@@ -1,4 +1,4 @@
-﻿namespace QobuzDownloaderX.Models
+﻿namespace QobuzDownloaderX.Models.Download
 {
     public class DownloadItemPaths
     {
@@ -10,9 +10,5 @@
         public string PerformerNamePath { get; set; }
         public string AlbumNamePath { get; set; }
         public string TrackNamePath { get; set; }
-        //public string Path1Full { get; set; }
-        //public string Path2Full { get; set; }
-        //public string Path3Full { get; set; }
-        //public string Path4Full { get; set; }
     }
 }

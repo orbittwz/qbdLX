@@ -376,11 +376,11 @@ namespace QobuzDownloaderX.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("max")]
         [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
-        public int savedArtSize {
+        public string savedArtSize {
             get {
-                return ((int)(this["savedArtSize"]));
+                return ((string)(this["savedArtSize"]));
             }
             set {
                 this["savedArtSize"] = value;

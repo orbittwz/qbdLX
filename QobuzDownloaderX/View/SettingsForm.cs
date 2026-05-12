@@ -1,10 +1,9 @@
 ﻿using QobuzDownloaderX.Properties;
-using QobuzDownloaderX.View;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace QobuzDownloaderX
+namespace QobuzDownloaderX.View
 {
     public partial class SettingsForm : HeadlessForm
     {
@@ -81,6 +80,20 @@ namespace QobuzDownloaderX
                 MessageBoxIcon.Information
             );
             this.Close();
+        }
+
+        private void SettingsForm_Load(object sender, EventArgs e)
+        {
+            this.SetToolTips();
+        }
+
+        private void SetToolTips()
+        {
+            // Set tooltips for all the interactable controls in the Settings window.
+            new ToolTip().SetToolTip(exitlbl, "Close settings window.");
+            new ToolTip().SetToolTip(AppIdTextBox, "Write custom AppID acquired from your browser.");
+            new ToolTip().SetToolTip(AppSecretTextBox, "Write custom AppSecret acquired from your browser.");
+            new ToolTip().SetToolTip(SaveButton, "Save settings and close window.");
         }
     }
 }

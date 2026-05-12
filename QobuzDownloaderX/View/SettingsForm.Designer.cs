@@ -1,4 +1,4 @@
-﻿namespace QobuzDownloaderX
+﻿namespace QobuzDownloaderX.View
 {
     partial class SettingsForm
     {
@@ -187,6 +187,7 @@
             this.Name = "SettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "qbdLX | Settings";
+            this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SettingsForm_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.LogoPictureBox)).EndInit();
             this.SystemGroupBox.ResumeLayout(false);

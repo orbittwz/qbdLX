@@ -1,7 +1,7 @@
 ﻿using QobuzApiSharp.Models.Content;
 using System.Collections.Generic;
 
-namespace QobuzDownloaderX.Shared
+namespace QobuzDownloaderX.Shared.Tools
 {
     public static class QualityStringMappings
     {

@@ -83,8 +83,8 @@
     <Setting Name="savedAltLoginValue" Roaming="true" Type="System.String" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="savedArtSize" Roaming="true" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1</Value>
+    <Setting Name="savedArtSize" Roaming="true" Type="System.String" Scope="User">
+      <Value Profile="(Default)">max</Value>
     </Setting>
     <Setting Name="typeTag" Roaming="true" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

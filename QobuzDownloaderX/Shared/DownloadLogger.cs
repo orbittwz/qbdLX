@@ -104,7 +104,6 @@ namespace QobuzDownloaderX.Shared
 
         public void ChangeTextColor(Color color)
         {
-            //this.ScreenOutputTextBox.BackColor = System.Drawing.Color.Aquamarine;
             this.ScreenOutputTextBox.ForeColor = color;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using QobuzApiSharp.Models.User;
+using QobuzDownloaderX.View;
 
 namespace QobuzDownloaderX.Shared
 {
@@ -9,18 +10,18 @@ namespace QobuzDownloaderX.Shared
         public const string DEFAULT_COVER_ART_URL = "https://static.qobuz.com/images/covers/01/00/2013072600001_300.jpg";
         // Forms
         public static LoginForm LoginForm { get; set; }
-        public static QobuzDownloaderX QbdlxForm { get; set; }
+        public static QobuzDownloaderX.View.QobuzDownloaderX QbdlxForm { get; set; }
         public static SearchForm SearchForm { get; set; }
         public static SettingsForm SettingsForm { get; set; }
         // Login
         public static Login Login { get; set; }
         // Tagging options
-        public static TaggingOptions TaggingOptions { get; set; }
+        //public static TaggingOptions TaggingOptions { get; set; }
         // Audio quality selection
-        public static string FormatIdString { get; set; }
-        public static string AudioFileType { get; set; }
+        //public static string FormatIdString { get; set; }
+        //public static string AudioFileType { get; set; }
         // Additional user selections
-        public static int MaxLength { get; set; }
+        //public static int MaxLength { get; set; }
         // Logs
         public static string LoggingDir { get; set; }
     }

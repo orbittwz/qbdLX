@@ -1,7 +1,7 @@
 ﻿using QobuzApiSharp.Exceptions;
 using QobuzDownloaderX.Properties;
+using QobuzDownloaderX.Shared.Tools;
 using QobuzDownloaderX.Shared;
-using QobuzDownloaderX.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +11,7 @@ using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace QobuzDownloaderX
+namespace QobuzDownloaderX.View
 {
     public partial class LoginForm : HeadlessForm
     {
@@ -44,7 +44,6 @@ namespace QobuzDownloaderX
                 // Change alt login label text
                 altLoginlbl.Text = "Can't login? Click here";
                 // Hide alt login methods
-                //altLoginTutLabel.Visible = false;
                 userIdTextbox.Visible = false;
                 userAuthTokenTextbox.Visible = false;
                 // Unhide standard login methods
@@ -59,7 +58,6 @@ namespace QobuzDownloaderX
                 emailTextbox.Visible = false;
                 passwordTextbox.Visible = false;
                 // Unhide alt login methods
-                //altLoginTutLabel.Visible = true;
                 userIdTextbox.Visible = true;
                 userAuthTokenTextbox.Visible = true;
             }
@@ -105,17 +103,28 @@ namespace QobuzDownloaderX
                 userAuthTokenTextbox.UseSystemPasswordChar = true;
                 userAuthTokenTextbox.Text = "user_auth_token";
             }
+            this.SetToolTips();
+        }
+
+        private void SetToolTips()
+        {
+            // Set tooltips for all the interactable controls in the Login window.
+            new ToolTip().SetToolTip(clearLoginInfobtn, "Clears the saved login information. (on both methods)");
+            new ToolTip().SetToolTip(emailTextbox, "Write valid email.");
+            new ToolTip().SetToolTip(userIdTextbox, "Write valid user ID.");
+            new ToolTip().SetToolTip(passwordTextbox, "Write valid password for email.");
+            new ToolTip().SetToolTip(userAuthTokenTextbox, "Write valid token for user ID.");
+            new ToolTip().SetToolTip(visableCheckbox, "Whether to show saved password/token.");
+            new ToolTip().SetToolTip(loginButton, "Initiate login process using the saved credentials.");
+            new ToolTip().SetToolTip(altLoginlbl, "Click to switch between login methods.");
+            new ToolTip().SetToolTip(settingsPictureBox, "Open settings window.");
+            new ToolTip().SetToolTip(exitlbl, "Quit program.");
         }
 
         private void OpenSettings_Click(object sender, EventArgs e)
         {
             Globals.SettingsForm.ShowDialog(this);
         }
-
-        //private void AboutLabel_Click(object sender, EventArgs e)
-        //{
-        //    Globals.AboutForm.ShowDialog();
-        //}
 
         private void AltLoginLabel_Click(object sender, EventArgs e)
         {
@@ -129,7 +138,6 @@ namespace QobuzDownloaderX
                 emailTextbox.Visible = false;
                 passwordTextbox.Visible = false;
                 // Unhide alt login methods
-                //altLoginTutLabel.Visible = true;
                 userIdTextbox.Visible = true;
                 userAuthTokenTextbox.Visible = true;
             }
@@ -140,7 +148,6 @@ namespace QobuzDownloaderX
                 // Change alt login label text
                 altLoginlbl.Text = "Can't login? Click here";
                 // Hide alt login methods
-                //altLoginTutLabel.Visible = false;
                 userIdTextbox.Visible = false;
                 userAuthTokenTextbox.Visible = false;
                 // Unhide standard login methods

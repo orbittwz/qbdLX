@@ -9,7 +9,7 @@
 
 -----
 
-![qbdLX Main window](./-assets/new1-3-6.png)
+![qbdLX Main window](./-assets/new1-3-7.png)
 
 # About
 

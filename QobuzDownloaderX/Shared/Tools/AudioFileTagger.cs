@@ -1,8 +1,9 @@
-﻿using QobuzDownloaderX.Models;
+﻿using QobuzDownloaderX.Models.Download;
+using QobuzDownloaderX.Properties;
 using System;
 using TagLib;
 
-namespace QobuzDownloaderX.Shared
+namespace QobuzDownloaderX.Shared.Tools
 {
     public static class AudioFileTagger
     {
@@ -15,13 +16,15 @@ namespace QobuzDownloaderX.Shared
             // Use ID3v2.4 as default mp3 tag version
             TagLib.Id3v2.Tag.DefaultVersion = 4;
             TagLib.Id3v2.Tag.ForceDefaultVersion = true;
-            switch (Globals.AudioFileType)
+            //todo Synthesize the two cases (flac and mp3) to one, differ just the changes between the formats.
+            //todo Instead of switch, do IF checks for the format.
+            switch (Settings.Default.audioType)
             {
                 case ".mp3":
                     // For custom / troublesome tags.
                     TagLib.Id3v2.Tag customId3v2 = (TagLib.Id3v2.Tag)tfile.GetTag(TagTypes.Id3v2, true);
                     // Saving cover art to file(s)
-                    if (Globals.TaggingOptions.WriteCoverImageTag)
+                    if (Settings.Default.imageTag)
                     {
                         try
                         {
@@ -43,62 +46,62 @@ namespace QobuzDownloaderX.Shared
                         }
                     }
                     // Track Title tag, version is already added to name if available
-                    if (Globals.TaggingOptions.WriteTrackTitleTag)
+                    if (Settings.Default.trackTitleTag)
                         tfile.Tag.Title = fileInfo.TrackName;
                     // Album Title tag, version is already added to name if available
-                    if (Globals.TaggingOptions.WriteAlbumNameTag)
+                    if (Settings.Default.albumTag)
                         tfile.Tag.Album = fileInfo.AlbumName;
                     // Album Artist tag
-                    if (Globals.TaggingOptions.WriteAlbumArtistTag)
+                    if (Settings.Default.albumArtistTag)
                     {
-                        if (Globals.TaggingOptions.MergePerformers)
+                        if (Settings.Default.mergePerformersTag)
                             tfile.Tag.AlbumArtists = new string[] { fileInfo.AlbumArtist };
                         else
                             tfile.Tag.AlbumArtists = fileInfo.AlbumArtists;
                     }
                     // Track Artist tag
-                    if (Globals.TaggingOptions.WriteTrackArtistTag)
+                    if (Settings.Default.artistTag)
                     {
-                        if (Globals.TaggingOptions.MergePerformers)
+                        if (Settings.Default.mergePerformersTag)
                             tfile.Tag.Performers = new string[] { fileInfo.PerformerName };
                         else
                             tfile.Tag.Performers = fileInfo.PerformerNames;
                     }
                     // Composer tag
-                    if (Globals.TaggingOptions.WriteComposerTag)
+                    if (Settings.Default.composerTag)
                     {
-                        if (Globals.TaggingOptions.MergePerformers)
+                        if (Settings.Default.mergePerformersTag)
                             tfile.Tag.Composers = new string[] { fileInfo.ComposerName };
                         else
                             tfile.Tag.Composers = fileInfo.ComposerNames;
                     }
                     // Label tag
-                    if (Globals.TaggingOptions.WriteLabelTag)
+                    if (Settings.Default.labelTag)
                         tfile.Tag.Publisher = fileInfo.LabelName;
                     // InvolvedPeople tag
-                    if (Globals.TaggingOptions.WriteInvolvedPeopleTag)
+                    if (Settings.Default.involvedPeopleTag)
                         customId3v2.SetTextFrame("TIPL", fileInfo.InvolvedPeople);
                     // Release Year tag (writes to "TDRC" (recording date) Frame)
-                    if (Globals.TaggingOptions.WriteReleaseYearTag)
+                    if (Settings.Default.yearTag)
                         tfile.Tag.Year = UInt32.Parse(fileInfo.ReleaseDate.Substring(0, 4));
                     // Release Date tag (use "TDRL" (release date) Frame for full date)
-                    if (Globals.TaggingOptions.WriteReleaseDateTag)
+                    if (Settings.Default.releaseDateTag)
                         customId3v2.SetTextFrame("TDRL", fileInfo.ReleaseDate);
                     // Genre tag
-                    if (Globals.TaggingOptions.WriteGenreTag)
+                    if (Settings.Default.genreTag)
                         tfile.Tag.Genres = new string[] { fileInfo.Genre };
                     // Disc Number tag
-                    if (Globals.TaggingOptions.WriteDiscNumberTag)
+                    if (Settings.Default.discTag)
                         tfile.Tag.Disc = Convert.ToUInt32(fileInfo.DiscNumber);
                     // Total Discs tag
-                    if (Globals.TaggingOptions.WriteDiscTotalTag)
+                    if (Settings.Default.totalDiscsTag)
                         tfile.Tag.DiscCount = Convert.ToUInt32(fileInfo.DiscTotal);
                     // Total Tracks tag
-                    if (Globals.TaggingOptions.WriteTrackTotalTag)
+                    if (Settings.Default.totalTracksTag)
                         tfile.Tag.TrackCount = Convert.ToUInt32(fileInfo.TrackTotal);
                     // Track Number tag
                     // !! Set Track Number after Total Tracks to prevent taglib-sharp from re-formatting the field to a "two-digit zero-filled value" !!
-                    if (Globals.TaggingOptions.WriteTrackNumberTag)
+                    if (Settings.Default.trackTag)
                     {
                         // Set TRCK tag manually to prevent using "two-digit zero-filled value"
                         // See https://github.com/mono/taglib-sharp/pull/240 where this change was introduced in taglib-sharp v2.3
@@ -106,19 +109,19 @@ namespace QobuzDownloaderX.Shared
                         customId3v2.SetNumberFrame("TRCK", Convert.ToUInt32(fileInfo.TrackNumber), tfile.Tag.TrackCount);
                     }
                     // Comment tag
-                    if (Globals.TaggingOptions.WriteCommentTag)
-                        tfile.Tag.Comment = Globals.TaggingOptions.CommentTag;
+                    if (Settings.Default.commentTag)
+                        tfile.Tag.Comment = Settings.Default.commentText;
                     // Copyright tag
-                    if (Globals.TaggingOptions.WriteCopyrightTag)
+                    if (Settings.Default.copyrightTag)
                         tfile.Tag.Copyright = fileInfo.Copyright;
                     // ISRC tag
-                    if (Globals.TaggingOptions.WriteISRCTag)
+                    if (Settings.Default.isrcTag)
                         tfile.Tag.ISRC = fileInfo.Isrc;
                     // Release Type tag
-                    if (fileInfo.MediaType != null && Globals.TaggingOptions.WriteMediaTypeTag)
+                    if (fileInfo.MediaType != null && Settings.Default.typeTag)
                         customId3v2.SetTextFrame("TMED", fileInfo.MediaType);
                     // Album store URL tag
-                    if (fileInfo.Url != null && Globals.TaggingOptions.WriteURLTag)
+                    if (fileInfo.Url != null && Settings.Default.urlTag)
                     {
                         customId3v2.SetTextFrame("WCOM", Globals.Login.User.Store == "fr-fr" ? fileInfo.Url : ("https://www.qobuz.com/" + Globals.Login.User.Store
                             + fileInfo.Url.Substring(fileInfo.Url.IndexOf("/album"))).ToLower());
@@ -131,7 +134,7 @@ namespace QobuzDownloaderX.Shared
                     // For custom / troublesome tags.
                     TagLib.Ogg.XiphComment custom = (TagLib.Ogg.XiphComment)tfile.GetTag(TagLib.TagTypes.Xiph);
                     // Saving cover art to file(s)
-                    if (Globals.TaggingOptions.WriteCoverImageTag)
+                    if (Settings.Default.imageTag)
                     {
                         try
                         {
@@ -153,63 +156,63 @@ namespace QobuzDownloaderX.Shared
                         }
                     }
                     // Track Title tag, version is already added to name if available
-                    if (Globals.TaggingOptions.WriteTrackTitleTag)
+                    if (Settings.Default.trackTitleTag)
                         tfile.Tag.Title = fileInfo.TrackName;
                     // Album Title tag, version is already added to name if available
-                    if (Globals.TaggingOptions.WriteAlbumNameTag)
+                    if (Settings.Default.albumTag)
                         tfile.Tag.Album = fileInfo.AlbumName;
                     // Album Artist tag
-                    if (Globals.TaggingOptions.WriteAlbumArtistTag)
+                    if (Settings.Default.albumArtistTag)
                     {
-                        if (Globals.TaggingOptions.MergePerformers)
+                        if (Settings.Default.mergePerformersTag)
                             tfile.Tag.AlbumArtists = new string[] { fileInfo.AlbumArtist };
                         else
                             tfile.Tag.AlbumArtists = fileInfo.AlbumArtists;
                     }
                     // Track Artist tag
-                    if (Globals.TaggingOptions.WriteTrackArtistTag)
+                    if (Settings.Default.artistTag)
                     {
-                        if (Globals.TaggingOptions.MergePerformers)
+                        if (Settings.Default.mergePerformersTag)
                             tfile.Tag.Performers = new string[] { fileInfo.PerformerName };
                         else
                             tfile.Tag.Performers = fileInfo.PerformerNames;
                     }
                     // Composer tag
-                    if (Globals.TaggingOptions.WriteComposerTag)
+                    if (Settings.Default.composerTag)
                     {
-                        if (Globals.TaggingOptions.MergePerformers)
+                        if (Settings.Default.mergePerformersTag)
                             tfile.Tag.Composers = new string[] { fileInfo.ComposerName };
                         else
                             tfile.Tag.Composers = fileInfo.ComposerNames;
                     }
                     // Label tag
-                    if (Globals.TaggingOptions.WriteLabelTag)
+                    if (Settings.Default.labelTag)
                     {
                         tfile.Tag.Publisher = fileInfo.LabelName; // Writes to the official ORGANIZATION field
                         custom.SetField("LABEL", fileInfo.LabelName);
                     }
                     // Producer tag
-                    if (Globals.TaggingOptions.WriteProducerTag)
+                    if (Settings.Default.producerTag)
                     {
-                        if (Globals.TaggingOptions.MergePerformers)
+                        if (Settings.Default.mergePerformersTag)
                             custom.SetField("PRODUCER", fileInfo.ProducerName);
                         else
                             custom.SetField("PRODUCER", fileInfo.ProducerNames);
                     }
                     // InvolvedPeople tag
-                    if (Globals.TaggingOptions.WriteInvolvedPeopleTag)
+                    if (Settings.Default.involvedPeopleTag)
                         custom.SetField("INVOLVEDPEOPLE", fileInfo.InvolvedPeople);
                     // Release Year tag (The "tfile.Tag.Year" field actually writes to the DATE tag, so use custom tag)
-                    if (Globals.TaggingOptions.WriteReleaseYearTag)
+                    if (Settings.Default.yearTag)
                         custom.SetField("YEAR", fileInfo.ReleaseDate.Substring(0, 4));
                     // Release Date tag
-                    if (Globals.TaggingOptions.WriteReleaseDateTag)
+                    if (Settings.Default.releaseDateTag)
                         custom.SetField("DATE", fileInfo.ReleaseDate);
                     // Genre tag
-                    if (Globals.TaggingOptions.WriteGenreTag)
+                    if (Settings.Default.genreTag)
                         tfile.Tag.Genres = new string[] { fileInfo.Genre };
                     // Track Number tag
-                    if (Globals.TaggingOptions.WriteTrackNumberTag)
+                    if (Settings.Default.trackTag)
                     {
                         tfile.Tag.Track = Convert.ToUInt32(fileInfo.TrackNumber);
                         // Override TRACKNUMBER tag again to prevent using "two-digit zero-filled value"
@@ -217,31 +220,31 @@ namespace QobuzDownloaderX.Shared
                         custom.SetField("TRACKNUMBER", Convert.ToUInt32(fileInfo.TrackNumber));
                     }
                     // Disc Number tag
-                    if (Globals.TaggingOptions.WriteDiscNumberTag)
+                    if (Settings.Default.discTag)
                         tfile.Tag.Disc = Convert.ToUInt32(fileInfo.DiscNumber);
                     // Total Discs tag
-                    if (Globals.TaggingOptions.WriteDiscTotalTag)
+                    if (Settings.Default.totalDiscsTag)
                         tfile.Tag.DiscCount = Convert.ToUInt32(fileInfo.DiscTotal);
                     // Total Tracks tag
-                    if (Globals.TaggingOptions.WriteTrackTotalTag)
+                    if (Settings.Default.totalTracksTag)
                         tfile.Tag.TrackCount = Convert.ToUInt32(fileInfo.TrackTotal);
                     // Comment tag
-                    if (Globals.TaggingOptions.WriteCommentTag)
-                        tfile.Tag.Comment = Globals.TaggingOptions.CommentTag;
+                    if (Settings.Default.commentTag)
+                        tfile.Tag.Comment = Settings.Default.commentText;
                     // Copyright tag
-                    if (Globals.TaggingOptions.WriteCopyrightTag)
+                    if (Settings.Default.copyrightTag)
                         tfile.Tag.Copyright = fileInfo.Copyright;
                     // UPC tag
-                    if (Globals.TaggingOptions.WriteUPCTag)
+                    if (Settings.Default.upcTag)
                         custom.SetField("UPC", fileInfo.Upc);
                     // ISRC tag
-                    if (Globals.TaggingOptions.WriteISRCTag)
+                    if (Settings.Default.isrcTag)
                         tfile.Tag.ISRC = fileInfo.Isrc;
                     // Release Type tag
-                    if (fileInfo.MediaType != null && Globals.TaggingOptions.WriteMediaTypeTag)
+                    if (fileInfo.MediaType != null && Settings.Default.typeTag)
                         custom.SetField("MEDIATYPE", fileInfo.MediaType);
                     // Explicit tag
-                    if (Globals.TaggingOptions.WriteExplicitTag)
+                    if (Settings.Default.explicitTag)
                     {
                         if (fileInfo.Advisory == true)
                             custom.SetField("ITUNESADVISORY", "1");
@@ -249,7 +252,7 @@ namespace QobuzDownloaderX.Shared
                             custom.SetField("ITUNESADVISORY", "0");
                     }
                     // Album store URL tag
-                    if (fileInfo.Url != null && Globals.TaggingOptions.WriteURLTag)
+                    if (fileInfo.Url != null && Settings.Default.urlTag)
                     {
                         custom.SetField("URL", Globals.Login.User.Store == "fr-fr" ? fileInfo.Url : ("https://www.qobuz.com/" + Globals.Login.User.Store
                             + fileInfo.Url.Substring(fileInfo.Url.IndexOf("/album"))).ToLower());

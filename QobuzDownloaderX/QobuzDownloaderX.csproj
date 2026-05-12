@@ -101,8 +101,6 @@
     <Compile Include="Shared\InvolvedPersonRoleType.cs" />
     <Compile Include="Shared\Tools\InvolvedPersonRoleMapping.cs" />
     <Compile Include="Shared\Tools\AudioFileTagger.cs" />
-    <Compile Include="Shared\TaggingOptions.cs" />
-    <Compile Include="Shared\GoodiesFileType.cs" />
     <Compile Include="Models\UI\SearchResultRow.cs" />
     <Compile Include="Shared\QobuzApiServiceManager.cs" />
     <Compile Include="Shared\FontManager.cs" />

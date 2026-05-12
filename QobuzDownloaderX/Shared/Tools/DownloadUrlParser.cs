@@ -1,8 +1,8 @@
-﻿using QobuzDownloaderX.Models;
+﻿using QobuzDownloaderX.Models.Download;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace QobuzDownloaderX.Shared
+namespace QobuzDownloaderX.Shared.Tools
 {
     public static class DownloadUrlParser
     {

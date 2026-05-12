@@ -1,7 +1,7 @@
-﻿using QobuzDownloaderX.Models;
+﻿using QobuzDownloaderX.Models.Download;
 using QobuzDownloaderX.Properties;
 using QobuzDownloaderX.Shared;
-using QobuzDownloaderX.View;
+using QobuzDownloaderX.Shared.Tools;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Linq;
 
-namespace QobuzDownloaderX
+namespace QobuzDownloaderX.View
 {
     public partial class QobuzDownloaderX : HeadlessForm
     {
@@ -19,8 +19,6 @@ namespace QobuzDownloaderX
         private readonly DownloadManager downloadManager;
         private readonly List<string> folderNameList1;
         private readonly List<string> fileNameList1;
-        //private int DevClickEggThingValue { get; set; }
-        //private int DebugMode { get; set; }
         // Button color download inactive
         private readonly Color readyButtonBackColor = Color.FromArgb(0, 112, 239); // Windows Blue (Azure Blue)
         // Button color download active
@@ -59,6 +57,20 @@ namespace QobuzDownloaderX
             profilePictureBox.ImageLocation = profilePic.Replace(@"\", null).Replace("s=50", "s=20");
             // Welcome the user after successful login.
             logger.ClearUILogComponent();
+            // Get and display version number.
+            verNumlbl.Text = Settings.Version;
+            // Set a placeholder image for Cover Art box.
+            albumArtPicBox.ImageLocation = Globals.DEFAULT_COVER_ART_URL;
+            // Change account info for logout button
+            string oldText = logoutlbl.Text;
+            logoutlbl.Text = oldText.Replace("%name%", Globals.Login.User?.DisplayName);
+            this.BuildOutput();
+            this.SetSettings();
+            this.SetToolTips();
+        }
+
+        private void BuildOutput()
+        {
             output.Invoke(new Action(() => output.AppendText("Welcome " + Globals.Login.User.DisplayName + " (" + Globals.Login.User.Email + ") !\r\n")));
             output.Invoke(new Action(() => output.AppendText("User Zone - " + Globals.Login.User.Zone + "\r\n\r\n")));
             output.Invoke(new Action(() => output.AppendText("Qobuz Credential Description - " + Globals.Login.User.Credential.Description + "\r\n")));
@@ -89,48 +101,26 @@ namespace QobuzDownloaderX
                 output.Invoke(new Action(() => output.AppendText("==========================\r\n\r\n")));
             }
             output.Invoke(new Action(() => output.AppendText("Your user_auth_token has been set for this session!")));
-            // Get and display version number.
-            verNumlbl.Text = Settings.Version;
-            // Set a placeholder image for Cover Art box.
-            albumArtPicBox.ImageLocation = Globals.DEFAULT_COVER_ART_URL;
-            // Change account info for logout button
-            string oldText = logoutlbl.Text;
-            logoutlbl.Text = oldText.Replace("%name%", Globals.Login.User?.DisplayName);
-            // Initialize Global Tagging options. Selected ArtSize is automatically set in artSizeSelect change event listener.
-            Globals.TaggingOptions = new TaggingOptions()
+            // Check if there's no selected path saved.
+            if (string.IsNullOrEmpty(folderBrowserDialog.SelectedPath))
             {
-                WriteAlbumNameTag = Settings.Default.albumTag,
-                WriteAlbumArtistTag = Settings.Default.albumArtistTag,
-                WriteTrackArtistTag = Settings.Default.artistTag,
-                WriteCommentTag = Settings.Default.commentTag,
-                CommentTag = Settings.Default.commentText,
-                WriteComposerTag = Settings.Default.composerTag,
-                WriteProducerTag = Settings.Default.producerTag,
-                WriteLabelTag = Settings.Default.labelTag,
-                WriteInvolvedPeopleTag = Settings.Default.involvedPeopleTag,
-                MergePerformers = Settings.Default.mergePerformersTag,
-                PrimaryListSeparator = Settings.Default.initialListSeparator,
-                ListEndSeparator = Settings.Default.listEndSeparator,
-                WriteCopyrightTag = Settings.Default.copyrightTag,
-                WriteDiscNumberTag = Settings.Default.discTag,
-                WriteDiscTotalTag = Settings.Default.totalDiscsTag,
-                WriteGenreTag = Settings.Default.genreTag,
-                WriteISRCTag = Settings.Default.isrcTag,
-                WriteMediaTypeTag = Settings.Default.typeTag,
-                WriteExplicitTag = Settings.Default.explicitTag,
-                WriteTrackTitleTag = Settings.Default.trackTitleTag,
-                WriteTrackNumberTag = Settings.Default.trackTag,
-                WriteTrackTotalTag = Settings.Default.totalTracksTag,
-                WriteUPCTag = Settings.Default.upcTag,
-                WriteReleaseYearTag = Settings.Default.yearTag,
-                WriteReleaseDateTag = Settings.Default.releaseDateTag,
-                WriteCoverImageTag = Settings.Default.imageTag,
-                WriteURLTag = Settings.Default.urlTag,
-                WriteQualityTag = Settings.Default.quality,
-                WriteGetGoodiesTag = Settings.Default.getGoodiesTag,
-                FolderNameTemplate = Settings.Default.savedFolderNameTemplate,
-                FileNameTemplate = Settings.Default.savedFileNameTemplate
-            };
+                // If there is NOT a saved path.
+                output.Invoke(new Action(() => output.AppendText("\r\n\r\n")));
+                output.Invoke(new Action(() => output.AppendText("No default path has been set! Remember to Choose a Folder!\r\n")));
+            }
+            else
+            {
+                // If there is a saved path.
+                output.Invoke(new Action(() => output.AppendText("\r\n\r\n")));
+                output.Invoke(new Action(() => output.AppendText("Using the last folder you've selected as your selected path!\r\n")));
+                output.Invoke(new Action(() => output.AppendText("\r\n")));
+                output.Invoke(new Action(() => output.AppendText("Default Folder:\r\n")));
+                output.Invoke(new Action(() => output.AppendText(folderBrowserDialog.SelectedPath + "\r\n")));
+            }
+        }
+
+        private void SetSettings()
+        {
             // Set saved settings to correct places.
             folderBrowserDialog.SelectedPath = Settings.Default.savedFolder;
             albumCheckbox.Checked = Settings.Default.albumTag;
@@ -165,52 +155,56 @@ namespace QobuzDownloaderX
             flacMidRadioBtn.Checked = Settings.Default.quality == "q3";
             flacHighRadioBtn.Checked = Settings.Default.quality == "q4";
             goodiesCheckBox.Checked = Settings.Default.getGoodiesTag;
-            Globals.FormatIdString = Settings.Default.qualityFormat;
-            Globals.AudioFileType = Settings.Default.audioType;
-            artSizeSelect.SelectedIndex = Settings.Default.savedArtSize;
+            //Globals.FormatIdString = Settings.Default.qualityFormat;
+            //Globals.AudioFileType = Settings.Default.audioType;
+            artSizeSelect.Text = Settings.Default.savedArtSize;
             foldernameTempSelect.DataSource = folderNameList1;
             foldernameTempSelect.SelectedItem = Settings.Default.savedFolderNameTemplate;
             foldernameTempSelect.Width += folderNameList1.Max(st => st.Length) + 20;
             filenameTempSelect.DataSource = fileNameList1;
             filenameTempSelect.SelectedItem = Settings.Default.savedFileNameTemplate;
             filenameTempSelect.Width += fileNameList1.Max(st => st.Length) + 10;
-            Globals.MaxLength = Settings.Default.savedMaxLength;
-            //customFormatIDTextbox.Text = Globals.FormatIdString;
-            maxLengthTextbox.Text = Globals.MaxLength.ToString();
-            // Check if there's no selected path saved.
-            if (string.IsNullOrEmpty(folderBrowserDialog.SelectedPath))
-            {
-                // If there is NOT a saved path.
-                output.Invoke(new Action(() => output.AppendText("\r\n\r\n")));
-                output.Invoke(new Action(() => output.AppendText("No default path has been set! Remember to Choose a Folder!\r\n")));
-            }
-            else
-            {
-                // If there is a saved path.
-                output.Invoke(new Action(() => output.AppendText("\r\n\r\n")));
-                output.Invoke(new Action(() => output.AppendText("Using the last folder you've selected as your selected path!\r\n")));
-                output.Invoke(new Action(() => output.AppendText("\r\n")));
-                output.Invoke(new Action(() => output.AppendText("Default Folder:\r\n")));
-                output.Invoke(new Action(() => output.AppendText(folderBrowserDialog.SelectedPath + "\r\n")));
-            }
-            // Run anything put into the debug events (For Testing)
-            //DebuggingEvents(sender, e);
+            //Globals.MaxLength = Settings.Default.savedMaxLength;
+            maxLengthTextbox.Text = Settings.Default.savedMaxLength.ToString();
+        }
+
+        private void SetToolTips()
+        {
+            // Set tooltips for all the interactable controls in the Main window.
+            new ToolTip().SetToolTip(selectFolderButton, "Choose folder to save downloaded items.");
+            new ToolTip().SetToolTip(openFolderButton, "Open downloaded items base folder.");
+            new ToolTip().SetToolTip(openLogFolderButton, "Open the program's log folder.");
+            new ToolTip().SetToolTip(mp3RadioBtn, "Select to download items at MP3 quality.");
+            new ToolTip().SetToolTip(flacLowRadioBtn, "Select to download items at FLAC 16-Bit quality.");
+            new ToolTip().SetToolTip(flacMidRadioBtn, "Select to download items at FLAC 24-Bit quality.");
+            new ToolTip().SetToolTip(flacHighRadioBtn, "Select to download items at FLAC 24-Bit HiRes quality.");
+            new ToolTip().SetToolTip(tagsLabel, "Click to show/hide tags and options.");
+            new ToolTip().SetToolTip(openSearchButton, "Open search window.");
+            new ToolTip().SetToolTip(downloadButton, "Download the item using the address bar.");
+            new ToolTip().SetToolTip(downloadUrl, "The item URL address in Qobuz website.");
+            new ToolTip().SetToolTip(logoutlbl, "Logout and quit the current session. (return to login window)");
+            new ToolTip().SetToolTip(albumArtPicBox, "The item cover art.");
+            new ToolTip().SetToolTip(albumArtistTextBox, "The item album artist.");
+            new ToolTip().SetToolTip(albumTextBox, "The item album name.");
+            new ToolTip().SetToolTip(qualityTextbox, "The item quality.");
+            new ToolTip().SetToolTip(totalTracksTextbox, "The item total tracks.");
+            new ToolTip().SetToolTip(upcTextBox, "The item UPC.");
+            new ToolTip().SetToolTip(releaseDateTextBox, "The item release date.");
+            new ToolTip().SetToolTip(minimizelbl, "Minimize the window.");
+            new ToolTip().SetToolTip(exitlbl, "Quit program.");
+            new ToolTip().SetToolTip(goodiesCheckBox, "Whether to download the item's booklet if available.");
+            new ToolTip().SetToolTip(imageCheckbox, "Whether to save embedded cover art image in each track.");
+            new ToolTip().SetToolTip(artSizeSelect, "Choose embedded cover art image size to save.");
+            new ToolTip().SetToolTip(filenameTempSelect, "Choose file name template to save each track.");
+            new ToolTip().SetToolTip(foldernameTempSelect, "Choose folder name template to save the item.");
+            new ToolTip().SetToolTip(InitialListSeparatorTextbox, "Character to indicate how the program divide multiple artists.");
+            new ToolTip().SetToolTip(ListEndSeparatorTextbox, "String to add at the end of multiple composers.");
         }
 
         private void UpdateDownloadSpeedLabel(string speed)
         {
             downloadSpeedlbl.Invoke(new Action(() => downloadSpeedlbl.Text = speed));
         }
-
-        //private void DebuggingEvents(object sender, EventArgs e)
-        //{
-        //    DevClickEggThingValue = 0;
-        //    // Debug mode for things that are only for testing, or shouldn't be on public releases. At the moment, does nothing.
-        //    if (!Debugger.IsAttached)
-        //        DebugMode = 0;
-        //    else
-        //        DebugMode = 1;
-        //}
 
         private void OpenSearch_Click(object sender, EventArgs e)
         {
@@ -314,14 +308,14 @@ namespace QobuzDownloaderX
                 // If selected path doesn't exist, create it. (Will be ignored if it does)
                 System.IO.Directory.CreateDirectory(folderBrowserDialog.SelectedPath);
                 // Open selected folder
-                Process.Start(@folderBrowserDialog.SelectedPath);
+                Process.Start(folderBrowserDialog.SelectedPath);
             }
         }
 
         private void OpenLogFolderButton_Click(object sender, EventArgs e)
         {
             // Open log folder. Folder should exist here so no extra check
-            Process.Start(@Globals.LoggingDir);
+            Process.Start(Globals.LoggingDir);
         }
 
         // Update UI for downloading album
@@ -331,7 +325,7 @@ namespace QobuzDownloaderX
             albumArtPicBox.Invoke(new Action(() => albumArtPicBox.ImageLocation = downloadInfo.FrontCoverImgBoxUrl));
             // Display album quality in Quality textbox.
             qualityTextbox.Invoke(new Action(() => qualityTextbox.Text = downloadInfo.DisplayQuality));
-            // Display album info textfields
+            // Display album info text fields
             albumArtistTextBox.Invoke(new Action(() => albumArtistTextBox.Text = downloadInfo.AlbumArtist));
             albumTextBox.Invoke(new Action(() => albumTextBox.Text = downloadInfo.AlbumName));
             releaseDateTextBox.Invoke(new Action(() => releaseDateTextBox.Text = downloadInfo.ReleaseDate));
@@ -343,140 +337,148 @@ namespace QobuzDownloaderX
         {
             Settings.Default.albumTag = albumCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteAlbumNameTag = albumCheckbox.Checked;
+            //Globals.TaggingOptions.WriteAlbumNameTag = albumCheckbox.Checked;
         }
 
         private void AlbumArtistCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.albumArtistTag = albumArtistCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteAlbumArtistTag = albumArtistCheckbox.Checked;
+            //Globals.TaggingOptions.WriteAlbumArtistTag = albumArtistCheckbox.Checked;
         }
 
         private void TrackTitleCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.trackTitleTag = trackTitleCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteTrackTitleTag = trackTitleCheckbox.Checked;
+            //Globals.TaggingOptions.WriteTrackTitleTag = trackTitleCheckbox.Checked;
         }
 
         private void ArtistCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.artistTag = artistCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteTrackArtistTag = artistCheckbox.Checked;
+            //Globals.TaggingOptions.WriteTrackArtistTag = artistCheckbox.Checked;
         }
 
         private void TrackNumberCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.trackTag = trackNumberCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteTrackNumberTag = trackNumberCheckbox.Checked;
+            //Globals.TaggingOptions.WriteTrackNumberTag = trackNumberCheckbox.Checked;
         }
 
         private void TrackTotalCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.totalTracksTag = trackTotalCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteTrackTotalTag = trackTotalCheckbox.Checked;
+            //Globals.TaggingOptions.WriteTrackTotalTag = trackTotalCheckbox.Checked;
         }
 
         private void DiscNumberCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.discTag = discNumberCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteDiscNumberTag = discNumberCheckbox.Checked;
+            //Globals.TaggingOptions.WriteDiscNumberTag = discNumberCheckbox.Checked;
         }
 
         private void DiscTotalCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.totalDiscsTag = discTotalCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteDiscTotalTag = discTotalCheckbox.Checked;
+            //Globals.TaggingOptions.WriteDiscTotalTag = discTotalCheckbox.Checked;
         }
 
         private void ReleaseYearCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.yearTag = releasYearCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteReleaseYearTag = releasYearCheckbox.Checked;
+            //Globals.TaggingOptions.WriteReleaseYearTag = releasYearCheckbox.Checked;
         }
 
         private void ReleaseDateCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.releaseDateTag = releaseDateCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteReleaseDateTag = releaseDateCheckbox.Checked;
+            //Globals.TaggingOptions.WriteReleaseDateTag = releaseDateCheckbox.Checked;
         }
 
         private void GenreCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.genreTag = genreCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteGenreTag = genreCheckbox.Checked;
+            //Globals.TaggingOptions.WriteGenreTag = genreCheckbox.Checked;
         }
 
         private void ComposerCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.composerTag = composerCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteComposerTag = composerCheckbox.Checked;
+            //Globals.TaggingOptions.WriteComposerTag = composerCheckbox.Checked;
         }
 
         private void CopyrightCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.copyrightTag = copyrightCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteCopyrightTag = copyrightCheckbox.Checked;
+            //Globals.TaggingOptions.WriteCopyrightTag = copyrightCheckbox.Checked;
         }
 
         private void IsrcCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.isrcTag = isrcCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteISRCTag = isrcCheckbox.Checked;
+            //Globals.TaggingOptions.WriteISRCTag = isrcCheckbox.Checked;
         }
 
         private void TypeCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.typeTag = typeCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteMediaTypeTag = typeCheckbox.Checked;
+            //Globals.TaggingOptions.WriteMediaTypeTag = typeCheckbox.Checked;
         }
 
         private void UpcCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.upcTag = upcCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteUPCTag = upcCheckbox.Checked;
+            //Globals.TaggingOptions.WriteUPCTag = upcCheckbox.Checked;
         }
 
         private void ExplicitCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.explicitTag = explicitCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteExplicitTag = explicitCheckbox.Checked;
+            //Globals.TaggingOptions.WriteExplicitTag = explicitCheckbox.Checked;
         }
 
         private void CommentCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.commentTag = commentCheckbox.Checked;
+            if (Settings.Default.commentTag == false)
+            {
+                Settings.Default.commentText = string.Empty;
+                commentTextbox.Text = string.Empty;
+                commentTextbox.Enabled = false;
+            }
+            else
+                commentTextbox.Enabled = true;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteCommentTag = commentCheckbox.Checked;
+            //Globals.TaggingOptions.WriteCommentTag = commentCheckbox.Checked;
         }
 
         private void ImageCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.imageTag = imageCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteCoverImageTag = imageCheckbox.Checked;
+            //Globals.TaggingOptions.WriteCoverImageTag = imageCheckbox.Checked;
         }
 
         private void CommentTextbox_TextChanged(object sender, EventArgs e)
         {
             Settings.Default.commentText = commentTextbox.Text;
             Settings.Default.Save();
-            Globals.TaggingOptions.CommentTag = commentTextbox.Text;
+            //Globals.TaggingOptions.CommentTag = commentTextbox.Text;
         }
 
         private void ArtSizeSelect_SelectedIndexChanged(object sender, EventArgs e)
@@ -484,8 +486,8 @@ namespace QobuzDownloaderX
             // Set ArtSize to selected value, and save selected option to settings.
             if (artSizeSelect.Text == "org")
                 MessageBox.Show("Choosing this embedded cover art size may cause issues!", "Notice", MessageBoxButtons.OK);
-            Globals.TaggingOptions.ArtSize = artSizeSelect.Text;
-            Settings.Default.savedArtSize = artSizeSelect.SelectedIndex;
+            //Globals.TaggingOptions.ArtSize = artSizeSelect.Text;
+            Settings.Default.savedArtSize = artSizeSelect.Text;
             Settings.Default.Save();
         }
 
@@ -495,47 +497,47 @@ namespace QobuzDownloaderX
             {
                 try
                 {
-                    if (Convert.ToInt32(maxLengthTextbox.Text) > 150)
+                    if (maxLengthTextbox.Text.All(char.IsDigit) == false || Convert.ToInt32(maxLengthTextbox.Text) > 150)
                         maxLengthTextbox.Text = "150";
                     Settings.Default.savedMaxLength = Convert.ToInt32(maxLengthTextbox.Text);
                     Settings.Default.Save();
-                    Globals.MaxLength = Convert.ToInt32(maxLengthTextbox.Text);
+                    //Globals.MaxLength = Convert.ToInt32(maxLengthTextbox.Text);
                 }
                 catch (Exception)
                 {
-                    Globals.MaxLength = 150;
+                    Settings.Default.savedMaxLength = 150;
                 }
             }
             else
-                Globals.MaxLength = 150;
+                Settings.Default.savedMaxLength = 150;
         }
 
         private void ProducerCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.producerTag = producerCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteProducerTag = producerCheckbox.Checked;
+            //Globals.TaggingOptions.WriteProducerTag = producerCheckbox.Checked;
         }
 
         private void LabelCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.labelTag = labelCheckbox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteLabelTag = labelCheckbox.Checked;
+            //Globals.TaggingOptions.WriteLabelTag = labelCheckbox.Checked;
         }
 
         private void InvolvedPeopleCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.involvedPeopleTag = involvedPeopleCheckBox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteInvolvedPeopleTag = involvedPeopleCheckBox.Checked;
+            //Globals.TaggingOptions.WriteInvolvedPeopleTag = involvedPeopleCheckBox.Checked;
         }
 
         private void MergePerformersCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.mergePerformersTag = mergePerformersCheckBox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.MergePerformers = mergePerformersCheckBox.Checked;
+            //Globals.TaggingOptions.MergePerformers = mergePerformersCheckBox.Checked;
         }
 
         private void InitialListSeparatorTextbox_TextChanged(object sender, EventArgs e)
@@ -544,13 +546,13 @@ namespace QobuzDownloaderX
             {
                 Settings.Default.initialListSeparator = InitialListSeparatorTextbox.Text;
                 Settings.Default.Save();
-                Globals.TaggingOptions.PrimaryListSeparator = InitialListSeparatorTextbox.Text;
+                //Globals.TaggingOptions.PrimaryListSeparator = InitialListSeparatorTextbox.Text;
             }
             else
             {
                 Settings.Default.initialListSeparator = ";";
                 Settings.Default.Save();
-                Globals.TaggingOptions.PrimaryListSeparator = InitialListSeparatorTextbox.Text;
+                //Globals.TaggingOptions.PrimaryListSeparator = InitialListSeparatorTextbox.Text;
             }
         }
 
@@ -560,13 +562,13 @@ namespace QobuzDownloaderX
             {
                 Settings.Default.listEndSeparator = ListEndSeparatorTextbox.Text;
                 Settings.Default.Save();
-                Globals.TaggingOptions.ListEndSeparator = ListEndSeparatorTextbox.Text;
+                //Globals.TaggingOptions.ListEndSeparator = ListEndSeparatorTextbox.Text;
             }
             else
             {
                 Settings.Default.listEndSeparator = " & ";
                 Settings.Default.Save();
-                Globals.TaggingOptions.ListEndSeparator = ListEndSeparatorTextbox.Text;
+                //Globals.TaggingOptions.ListEndSeparator = ListEndSeparatorTextbox.Text;
             }
         }
 
@@ -574,14 +576,8 @@ namespace QobuzDownloaderX
         {
             Settings.Default.urlTag = urlCheckBox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteURLTag = urlCheckBox.Checked;
+            //Globals.TaggingOptions.WriteURLTag = urlCheckBox.Checked;
         }
-
-        //private void CustomFormatIDTextbox_TextChanged(object sender, EventArgs e)
-        //{
-        //    if (Globals.FormatIdString != "5" || Globals.FormatIdString != "6" || Globals.FormatIdString != "7" || Globals.FormatIdString != "27")
-        //        Globals.FormatIdString = customFormatIDTextbox.Text;
-        //}
 
         private void ExitLabel_Click(object sender, EventArgs e)
         {
@@ -637,54 +633,6 @@ namespace QobuzDownloaderX
             Application.Exit();
         }
 
-        //private void LogoBox_Click(object sender, EventArgs e)
-        //{
-        //    DevClickEggThingValue += 1;
-        //    if (DevClickEggThingValue > 3)
-        //    {
-        //        streamableCheckbox.Visible = true;
-        //        enableBtnsButton.Visible = true;
-        //        hideDebugButton.Visible = true;
-        //        displaySecretButton.Visible = true;
-        //        secretTextbox.Visible = true;
-        //        hiddenTextPanel.Visible = true;
-        //        customFormatIDTextbox.Visible = true;
-        //        customFormatPanel.Visible = true;
-        //        formatIDlbl.Visible = true;
-        //    }
-        //    else
-        //    {
-        //        streamableCheckbox.Visible = false;
-        //        displaySecretButton.Visible = false;
-        //        secretTextbox.Visible = false;
-        //        hiddenTextPanel.Visible = false;
-        //        enableBtnsButton.Visible = false;
-        //        hideDebugButton.Visible = false;
-        //        customFormatIDTextbox.Visible = false;
-        //        customFormatPanel.Visible = false;
-        //        formatIDlbl.Visible = false;
-        //    }
-        //}
-
-        //private void HideDebugButton_Click(object sender, EventArgs e)
-        //{
-        //    streamableCheckbox.Visible = false;
-        //    displaySecretButton.Visible = false;
-        //    secretTextbox.Visible = false;
-        //    hiddenTextPanel.Visible = false;
-        //    enableBtnsButton.Visible = false;
-        //    hideDebugButton.Visible = false;
-        //    customFormatIDTextbox.Visible = false;
-        //    customFormatPanel.Visible = false;
-        //    formatIDlbl.Visible = false;
-        //    DevClickEggThingValue = 0;
-        //}
-
-        //private void DisplaySecretButton_Click(object sender, EventArgs e)
-        //{
-        //    secretTextbox.Text = QobuzApiServiceManager.GetApiService().AppSecret;
-        //}
-
         private void LogoutLabel_MouseHover(object sender, EventArgs e)
         {
             logoutlbl.ForeColor = Color.FromArgb(0, 112, 239);
@@ -702,18 +650,10 @@ namespace QobuzDownloaderX
             Application.Exit();
         }
 
-        //private void EnableBtnsButton_Click(object sender, EventArgs e)
-        //{
-        //    UpdateControlsDownloadEnd();
-        //}
-
-        //private void StreamableCheckbox_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    downloadManager.CheckIfStreamable = streamableCheckbox.Checked;
-        //}
-
         private void QualityRadioBtn_CheckedChanged(object sender, EventArgs e)
         {
+            string formatIdString = string.Empty;
+            string audioFileType = string.Empty;
             RadioButton rb = sender as RadioButton;
             if (rb == null)
             {
@@ -724,30 +664,26 @@ namespace QobuzDownloaderX
             {
                 if ((string)rb.Tag == "q4")
                 {
-                    Globals.FormatIdString = "27";
-                    //customFormatIDTextbox.Text = "27";
-                    Globals.AudioFileType = ".flac";
+                    formatIdString = "27";
+                    audioFileType = ".flac";
                 }
                 if ((string)rb.Tag == "q3")
                 {
-                    Globals.FormatIdString = "7";
-                    //customFormatIDTextbox.Text = "7";
-                    Globals.AudioFileType = ".flac";
+                    formatIdString = "7";
+                    audioFileType = ".flac";
                 }
                 if ((string)rb.Tag == "q2")
                 {
-                    Globals.FormatIdString = "6";
-                    //customFormatIDTextbox.Text = "6";
-                    Globals.AudioFileType = ".flac";
+                    formatIdString = "6";
+                    audioFileType = ".flac";
                 }
                 if ((string)rb.Tag == "q1")
                 {
-                    Globals.FormatIdString = "5";
-                    //customFormatIDTextbox.Text = "5";
-                    Globals.AudioFileType = ".mp3";
+                    formatIdString = "5";
+                    audioFileType = ".mp3";
                 }
-                Settings.Default.qualityFormat = Globals.FormatIdString;
-                Settings.Default.audioType = Globals.AudioFileType;
+                Settings.Default.qualityFormat = formatIdString;
+                Settings.Default.audioType = audioFileType;
                 downloadButton.Enabled = true;
             }
             Settings.Default.quality = (string)rb.Tag;
@@ -758,7 +694,7 @@ namespace QobuzDownloaderX
         {
             Settings.Default.getGoodiesTag = goodiesCheckBox.Checked;
             Settings.Default.Save();
-            Globals.TaggingOptions.WriteGetGoodiesTag = goodiesCheckBox.Checked;
+            //Globals.TaggingOptions.WriteGetGoodiesTag = goodiesCheckBox.Checked;
         }
 
         public TextBox DownloadUrl
@@ -777,14 +713,14 @@ namespace QobuzDownloaderX
         {
             Settings.Default.savedFolderNameTemplate = (string)foldernameTempSelect.SelectedItem;
             Settings.Default.Save();
-            Globals.TaggingOptions.FolderNameTemplate = (string)foldernameTempSelect.SelectedItem;
+            //Globals.TaggingOptions.FolderNameTemplate = (string)foldernameTempSelect.SelectedItem;
         }
 
         private void FilenameTempSelect_SelectionChangeCommitted(object sender, EventArgs e)
         {
             Settings.Default.savedFileNameTemplate = (string)filenameTempSelect.SelectedItem;
             Settings.Default.Save();
-            Globals.TaggingOptions.FileNameTemplate = (string)filenameTempSelect.SelectedItem;
+            //Globals.TaggingOptions.FileNameTemplate = (string)filenameTempSelect.SelectedItem;
         }
 
         private void TagsLabel_Click(object sender, EventArgs e)

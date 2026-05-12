@@ -3,8 +3,7 @@ using PlaylistsNET.Models;
 using QobuzApiSharp.Exceptions;
 using QobuzApiSharp.Models.Content;
 using QobuzApiSharp.Service;
-using QobuzDownloaderX.Models;
-using QobuzDownloaderX.Models.Content;
+using QobuzDownloaderX.Models.Download;
 using QobuzDownloaderX.Properties;
 using System;
 using System.Collections.Generic;
@@ -16,7 +15,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using QobuzDownloaderX.Shared.Tools;
 
 namespace QobuzDownloaderX.Shared
 {
@@ -162,8 +161,8 @@ namespace QobuzDownloaderX.Shared
             // Set trackPath to the created directories
             //string trackPath = DownloadInfo.CurrentDownloadPaths.Path4Full;
             string trackPath = string.Empty;
-            string folderTemplate = Globals.TaggingOptions.FolderNameTemplate;
-            string fileTemplate = Globals.TaggingOptions.FileNameTemplate;
+            string folderTemplate = Settings.Default.savedFolderNameTemplate;
+            string fileTemplate = Settings.Default.savedFileNameTemplate;
             if (isPartOfTracklist == true)
                 trackPath = Path.Combine(basePath, DownloadPaths.QualityPath);
             if (folderTemplate.Contains("\\"))
@@ -196,9 +195,9 @@ namespace QobuzDownloaderX.Shared
             else
                 DownloadPaths.FinalTrackNamePath = string.Concat(paddedTrackNumber, " - ", DownloadPaths.TrackNamePath).TrimEnd();
             // Shorten full filename if over MaxLength to avoid errors with file names being too long
-            DownloadPaths.FinalTrackNamePath = StringTools.TrimToMaxLength(DownloadPaths.FinalTrackNamePath, Globals.MaxLength);
+            DownloadPaths.FinalTrackNamePath = StringTools.TrimToMaxLength(DownloadPaths.FinalTrackNamePath, Settings.Default.savedMaxLength);
             // Construct Full filename & file path
-            DownloadPaths.FullTrackFileName = DownloadPaths.FinalTrackNamePath + Globals.AudioFileType;
+            DownloadPaths.FullTrackFileName = DownloadPaths.FinalTrackNamePath + Settings.Default.audioType;
             DownloadPaths.FullTrackFilePath = Path.Combine(trackPath, DownloadPaths.FullTrackFileName);
             // Check if available for streaming.
             if (!IsStreamable(qobuzTrack))
@@ -218,7 +217,7 @@ namespace QobuzDownloaderX.Shared
             // Notify UI of starting track download.
             logger.AddDownloadLogLine($"Downloading - {DownloadPaths.FinalTrackNamePath} ...... ", true, true);
             // Get track streaming URL, abort if failed.
-            string streamUrl = ExecuteApiCall(apiService => apiService.GetTrackFileUrl(trackIdString, Globals.FormatIdString))?.Url;
+            string streamUrl = ExecuteApiCall(apiService => apiService.GetTrackFileUrl(trackIdString, Settings.Default.qualityFormat))?.Url;
             if (string.IsNullOrEmpty(streamUrl))
             {
                 // Can happen with free accounts trying to download non-previewable tracks (or if API call failed).
@@ -229,7 +228,7 @@ namespace QobuzDownloaderX.Shared
             {
                 // Create file path strings
                 string coverArtFilePath = Path.Combine(trackPath.Contains("CD ") ? Path.GetDirectoryName(trackPath) : trackPath, "Cover.jpg");
-                string coverArtTagFilePath = Path.Combine(trackPath.Contains("CD ") ? Path.GetDirectoryName(trackPath) : trackPath, Globals.TaggingOptions.ArtSize + ".jpg");
+                string coverArtTagFilePath = Path.Combine(trackPath.Contains("CD ") ? Path.GetDirectoryName(trackPath) : trackPath, Settings.Default.savedArtSize + ".jpg");
                 using (HttpClient httpClient = new HttpClient())
                 {
                     httpClient.DefaultRequestHeaders.Add("User-Agent", Globals.USER_AGENT);
@@ -338,7 +337,7 @@ namespace QobuzDownloaderX.Shared
             }
             // Look for digital booklet(s) in "Goodies"
             // Don't fail on failed "Goodies" downloads, just log...
-            if (Globals.TaggingOptions.WriteGetGoodiesTag == true)
+            if (Settings.Default.getGoodiesTag == true)
             {
                 if (!await DownloadBookletsAsync(qobuzAlbum, Path.GetDirectoryName(DownloadPaths.FullTrackFilePath)))
                     noErrorsOccured = false;
@@ -349,7 +348,7 @@ namespace QobuzDownloaderX.Shared
         private async Task<bool> DownloadBookletsAsync(Album qobuzAlbum, string basePath)
         {
             bool noErrorsOccured = true;
-            List<Goody> booklets = qobuzAlbum.Goodies?.Where(g => g.FileFormatId == (int)GoodiesFileType.BOOKLET).ToList();
+            List<Goody> booklets = qobuzAlbum.Goodies?.Where(g => g.FileFormatId == 21).ToList();
             if (booklets == null || !booklets.Any())
             {
                 // No booklets found, just return
@@ -904,7 +903,7 @@ namespace QobuzDownloaderX.Shared
                 logger.AddEmptyDownloadLogLine(true, true);
                 // Create Playlist root directory.
                 string playlistSafeName = StringTools.GetSafeFilename(StringTools.DecodeEncodedNonAsciiCharacters(qobuzPlaylist.Name));
-                string playlistNamePath = StringTools.TrimToMaxLength(playlistSafeName, Globals.MaxLength);
+                string playlistNamePath = StringTools.TrimToMaxLength(playlistSafeName, Settings.Default.savedMaxLength);
                 playlistBasePath = Path.Combine(playlistBasePath, "- Playlists", playlistNamePath);
                 System.IO.Directory.CreateDirectory(playlistBasePath);
                 // Download Playlist cover art to "Playlist.jpg" in root directory (if not exists)

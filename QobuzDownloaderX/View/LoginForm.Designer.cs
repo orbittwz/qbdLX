@@ -1,4 +1,4 @@
-﻿namespace QobuzDownloaderX
+﻿namespace QobuzDownloaderX.View
 {
     partial class LoginForm
     {

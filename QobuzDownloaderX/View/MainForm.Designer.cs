@@ -1,4 +1,4 @@
-﻿namespace QobuzDownloaderX
+﻿namespace QobuzDownloaderX.View
 {
     partial class QobuzDownloaderX
     {
@@ -131,7 +131,7 @@
             this.selectFolderButton.FlatAppearance.BorderSize = 0;
             this.selectFolderButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.selectFolderButton.ForeColor = System.Drawing.Color.White;
-            this.selectFolderButton.Location = new System.Drawing.Point(241, 8);
+            this.selectFolderButton.Location = new System.Drawing.Point(241, 21);
             this.selectFolderButton.Name = "selectFolderButton";
             this.selectFolderButton.Size = new System.Drawing.Size(138, 23);
             this.selectFolderButton.TabIndex = 15;
@@ -160,7 +160,7 @@
             this.openFolderButton.FlatAppearance.BorderSize = 0;
             this.openFolderButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.openFolderButton.ForeColor = System.Drawing.Color.White;
-            this.openFolderButton.Location = new System.Drawing.Point(241, 37);
+            this.openFolderButton.Location = new System.Drawing.Point(241, 50);
             this.openFolderButton.Name = "openFolderButton";
             this.openFolderButton.Size = new System.Drawing.Size(138, 23);
             this.openFolderButton.TabIndex = 17;
@@ -244,7 +244,7 @@
             this.albumTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.albumTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.albumTextBox.ForeColor = System.Drawing.Color.White;
-            this.albumTextBox.Location = new System.Drawing.Point(376, 550);
+            this.albumTextBox.Location = new System.Drawing.Point(376, 552);
             this.albumTextBox.Multiline = true;
             this.albumTextBox.Name = "albumTextBox";
             this.albumTextBox.ReadOnly = true;
@@ -257,7 +257,7 @@
             // 
             this.albumlbl.AutoSize = true;
             this.albumlbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.albumlbl.Location = new System.Drawing.Point(373, 534);
+            this.albumlbl.Location = new System.Drawing.Point(373, 536);
             this.albumlbl.Name = "albumlbl";
             this.albumlbl.Size = new System.Drawing.Size(36, 13);
             this.albumlbl.TabIndex = 27;
@@ -268,7 +268,7 @@
             this.releaseDateTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.releaseDateTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.releaseDateTextBox.ForeColor = System.Drawing.Color.White;
-            this.releaseDateTextBox.Location = new System.Drawing.Point(376, 720);
+            this.releaseDateTextBox.Location = new System.Drawing.Point(376, 716);
             this.releaseDateTextBox.Multiline = true;
             this.releaseDateTextBox.Name = "releaseDateTextBox";
             this.releaseDateTextBox.ReadOnly = true;
@@ -281,7 +281,7 @@
             // 
             this.releaseDatelbl.AutoSize = true;
             this.releaseDatelbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.releaseDatelbl.Location = new System.Drawing.Point(373, 704);
+            this.releaseDatelbl.Location = new System.Drawing.Point(373, 700);
             this.releaseDatelbl.Name = "releaseDatelbl";
             this.releaseDatelbl.Size = new System.Drawing.Size(72, 13);
             this.releaseDatelbl.TabIndex = 39;
@@ -292,7 +292,7 @@
             this.upcTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.upcTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.upcTextBox.ForeColor = System.Drawing.Color.White;
-            this.upcTextBox.Location = new System.Drawing.Point(376, 677);
+            this.upcTextBox.Location = new System.Drawing.Point(376, 675);
             this.upcTextBox.Multiline = true;
             this.upcTextBox.Name = "upcTextBox";
             this.upcTextBox.ReadOnly = true;
@@ -305,7 +305,7 @@
             // 
             this.UPClbl.AutoSize = true;
             this.UPClbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.UPClbl.Location = new System.Drawing.Point(373, 661);
+            this.UPClbl.Location = new System.Drawing.Point(373, 659);
             this.UPClbl.Name = "UPClbl";
             this.UPClbl.Size = new System.Drawing.Size(29, 13);
             this.UPClbl.TabIndex = 36;
@@ -347,7 +347,7 @@
             this.totalTracksTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.totalTracksTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.totalTracksTextbox.ForeColor = System.Drawing.Color.White;
-            this.totalTracksTextbox.Location = new System.Drawing.Point(376, 635);
+            this.totalTracksTextbox.Location = new System.Drawing.Point(376, 634);
             this.totalTracksTextbox.Multiline = true;
             this.totalTracksTextbox.Name = "totalTracksTextbox";
             this.totalTracksTextbox.ReadOnly = true;
@@ -360,7 +360,7 @@
             // 
             this.totalTrackslbl.AutoSize = true;
             this.totalTrackslbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.totalTrackslbl.Location = new System.Drawing.Point(373, 619);
+            this.totalTrackslbl.Location = new System.Drawing.Point(373, 618);
             this.totalTrackslbl.Name = "totalTrackslbl";
             this.totalTrackslbl.Size = new System.Drawing.Size(67, 13);
             this.totalTrackslbl.TabIndex = 33;
@@ -396,9 +396,9 @@
             this.openSearchButton.FlatAppearance.BorderSize = 0;
             this.openSearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.openSearchButton.ForeColor = System.Drawing.Color.White;
-            this.openSearchButton.Location = new System.Drawing.Point(241, 95);
+            this.openSearchButton.Location = new System.Drawing.Point(514, 88);
             this.openSearchButton.Name = "openSearchButton";
-            this.openSearchButton.Size = new System.Drawing.Size(138, 23);
+            this.openSearchButton.Size = new System.Drawing.Size(88, 23);
             this.openSearchButton.TabIndex = 12;
             this.openSearchButton.Text = "Open Search";
             this.openSearchButton.UseVisualStyleBackColor = false;
@@ -529,7 +529,7 @@
             this.explicitCheckbox.AutoSize = true;
             this.explicitCheckbox.FlatAppearance.BorderSize = 0;
             this.explicitCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.explicitCheckbox.Location = new System.Drawing.Point(723, 243);
+            this.explicitCheckbox.Location = new System.Drawing.Point(723, 244);
             this.explicitCheckbox.Name = "explicitCheckbox";
             this.explicitCheckbox.Size = new System.Drawing.Size(106, 17);
             this.explicitCheckbox.TabIndex = 64;
@@ -634,6 +634,7 @@
             // 
             this.commentTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.commentTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.commentTextbox.Enabled = false;
             this.commentTextbox.ForeColor = System.Drawing.Color.White;
             this.commentTextbox.Location = new System.Drawing.Point(692, 355);
             this.commentTextbox.Multiline = true;
@@ -716,7 +717,7 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.panel3.Location = new System.Drawing.Point(376, 569);
+            this.panel3.Location = new System.Drawing.Point(376, 571);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(187, 1);
             this.panel3.TabIndex = 29;
@@ -732,7 +733,7 @@
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.panel5.Location = new System.Drawing.Point(376, 654);
+            this.panel5.Location = new System.Drawing.Point(376, 653);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(187, 1);
             this.panel5.TabIndex = 35;
@@ -740,7 +741,7 @@
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.panel6.Location = new System.Drawing.Point(376, 695);
+            this.panel6.Location = new System.Drawing.Point(376, 694);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(187, 1);
             this.panel6.TabIndex = 38;
@@ -748,7 +749,7 @@
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.panel7.Location = new System.Drawing.Point(376, 739);
+            this.panel7.Location = new System.Drawing.Point(376, 735);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(187, 1);
             this.panel7.TabIndex = 41;
@@ -859,9 +860,9 @@
             this.maxFilenameLengthWarninglbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
             this.maxFilenameLengthWarninglbl.Location = new System.Drawing.Point(742, 614);
             this.maxFilenameLengthWarninglbl.Name = "maxFilenameLengthWarninglbl";
-            this.maxFilenameLengthWarninglbl.Size = new System.Drawing.Size(107, 13);
+            this.maxFilenameLengthWarninglbl.Size = new System.Drawing.Size(110, 13);
             this.maxFilenameLengthWarninglbl.TabIndex = 0;
-            this.maxFilenameLengthWarninglbl.Text = "** = Max value is 150";
+            this.maxFilenameLengthWarninglbl.Text = "** = Max value is 150.";
             // 
             // filenameTempSelect
             // 
@@ -889,7 +890,7 @@
             this.openLogFolderButton.FlatAppearance.BorderSize = 0;
             this.openLogFolderButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.openLogFolderButton.ForeColor = System.Drawing.Color.White;
-            this.openLogFolderButton.Location = new System.Drawing.Point(241, 66);
+            this.openLogFolderButton.Location = new System.Drawing.Point(241, 79);
             this.openLogFolderButton.Name = "openLogFolderButton";
             this.openLogFolderButton.Size = new System.Drawing.Size(138, 23);
             this.openLogFolderButton.TabIndex = 18;
@@ -960,7 +961,7 @@
             this.producerCheckbox.AutoSize = true;
             this.producerCheckbox.FlatAppearance.BorderSize = 0;
             this.producerCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.producerCheckbox.Location = new System.Drawing.Point(723, 265);
+            this.producerCheckbox.Location = new System.Drawing.Point(723, 266);
             this.producerCheckbox.Name = "producerCheckbox";
             this.producerCheckbox.Size = new System.Drawing.Size(73, 17);
             this.producerCheckbox.TabIndex = 65;
@@ -1015,7 +1016,7 @@
             this.mergePerformersCheckBox.AutoSize = true;
             this.mergePerformersCheckBox.FlatAppearance.BorderSize = 0;
             this.mergePerformersCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.mergePerformersCheckBox.Location = new System.Drawing.Point(723, 311);
+            this.mergePerformersCheckBox.Location = new System.Drawing.Point(723, 310);
             this.mergePerformersCheckBox.Name = "mergePerformersCheckBox";
             this.mergePerformersCheckBox.Size = new System.Drawing.Size(109, 17);
             this.mergePerformersCheckBox.TabIndex = 70;
@@ -1050,7 +1051,7 @@
             this.urlCheckBox.AutoSize = true;
             this.urlCheckBox.FlatAppearance.BorderSize = 0;
             this.urlCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.urlCheckBox.Location = new System.Drawing.Point(723, 333);
+            this.urlCheckBox.Location = new System.Drawing.Point(723, 332);
             this.urlCheckBox.Name = "urlCheckBox";
             this.urlCheckBox.Size = new System.Drawing.Size(48, 17);
             this.urlCheckBox.TabIndex = 71;
@@ -1132,9 +1133,9 @@
             this.goodiesCheckBox.Location = new System.Drawing.Point(626, 412);
             this.goodiesCheckBox.Margin = new System.Windows.Forms.Padding(2);
             this.goodiesCheckBox.Name = "goodiesCheckBox";
-            this.goodiesCheckBox.Size = new System.Drawing.Size(65, 17);
+            this.goodiesCheckBox.Size = new System.Drawing.Size(68, 17);
             this.goodiesCheckBox.TabIndex = 73;
-            this.goodiesCheckBox.Text = "Goodies";
+            this.goodiesCheckBox.Text = "Booklet?";
             this.goodiesCheckBox.UseVisualStyleBackColor = true;
             this.goodiesCheckBox.CheckedChanged += new System.EventHandler(this.GoodiesCheckBox_CheckedChanged);
             // 
@@ -1200,7 +1201,7 @@
             this.tagsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.tagsLabel.Location = new System.Drawing.Point(496, 30);
             this.tagsLabel.Name = "tagsLabel";
-            this.tagsLabel.Size = new System.Drawing.Size(106, 56);
+            this.tagsLabel.Size = new System.Drawing.Size(106, 48);
             this.tagsLabel.TabIndex = 12;
             this.tagsLabel.Text = "Show/Hide 🠊 tags/options 🠊";
             this.tagsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

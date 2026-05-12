@@ -1,4 +1,4 @@
-﻿namespace QobuzDownloaderX.Models
+﻿namespace QobuzDownloaderX.Models.Download
 {
     public class DownloadItem
     {

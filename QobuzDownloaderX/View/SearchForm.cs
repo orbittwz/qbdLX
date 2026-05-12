@@ -2,7 +2,7 @@
 using QobuzApiSharp.Models.Content;
 using QobuzDownloaderX.Models.UI;
 using QobuzDownloaderX.Shared;
-using QobuzDownloaderX.View;
+using QobuzDownloaderX.Shared.Tools;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,7 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace QobuzDownloaderX
+namespace QobuzDownloaderX.View
 {
     public partial class SearchForm : HeadlessForm
     {
@@ -256,7 +256,6 @@ namespace QobuzDownloaderX
                 AutoSize = true,
                 Margin = new Padding(0),
                 Controls = { titleTextBox },
-                //BorderStyle = BorderStyle.FixedSingle
             };
             ControlTools.SetDoubleBuffered(titlePanel);
             if (isExplicit)
@@ -525,6 +524,16 @@ namespace QobuzDownloaderX
         {
             this.Left = Globals.QbdlxForm.Right + 30;
             this.Top = (Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 2;
+            this.SetToolTips();
+        }
+
+        private void SetToolTips()
+        {
+            // Set tooltips for all the interactable controls in the Search window.
+            new ToolTip().SetToolTip(searchTypeSelect, "Choose search type to query.");
+            new ToolTip().SetToolTip(searchInput, "Write search text to query.");
+            new ToolTip().SetToolTip(searchButton, "Initiate search query via the API.");
+            new ToolTip().SetToolTip(exitlbl, "Close search window.");
         }
 
         // Enable moving Form with mouse in absence of titlebar

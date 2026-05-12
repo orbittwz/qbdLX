@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace QobuzDownloaderX.Shared
+namespace QobuzDownloaderX.Shared.Tools
 {
     internal static class FileTools
     {
