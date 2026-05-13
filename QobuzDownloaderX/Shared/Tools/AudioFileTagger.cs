@@ -16,8 +16,6 @@ namespace QobuzDownloaderX.Shared.Tools
             // Use ID3v2.4 as default mp3 tag version
             TagLib.Id3v2.Tag.DefaultVersion = 4;
             TagLib.Id3v2.Tag.ForceDefaultVersion = true;
-            //todo Synthesize the two cases (flac and mp3) to one, differ just the changes between the formats.
-            //todo Instead of switch, do IF checks for the format.
             switch (Settings.Default.audioType)
             {
                 case ".mp3":

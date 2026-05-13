@@ -63,7 +63,7 @@ namespace QobuzDownloaderX.View
             albumArtPicBox.ImageLocation = Globals.DEFAULT_COVER_ART_URL;
             // Change account info for logout button
             string oldText = logoutlbl.Text;
-            logoutlbl.Text = oldText.Replace("%name%", Globals.Login.User?.DisplayName);
+            //logoutlbl.Text = oldText.Replace("%name%", Globals.Login.User?.DisplayName);
             this.BuildOutput();
             this.SetSettings();
             this.SetToolTips();
@@ -182,7 +182,7 @@ namespace QobuzDownloaderX.View
             new ToolTip().SetToolTip(openSearchButton, "Open search window.");
             new ToolTip().SetToolTip(downloadButton, "Download the item using the address bar.");
             new ToolTip().SetToolTip(downloadUrl, "The item URL address in Qobuz website.");
-            new ToolTip().SetToolTip(logoutlbl, "Logout and quit the current session. (return to login window)");
+            new ToolTip().SetToolTip(logoutlbl, "Logout and quit the current session. (return to login window)\n-= Logged as " + Globals.Login.User?.DisplayName + " =-");
             new ToolTip().SetToolTip(albumArtPicBox, "The item cover art.");
             new ToolTip().SetToolTip(albumArtistTextBox, "The item album artist.");
             new ToolTip().SetToolTip(albumTextBox, "The item album name.");

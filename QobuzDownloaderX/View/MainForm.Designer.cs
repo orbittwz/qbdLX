@@ -209,7 +209,7 @@
             // 
             this.coverArtlbl.AutoSize = true;
             this.coverArtlbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.coverArtlbl.Location = new System.Drawing.Point(225, 734);
+            this.coverArtlbl.Location = new System.Drawing.Point(165, 753);
             this.coverArtlbl.Name = "coverArtlbl";
             this.coverArtlbl.Size = new System.Drawing.Size(51, 13);
             this.coverArtlbl.TabIndex = 23;
@@ -313,10 +313,10 @@
             // 
             // albumArtPicBox
             // 
-            this.albumArtPicBox.Location = new System.Drawing.Point(150, 523);
-            this.albumArtPicBox.MaximumSize = new System.Drawing.Size(200, 200);
+            this.albumArtPicBox.Location = new System.Drawing.Point(65, 495);
+            this.albumArtPicBox.MaximumSize = new System.Drawing.Size(250, 250);
             this.albumArtPicBox.Name = "albumArtPicBox";
-            this.albumArtPicBox.Size = new System.Drawing.Size(200, 200);
+            this.albumArtPicBox.Size = new System.Drawing.Size(250, 250);
             this.albumArtPicBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.albumArtPicBox.TabIndex = 39;
             this.albumArtPicBox.TabStop = false;
@@ -764,7 +764,7 @@
             // 
             // profilePictureBox
             // 
-            this.profilePictureBox.Location = new System.Drawing.Point(12, 488);
+            this.profilePictureBox.Location = new System.Drawing.Point(12, 71);
             this.profilePictureBox.Name = "profilePictureBox";
             this.profilePictureBox.Size = new System.Drawing.Size(20, 20);
             this.profilePictureBox.TabIndex = 94;
@@ -774,11 +774,11 @@
             // 
             this.logoutlbl.AutoSize = true;
             this.logoutlbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.logoutlbl.Location = new System.Drawing.Point(36, 492);
+            this.logoutlbl.Location = new System.Drawing.Point(36, 74);
             this.logoutlbl.Name = "logoutlbl";
-            this.logoutlbl.Size = new System.Drawing.Size(161, 13);
+            this.logoutlbl.Size = new System.Drawing.Size(138, 13);
             this.logoutlbl.TabIndex = 43;
-            this.logoutlbl.Text = "Logged in as %name%, Log out?";
+            this.logoutlbl.Text = "You are logged in, Log out?";
             this.logoutlbl.Click += new System.EventHandler(this.LogoutLabel_Click);
             this.logoutlbl.MouseLeave += new System.EventHandler(this.LogoutLabel_MouseLeave);
             this.logoutlbl.MouseHover += new System.EventHandler(this.LogoutLabel_MouseHover);
