@@ -16,7 +16,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>false</DebugSymbols>
-    <DebugType>none</DebugType>
+    <DebugType>embedded</DebugType>
     <AllowedReferenceRelatedFileExtensions>
       <!-- Prevent default XML documentation files to be copied to output-->
         .pdb

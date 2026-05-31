@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,7 +18,8 @@ namespace QobuzDownloaderX.View
     public partial class SearchForm : HeadlessForm
     {
         private readonly string errorLog = Path.Combine(Globals.LoggingDir, "Search_Errors.log");
-        TableLayoutPanel resultsTableLayoutPanel;
+        private TableLayoutPanel resultsTableLayoutPanel;
+        private readonly char[] delimiterChars = { '_', '-', '(', ')' };
 
         public SearchForm()
         {
@@ -107,19 +109,13 @@ namespace QobuzDownloaderX.View
             exitlbl.ForeColor = Color.White;
         }
 
-        private void Fill_AlbumResultsTablePanel(SearchResult searchResult)
+        private void Fill_AlbumResultsTablePanel(SearchResult searchResult, bool popular)
         {
-            // 19/4 commented this filter since it's too restrictive.
-            //foreach (Album album in searchResult?.Albums?.Items.ToList())
-            //{
-            //    if (album == null)
-            //        continue;
-            //    if (Regex.IsMatch(searchInput.Text, album.Artist.Name, RegexOptions.IgnoreCase) == false)
-            //        searchResult.Albums?.Items.Remove(album);
-            //    //todo if I will decide to implement #13 (non-explicit results filtering), this is the place...
-            //    //todo to iterate and compare if item album name and artist name is the same, along with Duration +- 10 seconds, then remove the non-explicit result.
-            //    //todo same with tracks.
-            //}
+            if (popular == true)
+            {
+                List<Album> popAlbums = searchResult.MostPopular.Items.Where(item => item.Type == "albums").ToList().ConvertAll(new Converter<MostPopular, Album>(ToAlbumConverter));
+                searchResult.Albums.Items = popAlbums;
+            }
             FillResultsTablePanel(searchResult?.Albums?.Items, album => new SearchResultRow
             {
                 ResultType = "Album",
@@ -137,16 +133,13 @@ namespace QobuzDownloaderX.View
             });
         }
 
+        private Album ToAlbumConverter(MostPopular input)
+        {
+            return input.Content as Album;
+        }
+
         private void Fill_TrackResultsTablePanel(SearchResult searchResult)
         {
-            // 19/4 commented this filter since it's too restrictive.
-            //foreach (Track track in searchResult?.Tracks?.Items.ToList())
-            //{
-            //    if (track == null)
-            //        continue;
-            //    if (Regex.IsMatch(searchInput.Text, track.Performer.Name, RegexOptions.IgnoreCase) == false)
-            //        searchResult.Tracks?.Items.Remove(track);
-            //}
             FillResultsTablePanel(searchResult?.Tracks?.Items, track => new SearchResultRow
             {
                 ResultType = "Track",
@@ -485,28 +478,41 @@ namespace QobuzDownloaderX.View
                 searchButton.Enabled = true;
                 return;
             }
+            foreach (char c in delimiterChars)
+            {
+                searchQuery = searchQuery.Replace(c, ' ');
+            }
             try
             {
                 SearchResult albumsResult = new SearchResult();
+                SearchResult catalogResult = new SearchResult();
                 SearchResult tracksResult = new SearchResult();
                 if (searchTypeSelect.Text == "Album")
                 {
                     albumsResult = QobuzApiServiceManager.GetApiService().SearchAlbums(searchQuery, 15, 0, true);
-                    if (albumsResult.Albums.Total == 0)
+                    catalogResult = QobuzApiServiceManager.GetApiService().SearchCatalog(searchQuery, 15, 0, null, true);
+                    //System.Console.WriteLine($"catalog most popular albums count is = {catalogResult.MostPopular.Items.Count(item => item.Type == "albums")}");
+                    if (catalogResult.MostPopular.Items.Count(item => item.Type == "albums") == 0 && albumsResult.Albums.Total == 0)
                     {
                         tracksResult = QobuzApiServiceManager.GetApiService().SearchTracks(searchQuery, 15, 0, true);
                         Fill_TrackResultsTablePanel(tracksResult);
                     }
+                    else if (catalogResult.MostPopular.Items.Count(item => item.Type == "albums") > albumsResult.Albums.Total)
+                        Fill_AlbumResultsTablePanel(catalogResult, true);
                     else
-                        Fill_AlbumResultsTablePanel(albumsResult);
+                        Fill_AlbumResultsTablePanel(albumsResult, false);
                 }
                 else if (searchTypeSelect.Text == "Track")
                 {
                     tracksResult = QobuzApiServiceManager.GetApiService().SearchTracks(searchQuery, 15, 0, true);
                     if (tracksResult.Tracks.Total == 0)
                     {
+                        catalogResult = QobuzApiServiceManager.GetApiService().SearchCatalog(searchQuery, 15, 0, null, true);
                         albumsResult = QobuzApiServiceManager.GetApiService().SearchAlbums(searchQuery, 15, 0, true);
-                        Fill_AlbumResultsTablePanel(albumsResult);
+                        if (catalogResult.MostPopular.Items.Count(item => item.Type == "albums") > albumsResult.Albums.Total)
+                            Fill_AlbumResultsTablePanel(catalogResult, true);
+                        else
+                            Fill_AlbumResultsTablePanel(albumsResult, false);
                     }
                     else
                         Fill_TrackResultsTablePanel(tracksResult);

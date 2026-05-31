@@ -61,9 +61,6 @@ namespace QobuzDownloaderX.View
             verNumlbl.Text = Settings.Version;
             // Set a placeholder image for Cover Art box.
             albumArtPicBox.ImageLocation = Globals.DEFAULT_COVER_ART_URL;
-            // Change account info for logout button
-            string oldText = logoutlbl.Text;
-            //logoutlbl.Text = oldText.Replace("%name%", Globals.Login.User?.DisplayName);
             this.BuildOutput();
             this.SetSettings();
             this.SetToolTips();
@@ -155,8 +152,6 @@ namespace QobuzDownloaderX.View
             flacMidRadioBtn.Checked = Settings.Default.quality == "q3";
             flacHighRadioBtn.Checked = Settings.Default.quality == "q4";
             goodiesCheckBox.Checked = Settings.Default.getGoodiesTag;
-            //Globals.FormatIdString = Settings.Default.qualityFormat;
-            //Globals.AudioFileType = Settings.Default.audioType;
             artSizeSelect.Text = Settings.Default.savedArtSize;
             foldernameTempSelect.DataSource = folderNameList1;
             foldernameTempSelect.SelectedItem = Settings.Default.savedFolderNameTemplate;
@@ -164,7 +159,6 @@ namespace QobuzDownloaderX.View
             filenameTempSelect.DataSource = fileNameList1;
             filenameTempSelect.SelectedItem = Settings.Default.savedFileNameTemplate;
             filenameTempSelect.Width += fileNameList1.Max(st => st.Length) + 10;
-            //Globals.MaxLength = Settings.Default.savedMaxLength;
             maxLengthTextbox.Text = Settings.Default.savedMaxLength.ToString();
         }
 
@@ -337,119 +331,102 @@ namespace QobuzDownloaderX.View
         {
             Settings.Default.albumTag = albumCheckbox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteAlbumNameTag = albumCheckbox.Checked;
         }
 
         private void AlbumArtistCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.albumArtistTag = albumArtistCheckbox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteAlbumArtistTag = albumArtistCheckbox.Checked;
         }
 
         private void TrackTitleCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.trackTitleTag = trackTitleCheckbox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteTrackTitleTag = trackTitleCheckbox.Checked;
         }
 
         private void ArtistCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.artistTag = artistCheckbox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteTrackArtistTag = artistCheckbox.Checked;
         }
 
         private void TrackNumberCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.trackTag = trackNumberCheckbox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteTrackNumberTag = trackNumberCheckbox.Checked;
         }
 
         private void TrackTotalCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.totalTracksTag = trackTotalCheckbox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteTrackTotalTag = trackTotalCheckbox.Checked;
         }
 
         private void DiscNumberCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.discTag = discNumberCheckbox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteDiscNumberTag = discNumberCheckbox.Checked;
         }
 
         private void DiscTotalCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.totalDiscsTag = discTotalCheckbox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteDiscTotalTag = discTotalCheckbox.Checked;
         }
 
         private void ReleaseYearCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.yearTag = releasYearCheckbox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteReleaseYearTag = releasYearCheckbox.Checked;
         }
 
         private void ReleaseDateCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.releaseDateTag = releaseDateCheckbox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteReleaseDateTag = releaseDateCheckbox.Checked;
         }
 
         private void GenreCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.genreTag = genreCheckbox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteGenreTag = genreCheckbox.Checked;
         }
 
         private void ComposerCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.composerTag = composerCheckbox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteComposerTag = composerCheckbox.Checked;
         }
 
         private void CopyrightCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.copyrightTag = copyrightCheckbox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteCopyrightTag = copyrightCheckbox.Checked;
         }
 
         private void IsrcCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.isrcTag = isrcCheckbox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteISRCTag = isrcCheckbox.Checked;
         }
 
         private void TypeCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.typeTag = typeCheckbox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteMediaTypeTag = typeCheckbox.Checked;
         }
 
         private void UpcCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.upcTag = upcCheckbox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteUPCTag = upcCheckbox.Checked;
         }
 
         private void ExplicitCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.explicitTag = explicitCheckbox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteExplicitTag = explicitCheckbox.Checked;
         }
 
         private void CommentCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -464,21 +441,18 @@ namespace QobuzDownloaderX.View
             else
                 commentTextbox.Enabled = true;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteCommentTag = commentCheckbox.Checked;
         }
 
         private void ImageCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.imageTag = imageCheckbox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteCoverImageTag = imageCheckbox.Checked;
         }
 
         private void CommentTextbox_TextChanged(object sender, EventArgs e)
         {
             Settings.Default.commentText = commentTextbox.Text;
             Settings.Default.Save();
-            //Globals.TaggingOptions.CommentTag = commentTextbox.Text;
         }
 
         private void ArtSizeSelect_SelectedIndexChanged(object sender, EventArgs e)
@@ -486,7 +460,6 @@ namespace QobuzDownloaderX.View
             // Set ArtSize to selected value, and save selected option to settings.
             if (artSizeSelect.Text == "org")
                 MessageBox.Show("Choosing this embedded cover art size may cause issues!", "Notice", MessageBoxButtons.OK);
-            //Globals.TaggingOptions.ArtSize = artSizeSelect.Text;
             Settings.Default.savedArtSize = artSizeSelect.Text;
             Settings.Default.Save();
         }
@@ -501,7 +474,6 @@ namespace QobuzDownloaderX.View
                         maxLengthTextbox.Text = "150";
                     Settings.Default.savedMaxLength = Convert.ToInt32(maxLengthTextbox.Text);
                     Settings.Default.Save();
-                    //Globals.MaxLength = Convert.ToInt32(maxLengthTextbox.Text);
                 }
                 catch (Exception)
                 {
@@ -516,67 +488,42 @@ namespace QobuzDownloaderX.View
         {
             Settings.Default.producerTag = producerCheckbox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteProducerTag = producerCheckbox.Checked;
         }
 
         private void LabelCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.labelTag = labelCheckbox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteLabelTag = labelCheckbox.Checked;
         }
 
         private void InvolvedPeopleCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.involvedPeopleTag = involvedPeopleCheckBox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteInvolvedPeopleTag = involvedPeopleCheckBox.Checked;
         }
 
         private void MergePerformersCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.mergePerformersTag = mergePerformersCheckBox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.MergePerformers = mergePerformersCheckBox.Checked;
         }
 
         private void InitialListSeparatorTextbox_TextChanged(object sender, EventArgs e)
         {
-            if (InitialListSeparatorTextbox.Text != null)
-            {
-                Settings.Default.initialListSeparator = InitialListSeparatorTextbox.Text;
-                Settings.Default.Save();
-                //Globals.TaggingOptions.PrimaryListSeparator = InitialListSeparatorTextbox.Text;
-            }
-            else
-            {
-                Settings.Default.initialListSeparator = ";";
-                Settings.Default.Save();
-                //Globals.TaggingOptions.PrimaryListSeparator = InitialListSeparatorTextbox.Text;
-            }
+            Settings.Default.initialListSeparator = InitialListSeparatorTextbox.Text;
+            Settings.Default.Save();
         }
 
         private void ListEndSeparatorTextbox_TextChanged(object sender, EventArgs e)
         {
-            if (ListEndSeparatorTextbox.Text != null)
-            {
-                Settings.Default.listEndSeparator = ListEndSeparatorTextbox.Text;
-                Settings.Default.Save();
-                //Globals.TaggingOptions.ListEndSeparator = ListEndSeparatorTextbox.Text;
-            }
-            else
-            {
-                Settings.Default.listEndSeparator = " & ";
-                Settings.Default.Save();
-                //Globals.TaggingOptions.ListEndSeparator = ListEndSeparatorTextbox.Text;
-            }
+            Settings.Default.listEndSeparator = ListEndSeparatorTextbox.Text;
+            Settings.Default.Save();
         }
 
         private void UrlCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.urlTag = urlCheckBox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteURLTag = urlCheckBox.Checked;
         }
 
         private void ExitLabel_Click(object sender, EventArgs e)
@@ -694,7 +641,6 @@ namespace QobuzDownloaderX.View
         {
             Settings.Default.getGoodiesTag = goodiesCheckBox.Checked;
             Settings.Default.Save();
-            //Globals.TaggingOptions.WriteGetGoodiesTag = goodiesCheckBox.Checked;
         }
 
         public TextBox DownloadUrl
@@ -713,14 +659,12 @@ namespace QobuzDownloaderX.View
         {
             Settings.Default.savedFolderNameTemplate = (string)foldernameTempSelect.SelectedItem;
             Settings.Default.Save();
-            //Globals.TaggingOptions.FolderNameTemplate = (string)foldernameTempSelect.SelectedItem;
         }
 
         private void FilenameTempSelect_SelectionChangeCommitted(object sender, EventArgs e)
         {
             Settings.Default.savedFileNameTemplate = (string)filenameTempSelect.SelectedItem;
             Settings.Default.Save();
-            //Globals.TaggingOptions.FileNameTemplate = (string)filenameTempSelect.SelectedItem;
         }
 
         private void TagsLabel_Click(object sender, EventArgs e)
