@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using QobuzDownloaderX.Properties;
 
 namespace QobuzDownloaderX.View
 {
@@ -531,6 +532,7 @@ namespace QobuzDownloaderX.View
             this.Left = Globals.QbdlxForm.Right + 30;
             this.Top = (Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 2;
             this.SetToolTips();
+            this.ApplyTheme();
         }
 
         private void SetToolTips()
@@ -540,6 +542,48 @@ namespace QobuzDownloaderX.View
             new ToolTip().SetToolTip(searchInput, "Write search text to query.");
             new ToolTip().SetToolTip(searchButton, "Initiate search query via the API.");
             new ToolTip().SetToolTip(exitlbl, "Close search window.");
+        }
+
+        private void ApplyTheme()
+        {
+            switch (Settings.Default.theme)
+            {
+                case "Dark":
+                    this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+                    this.containerScrollPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
+                    this.searchInput.ForeColor = System.Drawing.Color.White;
+                    foreach (Control control in this.Controls)
+                    {
+                        if (control.GetType() == typeof(TextBox) && control.BackColor !=
+                            System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))),
+                                ((int)(((byte)(20))))))
+                            control.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))),
+                                ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+                    }
+                    break;
+                case "Light":
+                    this.BackColor = System.Drawing.Color.Empty;
+                    this.containerScrollPanel.BackColor = System.Drawing.Color.Empty;
+                    this.searchInput.ForeColor = System.Drawing.Color.Black;
+                    foreach (Control control in this.Controls)
+                    {
+                        if (control.GetType() == typeof(TextBox) && control.BackColor != System.Drawing.SystemColors.Control)
+                            control.BackColor = System.Drawing.SystemColors.Control;
+                    }
+                    break;
+                case "Party":
+                    int randomRed = Settings.GetRandom;
+                    int randomGreen = Settings.GetRandom;
+                    int randomBlue = Settings.GetRandom;
+                    this.BackColor = System.Drawing.Color.FromArgb((byte)randomRed, (byte)randomGreen, (byte)randomBlue);
+                    this.containerScrollPanel.BackColor = System.Drawing.Color.FromArgb((byte)randomRed, (byte)randomGreen, (byte)randomBlue);
+                    foreach (Control control in this.Controls)
+                    {
+                        if (control.GetType() == typeof(TextBox))
+                            control.BackColor = System.Drawing.Color.FromArgb((byte)randomRed, (byte)randomGreen, (byte)randomBlue);
+                    }
+                    break;
+            }
         }
 
         // Enable moving Form with mouse in absence of titlebar

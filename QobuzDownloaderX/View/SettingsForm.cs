@@ -1,12 +1,15 @@
 ﻿using QobuzDownloaderX.Properties;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using QobuzDownloaderX.Shared;
 
 namespace QobuzDownloaderX.View
 {
     public partial class SettingsForm : HeadlessForm
     {
+        private readonly List<string> themeListData1;
         public SettingsForm()
         {
             InitializeComponent();
@@ -17,6 +20,10 @@ namespace QobuzDownloaderX.View
             AddClearTextButton(AppSecretTextBox);
             // Don't select entire existing value in textbox when it's loaded
             AppIdTextBox.Select(AppIdTextBox.Text.Length, 0);
+            Markdowns markdowns = new Markdowns();
+            themeListData1 = markdowns.ThemeListData;
+            themeComboBox.DataSource = themeListData1;
+            themeComboBox.SelectedItem = Settings.Default.theme;
         }
 
         private void AddClearTextButton(TextBox textBox)
@@ -24,8 +31,8 @@ namespace QobuzDownloaderX.View
             Button clearButton = new Button
             {
                 Text = "X",
-                Size = new Size(25, textBox.ClientSize.Height + 2),
-                Location = new Point(textBox.Location.X + textBox.Width + 2, textBox.Location.Y + -5),
+                Size = new Size(25, textBox.ClientSize.Height + 20),
+                Location = new Point(textBox.Location.X + textBox.Width + 2, textBox.Location.Y - 10),
                 Cursor = Cursors.Default,
                 FlatStyle = FlatStyle.Flat
             };
@@ -72,6 +79,7 @@ namespace QobuzDownloaderX.View
         {
             Settings.Default.appId = AppIdTextBox.Text;
             Settings.Default.appSecret = AppSecretTextBox.Text;
+            Settings.Default.theme = (string)themeComboBox.SelectedItem;
             Settings.Default.Save();
             MessageBox.Show(
                 "Settings saved!",
@@ -79,12 +87,40 @@ namespace QobuzDownloaderX.View
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
+            Globals.LoginForm.ApplyTheme();
+            Globals.SettingsForm.ApplyTheme();
             this.Close();
         }
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
             this.SetToolTips();
+            this.ApplyTheme();
+        }
+
+        private void ApplyTheme()
+        {
+            switch (Settings.Default.theme)
+            {
+                case "Dark":
+                    this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+                    this.AppIdTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+                    this.AppSecretTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+                    break;
+                case "Light":
+                    this.BackColor = System.Drawing.Color.Empty;
+                    this.AppIdTextBox.BackColor = System.Drawing.SystemColors.Control;
+                    this.AppSecretTextBox.BackColor = System.Drawing.SystemColors.Control;
+                    break;
+                case "Party":
+                    int randomRed = Settings.GetRandom;
+                    int randomGreen = Settings.GetRandom;
+                    int randomBlue = Settings.GetRandom;
+                    this.BackColor = System.Drawing.Color.FromArgb((byte)randomRed, (byte)randomGreen, (byte)randomBlue);
+                    this.AppIdTextBox.BackColor = System.Drawing.Color.FromArgb((byte)randomRed, (byte)randomGreen, (byte)randomBlue);
+                    this.AppSecretTextBox.BackColor = System.Drawing.Color.FromArgb((byte)randomRed, (byte)randomGreen, (byte)randomBlue);
+                    break;
+            }
         }
 
         private void SetToolTips()

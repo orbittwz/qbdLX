@@ -29,17 +29,21 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.LogoPictureBox = new System.Windows.Forms.PictureBox();
             this.SystemGroupBox = new System.Windows.Forms.GroupBox();
-            this.SaveButton = new System.Windows.Forms.Button();
             this.DividerPanel2 = new System.Windows.Forms.Panel();
             this.DividerPanel1 = new System.Windows.Forms.Panel();
             this.AppSecretTextBox = new System.Windows.Forms.TextBox();
             this.appSecretlbl = new System.Windows.Forms.Label();
             this.AppIdTextBox = new System.Windows.Forms.TextBox();
             this.appIDlbl = new System.Windows.Forms.Label();
+            this.SaveButton = new System.Windows.Forms.Button();
             this.exitlbl = new System.Windows.Forms.Label();
             this.settingsTitlelbl = new System.Windows.Forms.Label();
+            this.UIGroupBox = new System.Windows.Forms.GroupBox();
+            this.themeComboBox = new System.Windows.Forms.ComboBox();
+            this.themelbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.LogoPictureBox)).BeginInit();
             this.SystemGroupBox.SuspendLayout();
+            this.UIGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // LogoPictureBox
@@ -56,7 +60,6 @@
             // 
             // SystemGroupBox
             // 
-            this.SystemGroupBox.Controls.Add(this.SaveButton);
             this.SystemGroupBox.Controls.Add(this.DividerPanel2);
             this.SystemGroupBox.Controls.Add(this.DividerPanel1);
             this.SystemGroupBox.Controls.Add(this.AppSecretTextBox);
@@ -66,24 +69,10 @@
             this.SystemGroupBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
             this.SystemGroupBox.Location = new System.Drawing.Point(12, 56);
             this.SystemGroupBox.Name = "SystemGroupBox";
-            this.SystemGroupBox.Size = new System.Drawing.Size(476, 159);
+            this.SystemGroupBox.Size = new System.Drawing.Size(476, 120);
             this.SystemGroupBox.TabIndex = 93;
             this.SystemGroupBox.TabStop = false;
             this.SystemGroupBox.Text = "System";
-            // 
-            // SaveButton
-            // 
-            this.SaveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(112)))), ((int)(((byte)(239)))));
-            this.SaveButton.FlatAppearance.BorderSize = 0;
-            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveButton.ForeColor = System.Drawing.Color.White;
-            this.SaveButton.Location = new System.Drawing.Point(14, 126);
-            this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(120, 23);
-            this.SaveButton.TabIndex = 3;
-            this.SaveButton.Text = "Save";
-            this.SaveButton.UseVisualStyleBackColor = false;
-            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // DividerPanel2
             // 
@@ -107,9 +96,8 @@
             this.AppSecretTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.AppSecretTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
             this.AppSecretTextBox.Location = new System.Drawing.Point(14, 87);
-            this.AppSecretTextBox.Multiline = true;
             this.AppSecretTextBox.Name = "AppSecretTextBox";
-            this.AppSecretTextBox.Size = new System.Drawing.Size(427, 20);
+            this.AppSecretTextBox.Size = new System.Drawing.Size(427, 13);
             this.AppSecretTextBox.TabIndex = 2;
             this.AppSecretTextBox.WordWrap = false;
             // 
@@ -129,9 +117,8 @@
             this.AppIdTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.AppIdTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
             this.AppIdTextBox.Location = new System.Drawing.Point(14, 45);
-            this.AppIdTextBox.Multiline = true;
             this.AppIdTextBox.Name = "AppIdTextBox";
-            this.AppIdTextBox.Size = new System.Drawing.Size(427, 20);
+            this.AppIdTextBox.Size = new System.Drawing.Size(427, 13);
             this.AppIdTextBox.TabIndex = 1;
             this.AppIdTextBox.WordWrap = false;
             // 
@@ -144,6 +131,20 @@
             this.appIDlbl.Size = new System.Drawing.Size(40, 13);
             this.appIDlbl.TabIndex = 90;
             this.appIDlbl.Text = "App ID";
+            // 
+            // SaveButton
+            // 
+            this.SaveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(112)))), ((int)(((byte)(239)))));
+            this.SaveButton.FlatAppearance.BorderSize = 0;
+            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveButton.ForeColor = System.Drawing.Color.White;
+            this.SaveButton.Location = new System.Drawing.Point(188, 266);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(120, 23);
+            this.SaveButton.TabIndex = 3;
+            this.SaveButton.Text = "Save";
+            this.SaveButton.UseVisualStyleBackColor = false;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // exitlbl
             // 
@@ -166,18 +167,51 @@
             this.settingsTitlelbl.AutoSize = true;
             this.settingsTitlelbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.settingsTitlelbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
-            this.settingsTitlelbl.Location = new System.Drawing.Point(218, 15);
+            this.settingsTitlelbl.Location = new System.Drawing.Point(204, 15);
             this.settingsTitlelbl.Name = "settingsTitlelbl";
             this.settingsTitlelbl.Size = new System.Drawing.Size(90, 25);
             this.settingsTitlelbl.TabIndex = 95;
             this.settingsTitlelbl.Text = "Settings";
+            // 
+            // UIGroupBox
+            // 
+            this.UIGroupBox.Controls.Add(this.themeComboBox);
+            this.UIGroupBox.Controls.Add(this.themelbl);
+            this.UIGroupBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
+            this.UIGroupBox.Location = new System.Drawing.Point(12, 182);
+            this.UIGroupBox.Name = "UIGroupBox";
+            this.UIGroupBox.Size = new System.Drawing.Size(476, 63);
+            this.UIGroupBox.TabIndex = 96;
+            this.UIGroupBox.TabStop = false;
+            this.UIGroupBox.Text = "UI";
+            // 
+            // themeComboBox
+            // 
+            this.themeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.themeComboBox.FormattingEnabled = true;
+            this.themeComboBox.Location = new System.Drawing.Point(66, 23);
+            this.themeComboBox.Name = "themeComboBox";
+            this.themeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.themeComboBox.TabIndex = 91;
+            // 
+            // themelbl
+            // 
+            this.themelbl.AutoSize = true;
+            this.themelbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(92)))), ((int)(((byte)(102)))));
+            this.themelbl.Location = new System.Drawing.Point(11, 26);
+            this.themelbl.Name = "themelbl";
+            this.themelbl.Size = new System.Drawing.Size(40, 13);
+            this.themelbl.TabIndex = 90;
+            this.themelbl.Text = "Theme";
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ClientSize = new System.Drawing.Size(500, 227);
+            this.ClientSize = new System.Drawing.Size(500, 300);
+            this.Controls.Add(this.SaveButton);
+            this.Controls.Add(this.UIGroupBox);
             this.Controls.Add(this.settingsTitlelbl);
             this.Controls.Add(this.exitlbl);
             this.Controls.Add(this.SystemGroupBox);
@@ -192,6 +226,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.LogoPictureBox)).EndInit();
             this.SystemGroupBox.ResumeLayout(false);
             this.SystemGroupBox.PerformLayout();
+            this.UIGroupBox.ResumeLayout(false);
+            this.UIGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -210,5 +246,8 @@
         private System.Windows.Forms.Label exitlbl;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Label settingsTitlelbl;
+        private System.Windows.Forms.GroupBox UIGroupBox;
+        private System.Windows.Forms.ComboBox themeComboBox;
+        private System.Windows.Forms.Label themelbl;
     }
 }

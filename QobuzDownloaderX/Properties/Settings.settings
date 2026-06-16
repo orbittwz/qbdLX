@@ -134,5 +134,8 @@
     <Setting Name="hideTagsSection" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="theme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Dark</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

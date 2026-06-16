@@ -279,7 +279,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LoginForm";
             this.Text = "qbdLX | Login";
-            this.Load += new System.EventHandler(this.LoginFrm_Load);
+            this.Load += new System.EventHandler(this.LoginForm_Load);
             this.topPanel.ResumeLayout(false);
             this.topPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.settingsPictureBox)).EndInit();

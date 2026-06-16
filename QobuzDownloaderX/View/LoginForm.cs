@@ -26,7 +26,7 @@ namespace QobuzDownloaderX.View
                 System.IO.File.Delete(loginErrorLog);
         }
 
-        private void LoginFrm_Load(object sender, EventArgs e)
+        private void LoginForm_Load(object sender, EventArgs e)
         {
             // Get and display version number.
             verNumlbl3.Text = Settings.Version;
@@ -104,6 +104,44 @@ namespace QobuzDownloaderX.View
                 userAuthTokenTextbox.Text = "user_auth_token";
             }
             this.SetToolTips();
+            this.ApplyTheme();
+        }
+
+        internal void ApplyTheme()
+        {
+            switch (Settings.Default.theme)
+            {
+                case "Dark":
+                    this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+                    foreach (Control control in this.Controls)
+                    {
+                        if (control.GetType() == typeof(TextBox) && control.BackColor !=
+                            System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))),
+                                ((int)(((byte)(20))))))
+                            control.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))),
+                                ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+                    }
+                    break;
+                case "Light":
+                    this.BackColor = System.Drawing.Color.Empty;
+                    foreach (Control control in this.Controls)
+                    {
+                        if (control.GetType() == typeof(TextBox) && control.BackColor != System.Drawing.SystemColors.Control)
+                            control.BackColor = System.Drawing.SystemColors.Control;
+                    }
+                    break;
+                case "Party":
+                    int randomRed = Settings.GetRandom;
+                    int randomGreen = Settings.GetRandom;
+                    int randomBlue = Settings.GetRandom;
+                    this.BackColor = System.Drawing.Color.FromArgb((byte)randomRed, (byte)randomGreen, (byte)randomBlue);
+                    foreach (Control control in this.Controls)
+                    {
+                        if (control.GetType() == typeof(TextBox))
+                            control.BackColor = System.Drawing.Color.FromArgb((byte)randomRed, (byte)randomGreen, (byte)randomBlue);
+                    }
+                    break;
+            }
         }
 
         private void SetToolTips()

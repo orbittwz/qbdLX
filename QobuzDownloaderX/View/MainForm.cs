@@ -64,6 +64,7 @@ namespace QobuzDownloaderX.View
             this.BuildOutput();
             this.SetSettings();
             this.SetToolTips();
+            this.ApplyTheme();
         }
 
         private void BuildOutput()
@@ -688,6 +689,51 @@ namespace QobuzDownloaderX.View
                 this.tagsLabel.Text = "Show/Hide 🠊 tags/options 🠊";
                 Settings.Default.hideTagsSection = false;
                 Settings.Default.Save();
+            }
+        }
+
+        private void ApplyTheme()
+        {
+            switch (Settings.Default.theme)
+            {
+                case "Dark":
+                    this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+                    foreach (Control control in this.Controls)
+                    {
+                        if (control.GetType() == typeof(TextBox) && control.BackColor !=
+                            System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))),
+                                ((int)(((byte)(20))))))
+                        {
+                            control.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))),
+                                ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+                            if (control.Name != "output")
+                                control.ForeColor = System.Drawing.Color.White;
+                        }
+                    }
+                    break;
+                case "Light":
+                    this.BackColor = System.Drawing.Color.Empty;
+                    foreach (Control control in this.Controls)
+                    {
+                        if (control.GetType() == typeof(TextBox) && control.BackColor != System.Drawing.SystemColors.Control)
+                        {
+                            control.BackColor = System.Drawing.SystemColors.Control;
+                            if (control.Name != "output")
+                                control.ForeColor = System.Drawing.Color.Black;
+                        }
+                    }
+                    break;
+                case "Party":
+                    int randomRed = Settings.GetRandom;
+                    int randomGreen = Settings.GetRandom;
+                    int randomBlue = Settings.GetRandom;
+                    this.BackColor = System.Drawing.Color.FromArgb((byte)randomRed, (byte)randomGreen, (byte)randomBlue);
+                    foreach (Control control in this.Controls)
+                    {
+                        if (control.GetType() == typeof(TextBox))
+                            control.BackColor = System.Drawing.Color.FromArgb((byte)randomRed, (byte)randomGreen, (byte)randomBlue);
+                    }
+                    break;
             }
         }
     }

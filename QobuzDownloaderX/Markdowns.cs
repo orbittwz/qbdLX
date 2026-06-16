@@ -9,6 +9,8 @@ namespace QobuzDownloaderX
         private List<string> fileNameListData = new List<string> { "Track - Title", "Track - Artist - Title", "Track Title" };
         // for now checks are - no "-" means "Track Title", Contains "Artist" means "Track - Artist - Title", else "Track - Title"
 
+        private List<string> themeListData = new List<string> { "Dark", "Light", "Party" };
+
         internal List<string> FolderNameListData
         {
             get
@@ -22,6 +24,14 @@ namespace QobuzDownloaderX
             get
             {
                 return fileNameListData;
+            }
+        }
+
+        internal List<string> ThemeListData
+        {
+            get
+            {
+                return themeListData;
             }
         }
     }
