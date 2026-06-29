@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using System.Linq;
+using QobuzDownloaderX.Properties;
 
 namespace QobuzDownloaderX.Shared
 {
@@ -89,7 +90,10 @@ namespace QobuzDownloaderX.Shared
             if (noErrorsOccured)
             {
                 AddDownloadLogLine("Download job completed! All downloaded files will be located in your chosen path.", true, true);
-                this.ChangeTextColor(System.Drawing.Color.LawnGreen);
+                if (Settings.Default.theme == "Dark")
+                    this.ChangeTextColor(System.Drawing.Color.LawnGreen);
+                else
+                    this.ChangeTextColor(System.Drawing.Color.DarkGreen);
             }
             else
                 AddDownloadLogLine("Download job completed with warnings and/or errors! Some or all files could be missing!", true, true);
