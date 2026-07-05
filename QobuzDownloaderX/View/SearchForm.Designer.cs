@@ -137,10 +137,12 @@
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "SearchForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "qbdLX | Search";
             this.Load += new System.EventHandler(this.SearchForm_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SearchForm_KeyPress);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SearchForm_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
             this.ResumeLayout(false);

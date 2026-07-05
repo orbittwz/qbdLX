@@ -622,5 +622,11 @@ namespace QobuzDownloaderX.View
                 thread.Join();
             });
         }
+
+        private void SearchForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Escape)
+                this.Hide();
+        }
     }
 }
