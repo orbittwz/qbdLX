@@ -6,6 +6,7 @@ namespace QobuzDownloaderX.Shared.Tools
 {
     internal static class MD5Tools
     {
+        //Cannot use this anymore, since login using Email and PW requires un-hashed string.
         public static string GetMd5Hash(MD5 md5Hash, string input)
         {
             // Convert the input string to a byte array and compute the hash.

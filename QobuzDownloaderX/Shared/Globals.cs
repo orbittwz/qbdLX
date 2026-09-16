@@ -15,13 +15,6 @@ namespace QobuzDownloaderX.Shared
         public static SettingsForm SettingsForm { get; set; }
         // Login
         public static Login Login { get; set; }
-        // Tagging options
-        //public static TaggingOptions TaggingOptions { get; set; }
-        // Audio quality selection
-        //public static string FormatIdString { get; set; }
-        //public static string AudioFileType { get; set; }
-        // Additional user selections
-        //public static int MaxLength { get; set; }
         // Logs
         public static string LoggingDir { get; set; }
     }

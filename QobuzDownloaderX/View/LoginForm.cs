@@ -7,8 +7,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
-using System.Security.Cryptography;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace QobuzDownloaderX.View
@@ -210,7 +208,7 @@ namespace QobuzDownloaderX.View
             Application.Run(Globals.QbdlxForm);
         }
 
-        private void LoginBG_DoWork(object sender, DoWorkEventArgs e)
+        private async void LoginBG_DoWork(object sender, DoWorkEventArgs e)
         {
             loginBG.WorkerSupportsCancellation = true;
             String appId = Settings.Default.appId;
@@ -258,7 +256,29 @@ namespace QobuzDownloaderX.View
             try
             {
                 if (AltLoginValue == "0")
-                    Globals.Login = QobuzApiServiceManager.GetApiService().LoginWithEmail(emailTextbox.Text, passwordTextbox.Text);
+                {
+                    // Depreciated call now, using new patcher.
+                    //Globals.Login = QobuzApiServiceManager.GetApiService().LoginWithEmail(emailTextbox.Text, passwordTextbox.Text);
+                    LoginPatcher patcher = new LoginPatcher(emailTextbox.Text, passwordTextbox.Text);
+                    var fetchTask = patcher.Fetch();
+                    patcher.ShowDialog();
+                    bool loginSuccess = await fetchTask;
+                    if (loginSuccess == true)
+                    {
+                            this.Invoke(new Action(() =>
+                            {
+                                AltLoginLabel_Click(sender, e);
+                                userIdTextbox.Text = patcher.ID.ToString();
+                                userAuthTokenTextbox.Text = patcher.Token;
+                                AltLoginValue = "1";
+                                Settings.Default.savedUserID = userIdTextbox.Text;
+                                Settings.Default.savedUserAuthToken = userAuthTokenTextbox.Text;
+                                Settings.Default.savedAltLoginValue = AltLoginValue;
+                                Settings.Default.Save();
+                                Globals.Login = QobuzApiServiceManager.GetApiService().LoginWithToken(userIdTextbox.Text, userAuthTokenTextbox.Text);
+                            }));
+                    }
+                }
                 else if (AltLoginValue == "1")
                     Globals.Login = QobuzApiServiceManager.GetApiService().LoginWithToken(userIdTextbox.Text, userAuthTokenTextbox.Text);
             }
@@ -309,9 +329,9 @@ namespace QobuzDownloaderX.View
         private void LoginButton_Click(object sender, EventArgs e)
         {
             // Hide alt login label until job is finished or failed
-            String appId = Settings.Default.appId;
-            String appSecret = Settings.Default.appSecret;
-            bool useCustomAppIdAndSecret = !string.IsNullOrWhiteSpace(appId) && !string.IsNullOrWhiteSpace(appSecret);
+            //String appId = Settings.Default.appId;
+            //String appSecret = Settings.Default.appSecret;
+            //bool useCustomAppIdAndSecret = !string.IsNullOrWhiteSpace(appId) && !string.IsNullOrWhiteSpace(appSecret);
             altLoginlbl.Visible = false;
             switch (AltLoginValue)
             {
@@ -332,29 +352,29 @@ namespace QobuzDownloaderX.View
                     // Trim entered email and password to help copy/paste dummies...
                     emailTextbox.Text = emailTextbox.Text.Trim();
                     passwordTextbox.Text = passwordTextbox.Text.Trim();
-                    string plainTextPW = passwordTextbox.Text;
-                    var passMD5CheckLog = Regex.Match(plainTextPW, "(?<md5Test>^[0-9a-f]{32}$)").Groups;
-                    var passMD5Check = passMD5CheckLog[1].Value;
-                    if (string.IsNullOrEmpty(passMD5Check))
-                    {
-                        // Generate the MD5 hash using the string created above.
-                        using (MD5 md5PassHash = MD5.Create())
-                        {
-                            string hashedPW = MD5Tools.GetMd5Hash(md5PassHash, plainTextPW);
+                    //string plainTextPW = passwordTextbox.Text;
+                    //var passMD5CheckLog = Regex.Match(plainTextPW, "(?<md5Test>^[0-9a-f]{32}$)").Groups;
+                    //var passMD5Check = passMD5CheckLog[1].Value;
+                    //if (string.IsNullOrEmpty(passMD5Check))
+                    //{
+                    //    // Generate the MD5 hash using the string created above.
+                    //    using (MD5 md5PassHash = MD5.Create())
+                    //    {
+                    //        string hashedPW = MD5Tools.GetMd5Hash(md5PassHash, plainTextPW);
 
-                            if (MD5Tools.VerifyMd5Hash(md5PassHash, plainTextPW, hashedPW))
-                            {
-                                // If the MD5 hash is verified, proceed to get the streaming URL.
-                                passwordTextbox.Text = hashedPW;
-                            }
-                            else
-                            {
-                                // If the hash can't be verified.
-                                loginTextlbl.Invoke(new Action(() => loginTextlbl.Text = "Hashing failed. Please retry."));
-                                return;
-                            }
-                        }
-                    }
+                    //        if (MD5Tools.VerifyMd5Hash(md5PassHash, plainTextPW, hashedPW))
+                    //        {
+                    //            // If the MD5 hash is verified, proceed to get the streaming URL.
+                    //            passwordTextbox.Text = hashedPW;
+                    //        }
+                    //        else
+                    //        {
+                    //            // If the hash can't be verified.
+                    //            loginTextlbl.Invoke(new Action(() => loginTextlbl.Text = "Hashing failed. Please retry."));
+                    //            return;
+                    //        }
+                    //    }
+                    //}
                     // Save info locally to be used on next launch.
                     Settings.Default.savedEmail = emailTextbox.Text;
                     Settings.Default.savedPassword = passwordTextbox.Text;
@@ -385,13 +405,13 @@ namespace QobuzDownloaderX.View
                     Settings.Default.Save();
                     break;
             }
-            if (useCustomAppIdAndSecret == false && AltLoginValue == "0")
-            {
-                MessageBox.Show("Using this method to login without custom appID and appSecret is not supported anymore, aborting!", "ERROR",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                altLoginlbl.Visible = true;
-                return;
-            }
+            //if (useCustomAppIdAndSecret == false && AltLoginValue == "0")
+            //{
+            //    MessageBox.Show("Using this method to login without custom appID and appSecret is not supported anymore, aborting!", "ERROR",
+            //        MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    altLoginlbl.Visible = true;
+            //    return;
+            //}
             loginButton.Enabled = false;
             loginTextlbl.Text = "Getting App ID and Secret...";
             loginBG.RunWorkerAsync();
